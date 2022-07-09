@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-Hi! I am a Research Engineer at Graphicsminer. 
+Hi! I am a Research Engineer at Graphicsminer.
 
 My research interests are in 3D Computer Vision, especially with mathematical formulation (SLAM, 3D Reconstruction and Tracking) and Computer Graphics (Rendering).
 
