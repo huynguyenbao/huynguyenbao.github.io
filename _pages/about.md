@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Bao Huy Nguyen"
+title: "Huy Nguyen Bao"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
