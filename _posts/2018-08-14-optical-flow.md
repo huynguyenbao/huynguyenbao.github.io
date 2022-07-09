@@ -8,7 +8,7 @@ tags:
 
 Optical flow is the pattern of appearance objects motion in image, between two successive frames caused by the movement of objects or camera. It is a 2D vector field, where each vector represents a displacement or movement of feature from first frame to second frame.
 
-![alt text](figure/definition.png "Title")
+![alt text](../figure/definition.png "Title")
 
 Our problem:
 
@@ -70,4 +70,4 @@ $$
 
 $$Ax = b$$
 
-There ara a lot of methods used to solve this equation: Close form, Pseudo Inverse, [Least squares](https://en.wikipedia.org/wiki/Least_squares), [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination), [Jacobi method](https://en.wikipedia.org/wiki/Jacobi_method) and [Gauss–Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#:~:text=In%20numerical%20linear%20algebra%2C%20the,a%20system%20of%20linear%20equations.). Or even, you can utilize [SVD](https://www.youtube.com/watch?v=PjeOmOz9jSY).
+There ara a lot of methods used to solve this equation: Close form, Pseudo Inverse, [Least squares](https://en.wikipedia.org/wiki/Least_squares), [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination), [Jacobi method](https://en.wikipedia.org/wiki/Jacobi_method) and [Gauss–Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#:~:text=In%20numerical%20linear%20algebra%2C%20the,a%20system%20of%20linear%20equations.). Or even, you can utilize [SVD](https://www.youtube.com/watch?v=PjeOmOz9jSY) to solve.
