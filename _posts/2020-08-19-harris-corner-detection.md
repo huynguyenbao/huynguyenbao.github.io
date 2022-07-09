@@ -11,7 +11,7 @@ tags:
 **The Harris corner detector** use geometry property of corner to detect it. As you see in the first image in figure 2, content of green window does not change when we shift the window in all direction. In the second, when the window lies on edge, its content does not change along edge direction, only change when shifting in other directions. Finally, is the case window lies on corner, the content of window varies when we shifts it in **all directions**. So that, we will find the corner region by placing a window in that place, if window content varies strongly in all directions, that region is corner. The defination **window content varies strongly** is measured by sum of square distance (SSD).
 
 <p align="center">
-    <img width="400"  src="figure/corner.png"/>
+    <img width="400"  src="/figure/harris_corner/corner.png"/>
     <br>
     <i>Figure 2: Intuition of Harris Corner Detector</i>
 </p>
@@ -72,14 +72,14 @@ $$\begin{aligned}
 The paramater k is usually set to 0.04 - 0.06. If $R$ is large, it is corner. Otherwise negative $R$, it'll be edge; positive $R$ but small, the flat region.
 
 <!-- <p align = "center">
-    <img width="300"  src="figure/harris_region.jpg"/>
+    <img width="300"  src="/figure/harris_corner/harris_region.jpg"/>
     <br>
     <i>Figure 3: Harris Region</i>
 </p>
  -->
 
 <p align = "center">
-    <img width="500"  src="figure/R_value.png"/>
+    <img width="500"  src="/figure/harris_corner/R_value.png"/>
     <br>
     <i>Figure 3: Harris Region</i>
 </p>
@@ -90,7 +90,7 @@ $$R = min (\lambda_ 1, \lambda_2)$$
 which basically means if $R$ is greater than a threshold, it is classified as a corner.
 
 <p align = "center">
-    <img width="400"  src="figure/shitomasi_space.png"/>
+    <img width="400"  src="/figure/harris_corner/shitomasi_space.png"/>
     <br>
     <i>Figure 4: Shi-Tomashi Region</i>
 </p>
