@@ -7,10 +7,10 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Your Name / Site Title"
+title                    : "Huy Nguyen Bao"
 title_separator          : "-"
-name                     : &name "Your Name"
-description              : &description "personal description"
+name                     : &name "Huy Nguyen Bao"
+description              : &description ""
 url                      : https://huynguyenbao.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "huynguyenbao/huynguyenbao.github.io"
@@ -82,8 +82,8 @@ analytics:
 author:
   name             : "Huy Nguyen Bao"
   avatar           : "profile.png"
-  bio              : "Hi! I am a Research Engineer at Graphicsminer."
-  location         : "Vietnam"
+  bio              : "Hi! I am a Research Engineer at Graphicsminer. "
+  location         : "Ho Chi Minh, Vietnam"
   employer         :
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : #"http://yourfullgooglescholarurl.com"
@@ -109,7 +109,7 @@ author:
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : "replacethistwitterhandle"
+  twitter          : #"replacethistwitterhandle"
   vine             :
   weibo            :
   xing             :
