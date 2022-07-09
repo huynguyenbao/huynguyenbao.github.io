@@ -8,7 +8,7 @@ tags:
 
 Optical flow is the pattern of appearance objects motion in image, between two successive frames caused by the movement of objects or camera. It is a 2D vector field, where each vector represents a displacement or movement of feature from first frame to second frame.
 
-![alt text](../figure/definition.png "Title")
+![alt text](/figure/definition.png "Title")
 
 Our problem:
 
