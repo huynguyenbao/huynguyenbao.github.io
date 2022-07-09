@@ -95,4 +95,4 @@ which basically means if $R$ is greater than a threshold, it is classified as a 
     <i>Figure 4: Shi-Tomashi Region</i>
 </p>
 
-Final, applying non-max suppression.
+Finally, both the method is applied non-max suppression algorithm to remove redundant points.
