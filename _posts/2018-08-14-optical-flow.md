@@ -14,7 +14,7 @@ Our problem:
 
 Given 2 successive frame $I_1$ and $I_2$, find the motion vector $(dx, dy)$ for each pixel.
 
-To solve this problem, Horn & Schunck had made some assumptions:
+To solve this problem, [Horn & Schunck](https://www.caam.rice.edu/~zhang/caam699/opt-flow/horn81.pdf) had made some assumptions:
 
 1. Images are captured in ambient light: This means that the intensity of pixels do not depend on position of the camera.
 
