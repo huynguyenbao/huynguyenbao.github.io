@@ -82,12 +82,13 @@ analytics:
 author:
   name             : "Huy Nguyen Bao"
   avatar           : "profile.png"
-  bio              : "Hi! I am a Research Engineer at Graphicsminer. "
+  bio              : "Hi! I am a Research Engineer at Graphicsminer."
   location         : "Ho Chi Minh, Vietnam"
+  location         : "311nguyenbaohuy@gmail.com"
   employer         :
   pubmed           : #"https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
   googlescholar    : #"http://yourfullgooglescholarurl.com"
-  email            : "311nguyenbaohuy@gmail.com\n huy.nguyenbao@outlook.com"
+  email            : #"311nguyenbaohuy@gmail.com"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
