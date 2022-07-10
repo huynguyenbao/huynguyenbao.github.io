@@ -12,7 +12,7 @@ tags:
 
 ## Formulation and Solution
 
-**The Harris corner detector** use geometry property of corner to detect it. As you see in the first image in figure 2, content of green window does not change when we shift the window in all direction. In the second, when the window lies on edge, its content does not change along edge direction, only change when shifting in other directions. Finally, is the case window lies on corner, the content of window varies when we shifts it in **all directions**. So that, we will find the corner region by placing a window in that place, if window content varies strongly in all directions, that region is corner. The defination **window content varies strongly** is measured by sum of square distance (SSD).
+**The Harris corner detector** uses geometry property of corners to detect them. As you see in the first image in figure 2, content of green window does not change when we shift the window in all direction. In the second, when the window lies on edge, its content does not change along edge direction, only change when shifting in other directions. Finally, is the case window lies on corner, the content of window varies when we shifts it in **all directions**. So that, we will find the corner region by placing a window in that place, if window content varies strongly in all directions, that region is corner. The **window content varies strongly** definition is measured by sum of square distance (SSD).
 
 <p align="center">
     <img width="400"  src="/figure/harris_corner/corner.png"/>
@@ -20,7 +20,7 @@ tags:
     <i>Figure 2: Intuition of Harris Corner Detector</i>
 </p>
 
-The variation can be defined as a sum of square-distance (SSD) as below, $(u, v)$ denotes the shift vector, $W$ is region needed to determine , $w(x,y)$ is a window function, $I(x,y)$ is image function, at coordinate $(x, y)$ image has a certain intensity. The windown function usually chosen is a rectangle or gaussian function.
+The variation can be defined as a sum of square-distance (SSD) as below, $(u, v)$ denotes the shift vector, $W$ is region needed to determine , $w(x,y)$ is a window function, $I(x,y)$ is image function, and at coordinate $(x, y)$,image has a certain intensity. The window function usually chosen is a rectangle or gaussian function.
 
 $$ E(u, v) \approx \sum_{(x, y) \, \in \,W} w(x, y) \, [\,I(x + u, y+ v) - I(x, y)\,] \,^ {2} $$
 
@@ -64,16 +64,16 @@ $$ \begin{aligned}
                 & = \mathbf{u'^{T}} \, \Lambda \, \mathbf{u'} = \lambda_1 \, ||\mathbf{u'}||_2^{2} + \lambda_2 \, ||\mathbf{u'}||_2^{2}.
 \end{aligned} $$
 
-where $\lambda_1$ and $\lambda_2$ is eigen values of $M$. We want $E(\mathbf{u})$ to be big for all directions $\mathbf{u}$ so both $\lambda_1$ and $\lambda_2$ must be large. If both are small, it will be "flat". For "edge", one large eigen value and one small eigen value.
+where $\lambda_1$ and $\lambda_2$ is eigen values of $M$. We want $E(\mathbf{u})$ to be big for all directions $\mathbf{u}$ so both $\lambda_1$ and $\lambda_2$ must be large. If both are small, it will be "flat". For "edge" case, one large eigen value and one small eigen value.
 
-The Harris detector specially designed a response:
+The Harris detector specially is designed a response:
 
 $$\begin{aligned}
     R & = det(M) - k \, trace(M)^{2} \\
       & = \lambda_1 \lambda_2 - k \, (\lambda_1 +\lambda_2)^{2}.
 \end{aligned}$$
 
-The paramater k is usually set to 0.04 - 0.06. If $R$ is large, it is corner. Otherwise negative $R$, it'll be edge; positive $R$ but small, the flat region.
+The parameter k is usually set to between 0.04 and 0.06. If $R$ is large, it is corner. Otherwise negative $R$, it'll be edge; positive $R$ but small, the flat region.
 
 <!-- <p align = "center">
     <img width="300"  src="/figure/harris_corner/harris_region.jpg"/>
@@ -88,7 +88,7 @@ The paramater k is usually set to 0.04 - 0.06. If $R$ is large, it is corner. Ot
     <i>Figure 3: Harris Region</i>
 </p>
 
-Instead, Shi-Tomasi proposed the scoring function as:
+In addition, Shi-Tomasi proposed the scoring function as:
 
 $$R = min (\lambda_ 1, \lambda_2)$$
 which basically means if $R$ is greater than a threshold, it is classified as a corner.
