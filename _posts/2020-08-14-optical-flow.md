@@ -71,9 +71,6 @@ $$\left[\begin{array}{cc}
 \end{array}\right]
 $$
 
-The equation above can be considered as a liner system: $$Ax = b$$ with $x = \left[\begin{array}{c}
-    dx \\
-    dy \\
-\end{array}\right]$.
+The equation above can be considered as a liner system: $Ax = b$ with $x^T = \left[dx \quad dy\right]$.
 
 There ara a lot of methods used to solve this equation: Close form, Pseudo Inverse, [Least squares](https://en.wikipedia.org/wiki/Least_squares), [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination), [Jacobi method](https://en.wikipedia.org/wiki/Jacobi_method) and [Gauss–Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#:~:text=In%20numerical%20linear%20algebra%2C%20the,a%20system%20of%20linear%20equations.). Or even, you can utilize [SVD](https://www.youtube.com/watch?v=PjeOmOz9jSY) to solve.
