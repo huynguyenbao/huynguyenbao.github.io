@@ -5,13 +5,16 @@ permalink: /posts/2020/08/optical-flow/
 tags:
   - Image Processing
 ---
-## Definition
+
+Definition
+-----
 
 **Optical flow** is the pattern of appearance objects motion in image, between two successive frames caused by the movement of objects or camera. It is a 2D vector field, where each vector represents a displacement or movement of feature from first frame to second frame (see the below image).
 
 ![alt text](/figure/optical_flow/definition.png "Title")
 
-## Formulation and Assumption
+Formulation and Assumption
+-----
 
 The problem:
 
