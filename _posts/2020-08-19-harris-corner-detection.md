@@ -6,7 +6,11 @@ tags:
   - Image Processing
 ---
 
+## Definition
+
 **A Corner** is a point whose local neighborhood stands in two dominant and different edge directions. In other words, a corner can be interpreted as the junction of two edges, where an edge is a sudden change in image brightness. Corners are the important features in the image, and they are generally termed as interest points which are invariant to translation, rotation and illumination.
+
+## Formulation and Solution
 
 **The Harris corner detector** use geometry property of corner to detect it. As you see in the first image in figure 2, content of green window does not change when we shift the window in all direction. In the second, when the window lies on edge, its content does not change along edge direction, only change when shifting in other directions. Finally, is the case window lies on corner, the content of window varies when we shifts it in **all directions**. So that, we will find the corner region by placing a window in that place, if window content varies strongly in all directions, that region is corner. The defination **window content varies strongly** is measured by sum of square distance (SSD).
 
@@ -30,7 +34,7 @@ Therefore, the SSD measure is now:
 
 $$ \begin{aligned}
 E(u, v) & \approx \sum_{(x, y)\, \in \,W} w(x, y)\,[\,u\,I_{x} (x,y) + v\,I_{y} (x,y)\,]\,^{2} \\
-& = \sum_{(x, y)\, \in \,W} w(x, y)\, [u \quad v] 
+& = \sum_{(x, y)\, \in \,W} w(x, y)\, [u \quad v]
 \left[\begin{array}{cc}
     I_{x}^{\,2}&I_{x}\,I_{y}\\
     I_{x}\,I_{y}&I_{y}^{\,2}
