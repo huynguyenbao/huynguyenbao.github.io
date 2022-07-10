@@ -71,7 +71,7 @@ $$\left[\begin{array}{cc}
 \end{array}\right]
 $$
 
-The equation above can be considered as a liner system: $Ax = b$ with $x = \left[\begin{array}{c}
+The equation above can be considered as a liner system: $$Ax = b$$ with $x = \left[\begin{array}{c}
     dx \\
     dy \\
 \end{array}\right]$.
