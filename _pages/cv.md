@@ -12,6 +12,10 @@ redirect_from:
 Education
 ======
 * B.S. in Computer Science, Ho Chi Minh city University of Technology, 2021 (GPA: 8.58/ 10.0)
+  * Bachelor Thesis: Image Denoising for smartphone cameras
+  Output images can reach the same quality as current state of the art
+  methods but processing time is faster 100 times than on mobile phone
+  chip sets
 
 Work experience
 ======
