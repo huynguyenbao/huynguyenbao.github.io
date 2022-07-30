@@ -34,12 +34,18 @@ Work experience
 Skills
 ======
 
-* Proficient: Python, C/ C++
-* Framework: Tensorflow, Torch, OpenCV, OpenGL
-* Familiar: Java, C#, Matlab
+* Proficient:
+  * Python
+  * C/ C++
+* Framework:
+  * Tensorflow, Torch
+  * OpenCV, OpenGL
+* Familiar:
+  * Java, C#
+  * Matlab
 * Language:
   * IELTS 7.0 (Expire on Jun 2024)
-  * TOEIC 825 (Expire on August 2022)
+  * TOEIC 825 (Expire on Aug 2022)
 
 <!-- Publications
 ======
