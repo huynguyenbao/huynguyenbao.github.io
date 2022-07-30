@@ -15,7 +15,7 @@ Education
   * Bachelor Thesis: Image Denoising for smartphone cameras
   Output images can reach the same quality as current state of the art
   methods but processing time is faster 100 times than on mobile phone
-  chip sets
+  chip sets.
 
 Work experience
 ======
