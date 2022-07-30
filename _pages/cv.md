@@ -13,7 +13,7 @@ Education
 ======
 * Aug 2017 – Aug 2021: **Ho Chi Minh city University of Technology**
   
-  *  B.E. in Computer Science (GPA: *8.58 / 10.0*). 
+  *  B.E. in Computer Science (GPA: *8.58 / 10.0*).
   * *Bachelor Thesis*: Image Denoising for smartphone cameras.
   
     Output images can reach the same quality as current state of the art methods (PSNR ~ 39 in [SIDD](https://www.eecs.yorku.ca/~kamel/sidd/) and [DND](https://noise.visinf.tu-darmstadt.de/)) but processing time on mobile phone chip sets is faster 100 times than others.
@@ -25,10 +25,10 @@ Work experience
   
   * Implement Real-Time 3D Tracking algorithm on Android.
   
-    Estimate 6DOF pose of a rigid object relative to the camera (Demo: [Single-Object Tracking](https://youtu.be/V0rqnS49Jmo), [Multiple-Object Tracking](https://youtu.be/zMS4lG3k6I8))
+    Estimate 6DOF pose of a rigid object relative to the camera (Demo: [Single-Object Tracking](https://youtu.be/V0rqnS49Jmo), [Multiple-Object Tracking](https://youtu.be/zMS4lG3k6I8)).
   * Implement Real-Time 3D Reconstruction on Android.
   
-    Creating a 3D model based on RGB image sequence, only with smartphone ([Demo](https://youtu.be/JCCMruKG27Q))
+    Creating a 3D model based on RGB image sequence, only with smartphone ([Demo](https://youtu.be/JCCMruKG27Q)).
   * Implement Real-Time 3D Object Detection on Android.
 
 * Jun 2020 - Oct 2020: **Intern at Graphicsminer**
