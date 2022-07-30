@@ -7,7 +7,7 @@ tags:
   - Digital Signal Processing
 ---
 
-Many students are told that Fourier Transformation are applied almost in everywhere, ranging from digital signal processing to circuit designing, however they found it quite challenging to comprehend the Fourier series and Fourier Transformation since the equations appearing in the methods all involve complex exponential and integral. However, if we break them down into small pieces to deal with, the comprehension would not be impossible. This blog will partly help you to do this. The content of its mainly will cover the mathematical theory of Fourier series and in the next blog, the Fourier transformation will be presented.
+<!-- Many students are told that Fourier Transformation are applied almost in everywhere, ranging from digital signal processing to circuit designing, however they found it quite challenging to comprehend the Fourier series and Fourier Transformation since the equations appearing in the methods all involve complex exponential and integral. However, if we break them down into small pieces to deal with, the comprehension would not be impossible. This blog will partly help you to do this. The content of its mainly will cover the mathematical theory of Fourier series and in the next blog, the Fourier transformation will be presented.
 
 ## Euler's formula
 
@@ -137,6 +137,4 @@ $$\begin{aligned}
                   &= \dfrac{1}{2}e^{i\,\phi} \, e^{ix} + \dfrac{1}{2}e^{-i\,\phi} \, e^{-i\,x}
 \end{aligned}$$
 
-So with the above equation, we now can convert from equation $(1)$ to $(2)$ and vice versa.
-
-
+So with the above equation, we now can convert from equation $(1)$ to $(2)$ and vice versa. -->

@@ -11,32 +11,34 @@ redirect_from:
 
 Education
 ======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+* B.S. in Computer Science, Ho Chi Minh city University of Technology, 2021 (GPA: 8.58/ 10.0)
 
 Work experience
 ======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
 
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Oct 2020 - Present: Research Engineer at Graphicsminer
+  * Implement Real-Time 3D Tracking algorithm on Android.
+    Estimate 6DOF pose of a rigid object relative to the camera ([Single-Object Tracking](https://youtu.be/V0rqnS49Jmo), [Multiple-Object Tracking](https://youtu.be/zMS4lG3k6I8))
+  * Implement Real-Time 3D Reconstruction on Android.
+    Creating a 3D model based on RGB image sequence, only with smartphone ([Demo](https://youtu.be/JCCMruKG27Q))
+  * Implement Real-Time 3D Object Detection on Android.
+
+* Jun 2020 - Oct 2020: Intern at Graphicsminer
+  * Learned Computer Graphic, Computer Vision.
+  * Implemented real-time video stabilization algorithm on Android (reached 11 Fps on Pixel 1).
   
 Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
 
-Publications
+======
+
+* Proficient: Python, C/ C++
+* Framework: Tensorflow, Torch, OpenCV, OpenGL
+* Familiar: Java, C#, Matlab
+* Language:
+  * IELTS 7.0 (Expire on Jun 2024)
+  * TOEIC 825 (Expire on August 2022)
+
+<!-- Publications
 ======
   <ul>{% for post in site.publications %}
     {% include archive-single-cv.html %}
@@ -46,14 +48,14 @@ Talks
 ======
   <ul>{% for post in site.talks %}
     {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
+  {% endfor %}</ul> -->
   
-Teaching
+<!-- Teaching
 ======
   <ul>{% for post in site.teaching %}
     {% include archive-single-cv.html %}
-  {% endfor %}</ul>
+  {% endfor %}</ul> -->
   
-Service and leadership
+<!-- Service and leadership
 ======
-* Currently signed in to 43 different slack teams
+* Currently signed in to 43 different slack teams -->
