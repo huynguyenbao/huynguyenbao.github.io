@@ -33,9 +33,7 @@ Work experience
 
   * Real-Time 3D Reconstruction on Android.
   
-    * Creating a 3D model based on RGB image sequence by only using smartphone ([Demo](https://youtu.be/JCCMruKG27Q)).
-
-    * Trimmed and cut a 128 x 128 x 128 volume in real time (even on Snap 821).
+    * Creating a 3D model based on RGB image sequence by only using smartphone ([Demo](https://youtu.be/gPBLQ9BkSnI)).
 
   * Real-Time 3D Object Detection on Android.
 
