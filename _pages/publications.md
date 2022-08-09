@@ -11,6 +11,6 @@ author_profile: true
 
 {% include base_path %}
 
-{% for post in site.publications reversed %}
-  {% include archive-single.html %}
-{% endfor %}
+**Bao Huy Nguyen**, Minh Phuong Hoang, An Khang Vo, Minh Tuan Dam, Quoc Phu Huynh,
+"[Scabo: XR Smart Cardboard Toy Kit
+](https://dl.acm.org/doi/10.1145/3532725.3535586)," *SIGGRAPH Lab Installation, 2022*
