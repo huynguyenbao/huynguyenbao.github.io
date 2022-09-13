@@ -46,17 +46,17 @@ where $\lambda$ is weighted number.
 
 ## Solution
 
-What we need to find right now is not finite number of parameters but actually **function $f$** and how we minimize energy function $E$ where $f$ is argument?
+What we need to find right now is not finite number of parameters but actually the **function $f$** and how we minimize energy function $E$ where $f$ is an argument?
 
 According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition. The energy function can be written in the form:
 
 $$E(f, u) = \int_{\Omega}L(f, f_x, f_y,u) \, \text{d}x \, \text{d}y$$
 
-The necessary condition is:
+And the necessary condition is:
 
 $$\dfrac{dE}{df} = \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) = 0$$
 
-In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, as least, with a random initialization and gradient decent method, we still can find a solution that is acceptable since there is no way.
+In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, as least, with a random initialization and gradient decent method, we still can find a solution that is acceptable.
 
 Continue to expand the above equation to get:
 
@@ -83,7 +83,7 @@ $$\begin{aligned}
 
 * Step 3:
   
-  If $E(f_{t + 1}, u) < \text{threshold}$, stop algorithm.
+  If $E(f_{t + 1}, u) < \text{threshold}$, stop the algorithm.
 
 ### Code
 
@@ -119,13 +119,13 @@ def denoise(noisy_image, n_iters, weight, step):
 ### Result
 
 <p align = "center">
-    <img width="400"  src="/figure/variational_methods_denoising/noisy.jpg"/>
+    <img width="300"  src="/figure/variational_methods_denoising/noisy.jpg"/>
     <br>
     <i>Noisy Image</i>
 </p>
 
 <p align = "center">
-    <img width="400"  src="/figure/variational_methods_denoising/denoised.jpg"/>
+    <img width="300"  src="/figure/variational_methods_denoising/denoised.jpg"/>
     <br>
     <i>Denoised Image</i>
 </p>
