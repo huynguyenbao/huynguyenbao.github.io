@@ -1,6 +1,6 @@
 ---
 title: 'Variational Methods and Image Denoising'
-date: 2020-09-01
+date: 2021-08-11
 permalink: /posts/2021/08/variational-methods/
 tags:
   - Mathematics
@@ -110,8 +110,8 @@ def denoise(noisy_image, n_iters, weight, step):
         grad_xx = cv2.filter2D(grad_x, ddepth, kernel_x)
         grad_yy= cv2.filter2D(grad_y, ddepth, kernel_y)
 
-        grad = (noisy_image - denoised_image) + weight * (grad_xx + grad_yy)
-        denoised_image = np.clip(denoised_image + step * grad, 0, 255)
+        grad = (denoised_image - noisy_image) - weight * (grad_xx + grad_yy)
+        denoised_image = np.clip(denoised_image - step * grad, 0, 255)
 
     return denoised_image
 ```
