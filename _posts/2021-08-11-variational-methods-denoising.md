@@ -38,7 +38,7 @@ where $\nabla f = <\partial f/\partial x, \partial f/ \partial y>$.
 The optimal $f$ is:
 
 $$\begin{aligned}
-  \underset{f}{\operatorname{\argmin}} \, E(f, u) &= \dfrac{1}{2}\int_{\Omega} (f - u)^2 + \lambda ||\nabla f||^2 \, \text{d}x\,\text{d}y \\
+  \underset{f}{\operatorname{arg\,min}} \, E(f, u) &= \dfrac{1}{2}\int_{\Omega} (f - u)^2 + \lambda ||\nabla f||^2 \, \text{d}x\,\text{d}y \\
   &= \dfrac{1}{2}\int_{\Omega} (f - u)^2 + \lambda (f_x^2 + f_y^2) \, \text{d}x\,\text{d}y
 \end{aligned}$$
 
@@ -141,7 +141,7 @@ and:
 $$\begin{aligned}
   \dfrac{dE}{df} &= \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) \\
   &= (f - u) - \lambda \dfrac{\partial}{\partial x}\left(\dfrac{f_x}{\sqrt{f_x^2 + f_y^2}}\right) - \lambda \dfrac{\partial}{\partial y}\left(\dfrac{f_y}{\sqrt{f_x^2 + f_y^2}}\right) \\
-  &= (f - u) - \lambda \operatorname{div}\left(\dfrac{\nabla f}{|\nabla f|}\right)
+  &= (f - u) - \lambda \operatorname{div}\left(\dfrac{\nabla f}{||\nabla f||}\right)
 \end{aligned}$$
 
 ## Reference
