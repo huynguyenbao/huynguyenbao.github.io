@@ -7,7 +7,7 @@ tags:
   - Digital Signal Processing
 ---
 
-Variational methods are really powerful which has a variety of applications such as 2D segmentation and 3D reconstruction. However, today I will present to you one of interesting application of them: Image Denoising.
+Variational methods are really powerful which has a variety of applications such as 2D segmentation and 3D reconstruction. However, today I will present to you one of their interesting applications: Image Denoising.
 
 Nowadays, the popularity and the adaptability power of CNNs are making engineers become depend on more dataset with human labeled ground truth, and the designing of CNNs like playing Lego, adding blocks, feeding an random input and anticipating a desire output. But have you imagined how "our ancestors" can remove noise in image without ground-truth? If you do, let's dive into mathematics :).
 
