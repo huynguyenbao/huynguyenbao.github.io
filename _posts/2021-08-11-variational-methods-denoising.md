@@ -85,6 +85,8 @@ $$\begin{aligned}
   
   If $E(f_{t + 1}, u) < \text{threshold}$, stop the algorithm.
 
+  Else repeat step 2
+
 ### Code
 
 ```py
