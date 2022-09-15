@@ -21,25 +21,29 @@ Let $f: \Omega \rightarrow \mathbb{R}$ be a gray scaled image on a domain $\Omeg
 
 With two above assumptions we can derive an energy function to find $f$:
 
-$$\begin{aligned}
+$$\begin{align}
   E(f, u) &= E_{structure}(f, u) + E_{smoothness}(f) \\
-\end{aligned}$$
+\end{align}$$
 
 The similarity of two images $f$ and $u$ is computed by:
 
-$$E_{structure}(f, u) = \dfrac{1}{2}\int_{\Omega} (f - u)^2 \text{d}x\,\text{d}y$$
+$$\begin{equation}
+  E_{structure}(f, u) = \dfrac{1}{2}\iint_{\Omega} (f - u)^2 \text{d}x\,\text{d}y
+\end{equation}$$
 
 while the smoothness can be evaluated:
 
-$$E_{smoothness}(f) = \dfrac{1}{2}\int_{\Omega} ||\nabla f||^2 \text{d}x \, \text{d}y$$
+$$\begin{equation}
+  E_{smoothness}(f) = \dfrac{1}{2}\iint_{\Omega} ||\nabla f||^2 \text{d}x \, \text{d}y
+\end{equation}$$
 
 where $\nabla f = <\partial f/\partial x, \partial f/ \partial y>$.
 
 The optimal $f$ is:
 
 $$\begin{aligned}
-  \underset{f}{\operatorname{arg\,min}} \, E(f, u) &= \dfrac{1}{2}\int_{\Omega} (f - u)^2 + \lambda ||\nabla f||^2 \, \text{d}x\,\text{d}y \\
-  &= \dfrac{1}{2}\int_{\Omega} (f - u)^2 + \lambda (f_x^2 + f_y^2) \, \text{d}x\,\text{d}y
+  \underset{f}{\operatorname{arg\,min}} \, E(f, u) &= \dfrac{1}{2}\iint_{\Omega} (f - u)^2 + \lambda ||\nabla f||^2 \, \text{d}x\,\text{d}y \\
+  &= \dfrac{1}{2}\iint_{\Omega} (f - u)^2 + \lambda (f_x^2 + f_y^2) \, \text{d}x\,\text{d}y
 \end{aligned}$$
 
 where $\lambda$ is weighted number.
@@ -50,13 +54,17 @@ What we need to find right now is not finite number of parameters but actually t
 
 According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition. The energy function can be written in the form:
 
-$$E(f, u) = \int_{\Omega}L(f, f_x, f_y,u) \, \text{d}x \, \text{d}y$$
+$$\begin{equation}
+  E(f, u) = \iint_{\Omega}L(f, f_x, f_y,u) \, \text{d}x \, \text{d}y
+\end{equation}$$
 
 And the necessary condition is:
 
-$$\dfrac{dE}{df} = \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) = 0$$
+$$\begin{equation}
+  \dfrac{dE}{df} = \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) = 0
+\end{equation}$$
 
-In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, as least, with a random initialization and gradient decent method, we still can find a solution that is acceptable.
+In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, as least we still can find an acceptable solution by using  gradient decent.
 
 Continue to expand the above equation to get:
 
@@ -75,6 +83,7 @@ The main algorithm is:
   Initialize the first function $f_0$
 
 * Step 2:
+  Update $f_{t+1}$
   
 $$\begin{aligned}
   f_{t+1} &= f_t - \alpha \, \dfrac{dE}{df} \\
@@ -83,9 +92,9 @@ $$\begin{aligned}
 
 * Step 3:
   
-  If $E(f_{t + 1}, u) < \text{threshold}$, stop the algorithm.
-
-  Else repeat step 2
+  If $E(f_{t + 1}, u) < \epsilon$, stop the algorithm,
+  
+  else repeat step 2
 
 ### Code
 
