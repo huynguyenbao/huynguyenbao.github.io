@@ -52,7 +52,7 @@ where $\lambda$ is weighted number.
 
 What we need to find right now is not finite number of parameters but actually the **function $f$** and how we minimize energy function $E$ where $f$ is an argument?
 
-According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition. The energy function can be written in the form:
+According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition (Read more at [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)). The energy function can be written in the form:
 
 $$\begin{equation}
   E(f, u) = \iint_{\Omega}L(f, f_x, f_y,u) \, \text{d}x \, \text{d}y
@@ -78,12 +78,9 @@ $$\begin{aligned}
 
 The main algorithm is:
 
-* Step 1:
-  
-  Initialize the first function $f_0$
+* Step 1: Initialize the first function $f_0$
 
-* Step 2:
-  Update $f_{t+1}$
+* Step 2: Update $f_{t+1}$
   
 $$\begin{aligned}
   f_{t+1} &= f_t - \alpha \, \dfrac{dE}{df} \\
