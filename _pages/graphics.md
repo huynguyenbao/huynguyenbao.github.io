@@ -10,7 +10,7 @@ redirect_from:
 Here are some my graphics projects.
 
 <p align = "center">
-    <img width="500"  src="/figure/graphics/knife.gif">
+    <img width="500"  src="../figure/graphics/knife.gif">
     <br>
     <i>Simple Mechanical Stuff</i>
 </p>
