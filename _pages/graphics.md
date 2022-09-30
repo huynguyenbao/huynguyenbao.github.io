@@ -9,4 +9,4 @@ redirect_from:
 
 Here are some my graphics projects.
 
-<img src="/images/graphics/knife.gif" width="500">
+<img src="/images/knife.gif" width="500">
