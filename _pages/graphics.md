@@ -10,3 +10,5 @@ redirect_from:
 Here are some my graphics projects.
 
 <img src="/images/knife.gif" width="500">
+
+<img src="knife.gif" width="500">
