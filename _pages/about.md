@@ -14,4 +14,3 @@ My research interests are in 3D Computer Vision, especially with mathematical fo
 
 I received BE in Ho Chi Minh city University of Technology in 2021.
 
-<img src="/images/knife.gif" width="500">

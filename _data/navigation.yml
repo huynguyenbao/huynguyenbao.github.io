@@ -9,8 +9,8 @@ main:
   # - title: "Teaching"
   #   url: /teaching/    
     
-  # - title: "Portfolio"
-  #   url: /portfolio/
+  - title: "Graphics"
+    url: /portfolio/
         
   - title: "Blog Posts"
     url: /year-archive/
@@ -19,8 +19,8 @@ main:
     # url: https://drive.google.com/file/d/1uUjQ8O6OAX4W4mDijdxgWPDvRY9LEhn4/view?usp=sharing
     url: /cv/
 
-  - title: "Graphics"
-    url: /graphics/
+  # - title: "Graphics"
+  #   url: /graphics/
 
   # - title: "Guide"
   #   url: /markdown/
