@@ -10,7 +10,7 @@ redirect_from:
 
 Hi! I am a Research Engineer at Graphicsminer.
 
-My research interests are in 3D Computer Vision, especially with mathematical formulation (SLAM, 3D Reconstruction and Tracking) and Computer Graphics (Rendering).
+My research interests are in 3D Computer Vision (SLAM, 3D Reconstruction and Tracking) and Computer Graphics (Rendering).
 
 I received BE in Ho Chi Minh city University of Technology in 2021.
 
