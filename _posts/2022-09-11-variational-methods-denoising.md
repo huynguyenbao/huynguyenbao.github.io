@@ -1,6 +1,6 @@
 ---
 title: 'Variational Methods and Image Denoising'
-date: 2021-08-11
+date: 2022-09-11
 permalink: /posts/2021/08/variational-methods/
 tags:
   - Mathematics
