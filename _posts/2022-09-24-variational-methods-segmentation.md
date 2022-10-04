@@ -1,7 +1,7 @@
 ---
 title: 'Variational Methods and Image Segmentation'
 date: 2022-09-24
-permalink: /posts/2021/10/variational-methods/
+permalink: /posts/2022/10/variational-methods/
 tags:
   - Mathematics
   - Digital Signal Processing
