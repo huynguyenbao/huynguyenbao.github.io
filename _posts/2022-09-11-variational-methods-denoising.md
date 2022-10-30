@@ -1,7 +1,7 @@
 ---
 title: 'Variational Methods and Image Denoising'
 date: 2022-09-11
-permalink: /posts/2022/08/variational-methods/
+permalink: /posts/2022/09/variational-methods/
 tags:
   - Mathematics
   - Digital Signal Processing
