@@ -1,13 +1,12 @@
 ---
 title: 'Variational Methods and 3D Tracking'
+subtile: Real-Time Monocular Segmentation and Pose Tracking
 date: 2022-10-01
 permalink: /posts/2022/10/01/variational-methods/
 tags:
   - Variational Methods
   - 3D Computer Vision
 ---
-
-## Real-Time Monocular Segmentation and Pose Tracking
 
 This blog presents you a light weight real time segmentation and pose tracking method which only uses monocular RGB camera and can run with multiple objects and robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement.
 
