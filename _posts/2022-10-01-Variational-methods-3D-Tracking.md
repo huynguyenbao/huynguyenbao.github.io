@@ -7,15 +7,13 @@ tags:
   - 3D Computer Vision
 ---
 
-This blog presents you a light weight real time segmentation and pose tracking method which only uses monocular RGB camera and can run with multiple objects and robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement.
+This blog presents you a light weight real time segmentation and pose tracking method which only uses monocular RGB camera and can run with multiple objects and robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement. **Real-Time Monocular Segmentation and Pose Tracking**.
 
-## Real-Time Monocular Segmentation and Pose Tracking
-
-### Preliminaries
+## Preliminaries
 
 Let $I$ be the image in the image domain $\Omega \subset \mathbb{R}^2$. With every pixel $\textbf{x} = [x, y]^T$, there is a corresponding color $\textbf{c} = I(x, y)$ (this can be grey value or RGB).
 
-The 3D model will be transformed from its model space into camera space by a transformation matrix $T$ (our camera is fixed at the origin and looks in the positive direction of $z$ axis - a little bit different to OpenGL). The rigid transformation matrix $T$ we call pose of 3D model and is presented by a $4 x 4$ homogeneous matrix:
+The 3D model will be transformed from its model space into camera space by a transformation matrix $T$ (our camera is fixed at the origin and looks in the positive direction of $z$ axis - a little bit different to OpenGL). The rigid transformation matrix $T$ we call pose of 3D model and is presented by a $4 \times 4$ homogeneous matrix:
 
 $$T = \left[\begin{matrix}
     R & \textbf{t} \\
@@ -24,9 +22,9 @@ $$T = \left[\begin{matrix}
 
 with $R \in \mathbb{SO}(3)$ and $\textbf{t} \in \mathbb{R}^3$.
 
-*To understand more about the definition of $\mathbb{SE}(3)$ (Lie - group Special Euclidean ) as well as its properties we recommend you read chapter 2 of the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934).*
+*To understand more about the definition of $\mathbb{SE}(3)$ (Lie - group Special Euclidean ) as well as its properties, we recommend you read chapter 2 of the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934).*
 
-Another of this tracking problem is that we must have the intrinsic matrix $K$ of our camera. This can be achieved easily by estimating the matrix with multiple checkerboard images captured beforehand.
+Another assumption of this tracking problem is that we must have the intrinsic matrix $K$ of our camera. This can be achieved easily by estimating the matrix with multiple checkerboard images captured beforehand.
 
 $$K = \left[ \begin{matrix}
     f_x & 0 & c_x \\
@@ -69,7 +67,7 @@ The silhouette of 3D model in image plane after projection splits image into 2 r
 
 ![](/figure/Tracking/mask.jpg)
 
-For pose tracking, the goal of the problem is to find the pose of 3D model in each frame. With an assumption that the pose $T_k$ of frame $I_k$ is already known, we only need to perform pose tracking at frame $I_{k+1}$. Because of linearity of transformation, the pose of next frame can be expressed by the current pose according to this equation: $T_{k+1} = \Delta T T_{k}$. So, for each new frame, we just need to find $\Delta T$ to rectify the current pose $T_k$.
+For pose tracking, the goal of the problem is to find the **pose of 3D model in each frame**. With an assumption that the pose $T_k$ of frame $I_k$ is already known, we only need to perform pose tracking at frame $I_{k+1}$. Because of linearity of transformation, the pose of next frame can be expressed by the current pose according to this equation: $T_{k+1} = \Delta T T_{k}$. So, for each new frame, we just need to find $\Delta T$ to rectify the current pose $T_k$.
 
 For pose optimization, we model the rigid body motion $\Delta T$ with twists:
 
@@ -90,9 +88,9 @@ $$\Delta T = \operatorname{exp}(\hat{\xi}) \in \mathbb{SE}(3)$$
 
 *Again, if you have trouble with these notations, Chapter 2 Lie - Algebra in the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934) will help you.*
 
-### Statistical Image Segmentation
+## Statistical Image Segmentation
 
-#### Shape Kernel $\Phi$
+### Shape Kernel $\Phi$
 
 The approach of this method is mainly based on statistical segmentation (you can read our blog in [here](https://graphicsminer.github.io/mathematics/2022/09/24/variational-method-and-image-segmentation_part3.html)), so as usual the silhouette of 3D model will be implicitly represented by a so-called shape kernel $\Phi$. This is called level set embedding function and the $\Phi$ must have the properties:
 
@@ -129,7 +127,7 @@ Signed Distance Function             |  Heatmap
 
 For efficient method of calculating signed distance function, you can read [[6]](#6)
 
-#### Generative Model
+### Generative Model
 
 Let's start first with graphical model that Victor et al [[1]](#1) proposed:
 
@@ -183,7 +181,7 @@ $$P(\Phi, \textbf{p} \mid \Omega) \propto \prod_{\textbf{x, c} \in \Omega } \sum
 
 $$\underset{\textbf{p}}{\operatorname{arg min}} \log{P(\Phi, \textbf{p}\mid \Omega)} = \sum_{\textbf{x}, \textbf{c}\in \Omega} -\operatorname{log}\left(\sum_{i=\{f, b\}} P(\textbf{x} \mid R_i, \Phi, \textbf{p})\, P(R_i \mid \textbf{c})\right)$$
 
-#### Minimize Negative Logarithm Likelihood
+### Minimize Negative Logarithm Likelihood
 
 Our goal now is to minimize the negative log likelihood:
 
@@ -243,6 +241,7 @@ $$\begin{aligned}
 Base on Bayes' rule, we can get:
 
 $$P(R_f \mid \textbf{c}) = \dfrac{P(\textbf{c} \mid R_f) P(R_f)}{P(\textbf{c} \mid R_f) P(R_f) + P(\textbf{c} \mid R_b) P(R_b)}$$
+
 $$P(R_b \mid \textbf{c}) = \dfrac{P(\textbf{c} \mid R_b) P(R_b)}{P(\textbf{c} \mid R_f) P(R_f) + P(\textbf{c} \mid R_b) P(R_b)}$$
 
 where:
@@ -276,7 +275,7 @@ $$\begin{aligned}
     &= \sum_{\textbf{x}, \textbf{c} \in \Omega} F(\textbf{x}, \textbf{c})
 \end{aligned}$$
 
-### Optimize Energy Function
+## Optimize Energy Function
 
 For the rest of the blog, we will use $\xi$ instead of pose $\textbf{p}$.
 
@@ -290,7 +289,7 @@ $$\psi(\textbf{x}, \textbf{c}) = F(\textbf{x}, \textbf{c})$$
 
 is considered as a constant when optimizing.
 
-#### Gauss - Newton Strategy
+### Gauss - Newton Strategy
 
 The Jacobian and pseudo Hessian matrix are:
 
@@ -323,7 +322,7 @@ The current pose is updated with:
 
 $$T \leftarrow \operatorname{exp}(\Delta \hat{\xi})T$$
 
-#### Chain rule
+### Chain rule
 
 We already have updated equation for $\Delta \xi$, what remains is how we construct the Jacobian and pseudo Hessian matrix.
 
@@ -416,7 +415,7 @@ Some of you may ask how can we know the depth value $Z'$?
 
 Obviously, because we project the 3D model into image plane, we definitely can know this (we are kings in computer graphics). In OpenGL, we can access depth map by the function [glReadPixel](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glReadPixels.xhtml), but with openGLES, a little trick is required that we have to compact depth value in fragment shader into RGBA value and render it before accessing with glReadPixel since openGLES doesn't support reading depth map operator, but there will be variance.
 
-#### Rendering
+### Rendering
 
 Because our camera is a little bit different to normal schema in OpenGL that is our camera simulates the real camera looking in positive direction of $z$ axis. So, the look at matrix and projection matrix would be different.
 
@@ -441,7 +440,7 @@ $$\begin{aligned}
 
 To know how to construct the matrices, visit [this](http://www.songho.ca/opengl/gl_projectionmatrix.html).
 
-### Demonstration
+## Demonstration
 
 <p align = "center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/V0rqnS49Jmo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -451,7 +450,7 @@ To know how to construct the matrices, visit [this](http://www.songho.ca/opengl/
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zMS4lG3k6I8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
-### Reference
+## Reference
 
 To comprehend the whole system, we recommend you read [[1]](#1), [[2]](#2), [[3]](#3), [[4]](#4) and [[5]](#5) for further improvement in speed.
 
