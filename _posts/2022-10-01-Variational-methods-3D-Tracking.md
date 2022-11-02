@@ -449,8 +449,8 @@ To know how to construct the matrices, visit [this](http://www.songho.ca/opengl/
 <p align = "center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zMS4lG3k6I8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
-### Reference
 
+### Reference
 
 To comprehend the whole system, we recommend you read [[1]](#1), [[2]](#2), [[3]](#3), [[4]](#4) and [[5]](#5) for further improvement in speed. 
 
