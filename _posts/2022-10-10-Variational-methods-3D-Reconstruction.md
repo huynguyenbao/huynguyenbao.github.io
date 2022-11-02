@@ -67,7 +67,7 @@ Our goal is to **maximize a posteriori** $P(u \mid \{I_1, ..., I_n\})$ or in oth
 
 To derive optimization equation for that, first let's start with the joint distribution for a given voxel $P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n})$:
 
-$P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n}) = P(\textbf{v} \mid u, \textbf{v}, R_{1...n}) P(\textbf{c}_{1...n} \mid R_{1...n}) P(R_{1...n}) P(u)$
+$$P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n}) = P(\textbf{v} \mid u, \textbf{v}, R_{1...n}) P(\textbf{c}_{1...n} \mid R_{1...n}) P(R_{1...n}) P(u)$$
 
 We divide both sides by $P(\textbf{c}_{1...n}) = \underset{i\in{\{f, b\}}}{\sum}P(\textbf{c}_{1...n} \mid R_{i, 1...n}) P(R_{i, 1...n})$ to get:
 
