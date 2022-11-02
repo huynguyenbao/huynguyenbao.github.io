@@ -1,7 +1,7 @@
 ---
 title: 'Optical Flow'
 date: 2020-08-14
-permalink: /posts/2020/08/optical-flow/
+permalink: /posts/2020/08/14/optical-flow/
 tags:
   - Image Processing
 ---

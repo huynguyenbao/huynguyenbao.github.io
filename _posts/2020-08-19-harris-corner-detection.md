@@ -1,7 +1,7 @@
 ---
 title: 'Harris Corner Detection'
 date: 2020-08-19
-permalink: /posts/2020/08/blog-post-2/
+permalink: /posts/2020/08/19/harris-corner/
 tags:
   - Image Processing
 ---

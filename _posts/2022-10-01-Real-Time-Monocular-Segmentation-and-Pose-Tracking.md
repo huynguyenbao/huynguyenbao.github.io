@@ -1,7 +1,7 @@
 ---
 title: 'Real-Time Monocular Segmentation and Pose Tracking'
 date: 2022-10-01
-permalink: /posts/2022/10/variational-methods/
+permalink: /posts/2022/10/01/variational-methods/
 tags:
   - Mathematics
   - Computer Vision
