@@ -15,13 +15,13 @@ There are numerous methods for reconstructing a real object into mesh such as vo
 
 ### Preliminaries
 
-We represent our local 3D environment which includes the 3D object needed to reconstruct by a volume $$V$$ which is defined by:
+We represent our local 3D environment which includes the 3D object needed to reconstruct by a volume $V$ which is defined by:
 
 $$V := [v_{11}, v_{12}] \times [v_{21}, v_{22}] \times [v_{31}, v_{32}] \subset \mathbb{R}^3$$
 
-and each $$v_{ij} \in \mathbb{R}$$.
+and each $v_{ij} \in \mathbb{R}$.
 
-Discretely, our volume $$V$$ is a set of voxels having a resolution $$N_x \times N_y \times N_z$$:
+Discretely, our volume $V$ is a set of voxels having a resolution $N_x \times N_y \times N_z$:
 
 $$V := \left\{ \left( \begin{matrix}
     v_{11} + i \cdot \dfrac{v_{12} - v_{11}}{N_x} \\
@@ -43,7 +43,7 @@ and the known model view project matrices corresponding to RGB images respective
 
 $$\pi_1, ..., \pi_n : V \mapsto \Omega$$
 
-where $$\Omega \subset \mathbb{R}^2$$.
+where $\Omega \subset \mathbb{R}^2$.
 
 ### Generative Model
 
@@ -53,35 +53,35 @@ Let's have a look at the below graphical model below:
 
 where:
 
-* $$R$$: foreground or background region
-* $$\textbf{c}$$: color of a pixel
-* $$\textbf{v}$$: voxel
-* $$u$$: shape of 3D object
-* $$n$$: the index of a frame.
+* $R$: foreground or background region
+* $\textbf{c}$: color of a pixel
+* $\textbf{v}$: voxel
+* $u$: shape of 3D object
+* $n$: the index of a frame.
 
-This graphical model may be biased to the heuristic of designers but in some point it is still valid. The random variable $$\textbf{v}$$ in $$V$$ depends on not only the shape of 3D object (obviously) but also foreground or background region $$R$$ that its projection to image planes belongs to. Whereas, the variable color $$\textbf{c}$$ undoubtedly depends on the region $$R$$.
+This graphical model may be biased to the heuristic of designers but in some point it is still valid. The random variable $\textbf{v}$ in $V$ depends on not only the shape of 3D object (obviously) but also foreground or background region $R$ that its projection to image planes belongs to. Whereas, the variable color $\textbf{c}$ undoubtedly depends on the region $R$.
 
 ### Maximizing A Posteriori
 
-Our goal is to **maximize a posteriori** $$P(u \mid \{I_1, ..., I_n\})$$ or in other words $$P(u \mid \textbf{v}, \textbf{c}_{1...n})$$.
+Our goal is to **maximize a posteriori** $P(u \mid \{I_1, ..., I_n\})$ or in other words $P(u \mid \textbf{v}, \textbf{c}_{1...n})$.
 
-To derive optimization equation for that, first let's start with the joint distribution for a given voxel $$P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n})$$:
+To derive optimization equation for that, first let's start with the joint distribution for a given voxel $P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n})$:
 
-$$P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n}) = P(\textbf{v} \mid u, \textbf{v}, R_{1...n}) P(\textbf{c}_{1...n} \mid R_{1...n}) P(R_{1...n}) P(u)$$
+$P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n}) = P(\textbf{v} \mid u, \textbf{v}, R_{1...n}) P(\textbf{c}_{1...n} \mid R_{1...n}) P(R_{1...n}) P(u)$
 
-We divide both sides by $$P(\textbf{c}_{1...n}) = \underset{i\in{\{f, b\}}}{\sum}P(\textbf{c}_{1...n} \mid R_{i, 1...n}) P(R_{i, 1...n})$$ to get:
+We divide both sides by $P(\textbf{c}_{1...n}) = \underset{i\in{\{f, b\}}}{\sum}P(\textbf{c}_{1...n} \mid R_{i, 1...n}) P(R_{i, 1...n})$ to get:
 
 $$P(u, \textbf{v}, R_{1...n} \mid \textbf{c}_{1...n}) = P(\textbf{v} \mid u, \textbf{v}, R_{1...n}) P(R_{1...n} \mid \textbf{c}_{1...n}) P(u)$$
 
-Next, we marginalize over $$P(R_{1...n})$$:
+Next, we marginalize over $P(R_{1...n})$:
 
 $$P(u, \textbf{v} \mid \textbf{c}_{1...n}) = \underset{i \in \{ j, b\}}{\sum} P(\textbf{v} \mid u, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) P(u)$$
 
-With assumption that $$P(\textbf{v})$$ is constant, we can omit the random variable $$\textbf{v}$$ by divide $$P(u, \textbf{v} \mid \textbf{c}_{1...n})$$ by $$P(\textbf{v})$$:
+With assumption that $P(\textbf{v})$ is constant, we can omit the random variable $\textbf{v}$ by divide $P(u, \textbf{v} \mid \textbf{c}_{1...n})$ by $P(\textbf{v})$:
 
 $$P(u \mid \textbf{v}, \textbf{c}_{1...n}) \propto \underset{i \in \{ j, b\}}{\sum} P(\textbf{v} \mid u, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) P(u)$$
 
-The prior $$P(u)$$ is also eliminated for the sake of simplicity. finally, the posterior over the volume becomes likelihood:
+The prior $P(u)$ is also eliminated for the sake of simplicity. finally, the posterior over the volume becomes likelihood:
 
 $$\begin{aligned}
     P(u \mid \Omega_3) &\propto \underset{\textbf{v} \in \Omega_3}{\prod} P(u \mid \textbf{v}, \textbf{c}_{1...n}) \\
@@ -106,16 +106,16 @@ $$u(\textbf{v}) = \begin{cases}
     0 \qquad \text{otherwise}
 \end{cases}$$
 
-and $$\zeta_f, \zeta_b$$ being the average number of voxels (over n views) that project to a foreground pixel (with $$P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$$ and  $$\textbf{c} = I_m(\pi_m(\textbf{v}))$$) and a background pixel, respectively.
+and $\zeta_f, \zeta_b$ being the average number of voxels (over n views) that project to a foreground pixel (with $P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$ and  $\textbf{c} = I_m(\pi_m(\textbf{v}))$) and a background pixel, respectively.
 
-Now, one question has come is that how can we compute two probabilities $$P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$$ with $$i \in \{ f, b\}$$. A straightforward way is to treat $$\{P(\textbf{c}_k \mid R_{i, k})\}$$ independently. Based on visibility, the probability of a voxel in foreground is equivalent to the probability that all cameras observe this voxel in foreground, whereas the probability of a voxel being a part of background is that at least one camera sees it as background. This way is pretty similar to voxel carving when a voxel is considered as background if its project on background.
+Now, one question has come is that how can we compute two probabilities $P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$ with $i \in \{ f, b\}$. A straightforward way is to treat $\{P(\textbf{c}_k \mid R_{i, k})\}$ independently. Based on visibility, the probability of a voxel in foreground is equivalent to the probability that all cameras observe this voxel in foreground, whereas the probability of a voxel being a part of background is that at least one camera sees it as background. This way is pretty similar to voxel carving when a voxel is considered as background if its project on background.
 
 $$\begin{aligned}
     P(\textbf{c}_{1...n} \mid R_{f, 1...n}) &= \prod_{k=1}^nP(\textbf{c}_k \mid R_{f, k}) \\
     P(\textbf{c}_{1...n} \mid R_{b, 1...n}) &= 1 - \prod_{k=1}^n\{1 - P(\textbf{c}_k \mid R_{b, k}) \}
 \end{aligned}$$
 
-We can describe $$P(\textbf{c}_k \mid R_{i, k})$$ by Gaussian distribution or simply with a histogram.
+We can describe $P(\textbf{c}_k \mid R_{i, k})$ by Gaussian distribution or simply with a histogram.
 
 However, these joint probabilities are not calculated easily since their products tend to be very small. To overcome this, they are rewritten:
 
@@ -126,7 +126,7 @@ $$\begin{aligned}
 \end{aligned}$$
 
 The probability of foreground and background region over
-n views becomes $$P(R_{f, 1...n}) = \dfrac{\bar{\eta_f}}{\eta}$$ with hf being the average value of foreground area $$\eta_f$$ over the n views. $$P(R_{b, 1...n})$$ follows analogously ($$\eta$$ is the whole image area).
+n views becomes $P(R_{f, 1...n}) = \dfrac{\bar{\eta_f}}{\eta}$ with hf being the average value of foreground area $\eta_f$ over the n views. $P(R_{b, 1...n})$ follows analogously ($\eta$ is the whole image area).
 
 So the final posterior equation is:
 
@@ -136,7 +136,7 @@ There are many numerical optimization methods to maximize this posterior (basica
 
 $$E = \sum_{\textbf{v} \in \Omega_3}\{uP_i + (1 - u) P_o + \alpha |\nabla u| \}$$
 
-where $$\alpha$$ is a tunable parameter.
+where $\alpha$ is a tunable parameter.
 
 For fast and global convergence, Victor et al [[1]](#1)  used continuos min cut / max flow [[3]](#3):
 
@@ -155,7 +155,7 @@ To know the details of the algorithm, visit [[3]](#3) and [[4]](#4)
 
 ### Results
 
-Some may ask how can we know $$\{\pi_k\}$$ in the real environment?
+Some may ask how can we know $\{\pi_k\}$ in the real environment?
 
 To answer this, we use **ARCore** which simultaneously localizes the position of the camera in 3D world. The setting in mobile phone is straightforward.
 
