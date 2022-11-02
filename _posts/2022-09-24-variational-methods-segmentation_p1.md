@@ -9,7 +9,6 @@ tags:
 
 Convolution neural networks usually appear in segmentation problems because of its high adaptation to many datasets and high performance. However, in return, they require ground truth data to learn and perform specific tasks, without ground truth their results are really poor. Today, I will introduce to you “old” segmentation methods but it can be applied in several certain problems in absence of datasets. This is called *Snakes: Active Contours Models*.
 
-
 ## Formulation
 
 Let $$I: \Omega \rightarrow \mathbb{R}$$ be a gray scale image, where $$\Omega \subset \mathbb{R}^2$$. The curve that segments image $I$ into 2 partitions is denoted as $$C: [0, 1] \rightarrow \Omega$$, in other words $$C = (x(s), y(s))$$ where $$s \in [0, 1]$$.
