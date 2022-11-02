@@ -9,9 +9,9 @@ tags:
 
 There are numerous methods for reconstructing a real object into mesh such as voxel carving which processes independently the input images or structure from motion. However, in this blog, we would like to introduce to you another solution for this ill-posed inverse computer vision problem. This method is volumetric approach, where each voxel is assigned two probability values for being in or out of 3D object. Let's start.
 
-## Probabilistic Multiple - View 3D Reconstruction
-
 ![](/figure/3DReconstruction/multiple-view-3D-recon.png)
+
+## Probabilistic Multiple - View 3D Reconstruction
 
 ### Preliminaries
 
@@ -163,7 +163,15 @@ To answer this, we use **ARCore** which simultaneously localizes the position of
 * Next step is to put a large cube (volume) on the detected plane and put the object needed to scan inside the cube.
 * Finally, to achieve the best result, users have to go around object to observe all the perspectives of it.
 
-[![3D Reconstruction on Android](https://res.cloudinary.com/marcomontalbano/image/upload/v1667125203/video_to_markdown/images/youtube--gPBLQ9BkSnI-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=gPBLQ9BkSnI "3D Reconstruction on Android")
+<p align = "center">
+<iframe width="560"
+height="315"
+src="https://www.youtube.com/embed/gPBLQ9BkSnI" title="YouTube video player"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+</p>
 
 To comprehend the whole system, we recommend you read [[1]](#1), [[2]](#2), [[3]](#3), [[4]](#4).
 
