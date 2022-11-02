@@ -1,5 +1,5 @@
 ---
-title: 'Probabilistic Multiple - View 3D Reconstruction'
+title: 'Variational Methods and 3D Reconstruction'
 date: 2022-10-10
 permalink: /posts/2022/10/10/variational-methods/
 tags:
@@ -7,12 +7,13 @@ tags:
   - 3D Computer Vision
 ---
 
-
 There are numerous methods for reconstructing a real object into mesh such as voxel carving which processes independently the input images or structure from motion. However, in this blog, we would like to introduce to you another solution for this ill-posed inverse computer vision problem. This method is volumetric approach, where each voxel is assigned two probability values for being in or out of 3D object. Let's start.
+
+## Probabilistic Multiple - View 3D Reconstruction
 
 ![](/figure/3DReconstruction/multiple-view-3D-recon.png)
 
-## Preliminaries
+### Preliminaries
 
 We represent our local 3D environment which includes the 3D object needed to reconstruct by a volume $$V$$ which is defined by:
 
@@ -44,7 +45,7 @@ $$\pi_1, ..., \pi_n : V \mapsto \Omega$$
 
 where $$\Omega \subset \mathbb{R}^2$$.
 
-## Generative Model
+### Generative Model
 
 Let's have a look at the below graphical model below:
 
@@ -60,7 +61,7 @@ where:
 
 This graphical model may be biased to the heuristic of designers but in some point it is still valid. The random variable $$\textbf{v}$$ in $$V$$ depends on not only the shape of 3D object (obviously) but also foreground or background region $$R$$ that its projection to image planes belongs to. Whereas, the variable color $$\textbf{c}$$ undoubtedly depends on the region $$R$$.
 
-## Maximizing A Posteriori
+### Maximizing A Posteriori
 
 Our goal is to **maximize a posteriori** $$P(u \mid \{I_1, ..., I_n\})$$ or in other words $$P(u \mid \textbf{v}, \textbf{c}_{1...n})$$.
 
@@ -152,7 +153,7 @@ $$\begin{aligned}
 
 To know the details of the algorithm, visit [[3]](#3) and [[4]](#4)
 
-## Results
+### Results
 
 Some may ask how can we know $$\{\pi_k\}$$ in the real environment?
 
@@ -166,7 +167,7 @@ To answer this, we use **ARCore** which simultaneously localizes the position of
 
 To comprehend the whole system, we recommend you read [[1]](#1), [[2]](#2), [[3]](#3), [[4]](#4).
 
-## References
+### References
 
 <a id="1">[1]</a> Prisacariu, Victor Adrian, et al. "Real-time 3d tracking and reconstruction on mobile phones." IEEE transactions on visualization and computer graphics 21.5 (2014): 557-570.
 

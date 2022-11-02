@@ -1,6 +1,5 @@
 ---
 title: 'Variational Methods and 3D Tracking'
-subtile: Real-Time Monocular Segmentation and Pose Tracking
 date: 2022-10-01
 permalink: /posts/2022/10/01/variational-methods/
 tags:
@@ -10,7 +9,9 @@ tags:
 
 This blog presents you a light weight real time segmentation and pose tracking method which only uses monocular RGB camera and can run with multiple objects and robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement.
 
-## Preliminaries
+## Real-Time Monocular Segmentation and Pose Tracking
+
+### Preliminaries
 
 Let $$I$$ be the image in the image domain $$\Omega \subset \mathbb{R}^2$$. With every pixel $$\textbf{x} = [x, y]^T$$, there is a corresponding color $$\textbf{c} = I(x, y)$$ (this can be grey value or RGB).
 
@@ -89,9 +90,9 @@ $$\Delta T = \operatorname{exp}(\hat{\xi}) \in \mathbb{SE}(3)$$
 
 *Again, if you have trouble with these notations, Chapter 2 Lie - Algebra in the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934) will help you.*
 
-## Statistical Image Segmentation
+### Statistical Image Segmentation
 
-### Shape Kernel $$\Phi$$
+#### Shape Kernel $$\Phi$$
 
 The approach of this method is mainly based on statistical segmentation (you can read our blog in [here](https://graphicsminer.github.io/mathematics/2022/09/24/variational-method-and-image-segmentation_part3.html)), so as usual the silhouette of 3D model will be implicitly represented by a so-called shape kernel $$\Phi$$. This is called level set embedding function and the $$\Phi$$ must have the properties:
 
@@ -127,7 +128,7 @@ Signed Distance Function             |  Heatmap
 
 For efficient method of calculating signed distance function, you can read [[6]](#6)
 
-### Generative Model
+#### Generative Model
 
 Let's start first with graphical model that Victor et al [[1]](#1) proposed:
 
@@ -181,7 +182,7 @@ $$P(\Phi, \textbf{p} \mid \Omega) \propto \prod_{\textbf{x, c} \in \Omega } \sum
 
 $$\underset{\textbf{p}}{\operatorname{arg min}} \log{P(\Phi, \textbf{p}\mid \Omega)} = \sum_{\textbf{x}, \textbf{c}\in \Omega} -\operatorname{log}\left(\sum_{i=\{f, b\}} P(\textbf{x} \mid R_i, \Phi, \textbf{p})\, P(R_i \mid \textbf{c})\right)$$
 
-### Minimize Negative Logarithm Likelihood
+#### Minimize Negative Logarithm Likelihood
 
 Our goal now is to minimize the negative log likelihood:
 
@@ -274,7 +275,7 @@ $$\begin{aligned}
     &= \sum_{\textbf{x}, \textbf{c} \in \Omega} F(\textbf{x}, \textbf{c})
 \end{aligned}$$
 
-## Optimize Energy Function
+### Optimize Energy Function
 
 For the rest of the blog, we will use $$\xi$$ instead of pose $$\textbf{p}$$.
 
@@ -288,7 +289,7 @@ $$\psi(\textbf{x}, \textbf{c}) = F(\textbf{x}, \textbf{c})$$
 
 is considered as a constant when optimizing.
 
-### Gauss - Newton Strategy
+#### Gauss - Newton Strategy
 
 The Jacobian and pseudo Hessian matrix are:
 
@@ -321,7 +322,7 @@ The current pose is updated with:
 
 $$T \leftarrow \operatorname{exp}(\Delta \hat{\xi})T$$
 
-### Chain rule
+#### Chain rule
 
 We already have updated equation for $$\Delta \xi$$, what remains is how we construct the Jacobian and pseudo Hessian matrix.
 
@@ -414,7 +415,7 @@ Some of you may ask how can we know the depth value $$Z'$$?
 
 Obviously, because we project the 3D model into image plane, we definitely can know this (we are kings in computer graphics). In OpenGL, we can access depth map by the function [glReadPixel](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glReadPixels.xhtml), but with openGLES, a little trick is required that we have to compact depth value in fragment shader into RGBA value and render it before accessing with glReadPixel since openGLES doesn't support reading depth map operator, but there will be variance.
 
-### Rendering
+#### Rendering
 
 Because our camera is a little bit different to normal schema in OpenGL that is our camera simulates the real camera looking in positive direction of $$z$$ axis. So, the look at matrix and projection matrix would be different.
 
@@ -439,13 +440,13 @@ $$\begin{aligned}
 
 To know how to construct the matrices, visit [this](http://www.songho.ca/opengl/gl_projectionmatrix.html).
 
-## Demonstration
+### Demonstration
 
 [![Single Object Tracking](https://res.cloudinary.com/marcomontalbano/image/upload/v1667062876/video_to_markdown/figure/youtube--V0rqnS49Jmo-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=V0rqnS49Jmo&feature=youtu.be "Single Object Tracking")
 
 [![Multiple-Object Tracking](https://res.cloudinary.com/marcomontalbano/image/upload/v1667062919/video_to_markdown/figure/youtube--zMS4lG3k6I8-c05b58ac6eb4c4700831b2b3070cd403.jpg)](https://www.youtube.com/watch?v=zMS4lG3k6I8 "Multiple-Object Tracking")
 
-## Reference
+### Reference
 
 
 To comprehend the whole system, we recommend you read [[1]](#1), [[2]](#2), [[3]](#3), [[4]](#4) and [[5]](#5) for further improvement in speed. 
