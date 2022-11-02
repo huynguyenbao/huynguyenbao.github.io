@@ -3,8 +3,8 @@ title: 'Variational Methods and Image Denoising'
 date: 2022-09-11
 permalink: /posts/2022/09/11/variational-methods/
 tags:
-  - Mathematics
-  - Digital Signal Processing
+  - Variational Methods
+  - Computer Vision
 ---
 
 Variational methods are really powerful which has a variety of applications such as 2D segmentation and 3D reconstruction. However, today I will present to you one of their interesting applications: Image Denoising.

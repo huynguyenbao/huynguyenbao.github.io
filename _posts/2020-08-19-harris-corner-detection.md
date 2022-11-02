@@ -3,7 +3,7 @@ title: 'Harris Corner Detection'
 date: 2020-08-19
 permalink: /posts/2020/08/19/harris-corner/
 tags:
-  - Image Processing
+  - Computer Vision
 ---
 
 **A Corner** is a point whose local neighborhood stands in two dominant and different edge directions. In other words, a corner can be interpreted as the junction of two edges, where an edge is a sudden change in image brightness. Corners are the important features in the image, and they are generally termed as interest points which are invariant to translation, rotation and illumination.

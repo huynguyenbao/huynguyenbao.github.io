@@ -3,9 +3,8 @@ title: 'Probabilistic Multiple - View 3D Reconstruction'
 date: 2022-10-10
 permalink: /posts/2022/10/10/variational-methods/
 tags:
-  - Mathematics
-  - Computer Vision
   - Variational Methods
+  - 3D Computer Vision
 ---
 
 

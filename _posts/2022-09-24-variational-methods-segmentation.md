@@ -1,10 +1,10 @@
 ---
 title: 'Variational Methods and Image Segmentation'
 date: 2022-09-24
-permalink: /posts/2022/09/variational-methods/
+permalink: /posts/2022/09/24/variational-methods/
 tags:
-  - Mathematics
-  - Digital Signal Processing
+  - Variational Methods
+  - Computer Vision
 ---
 
 Convolution neural networks usually appear in segmentation problems because of its high adaptation to many datasets and high performance. However, in return, they require ground truth data to learn and perform specific tasks, without ground truth their results are really poor. Today, I will introduce to you “old” segmentation methods but it can be applied in several certain problems in absence of datasets.
