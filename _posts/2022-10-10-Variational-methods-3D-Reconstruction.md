@@ -108,14 +108,14 @@ $$u(\textbf{v}) = \begin{cases}
 
 and $\zeta_f, \zeta_b$ being the average number of voxels (over n views) that project to a foreground pixel (with $P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$ and  $\textbf{c} = I_m(\pi_m(\textbf{v}))$) and a background pixel, respectively.
 
-Now, one question has come is that how can we compute two probabilities $P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$ with $i \in \{ f, b\}$. A straightforward way is to treat $\{P(\textbf{c}_k \mid R_{i, k})\}$ independently. Based on visibility, the probability of a voxel in foreground is equivalent to the probability that all cameras observe this voxel in foreground, whereas the probability of a voxel being a part of background is that at least one camera sees it as background. This way is pretty similar to voxel carving when a voxel is considered as background if its project on background.
+Now, one question has come is that how can we compute two probabilities $$P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$$ with $$i \in \{ f, b\}$$. A straightforward way is to treat $$\{P(\textbf{c}_k \mid R_{i, k})\}$$ independently. Based on visibility, the probability of a voxel in foreground is equivalent to the probability that all cameras observe this voxel in foreground, whereas the probability of a voxel being a part of background is that at least one camera sees it as background. This way is pretty similar to voxel carving when a voxel is considered as background if its project on background.
 
 $$\begin{aligned}
     P(\textbf{c}_{1...n} \mid R_{f, 1...n}) &= \prod_{k=1}^nP(\textbf{c}_k \mid R_{f, k}) \\
     P(\textbf{c}_{1...n} \mid R_{b, 1...n}) &= 1 - \prod_{k=1}^n\{1 - P(\textbf{c}_k \mid R_{b, k}) \}
 \end{aligned}$$
 
-We can describe $P(\textbf{c}_k \mid R_{i, k})$ by Gaussian distribution or simply with a histogram.
+We can describe $$P(\textbf{c}_k \mid R_{i, k})$$ by Gaussian distribution or simply with a histogram.
 
 However, these joint probabilities are not calculated easily since their products tend to be very small. To overcome this, they are rewritten:
 
