@@ -13,7 +13,7 @@ After finishing [Snakes problem](https://graphicsminer.github.io/mathematics/202
 
 Let $I: \Omega \rightarrow \mathbb{R}$ be a gray scale image, where $\Omega \subset \mathbb{R}^2$. The curve $C$ segments image $I$ into 2 partitions: $R_i$ - the region inside $C$,  and $R_o$ - the region outside $C$.
 
-Again, our goal is to find $C$, but let us define the energy function evaluating the performance of segmentation:
+Again, **our goal is still to find $C$** which is also to minimize energy function $E(C)$, but the energy function in here is a **little bit different** to that one in part 1. Instead of using line integral, Chan Tony F et al [[1]](#1) used **area integral over the image plane** to evaluate the performance of segmentation:
 
 $$E(C) = E_i(C) + E_o(C) = \iint_{R_i} |I(x,y) - c_i|^2 \, dx \, dy + \iint_{R_o} |I(x,y) - c_o|^2 \, dx \, dy$$
 
@@ -32,7 +32,9 @@ Curve inside an object            |  Curve outside an object
 **Curve inside and outside an object** | **Curve fitting an object**
 ![](/figure/ACM/in_and_out.png)  |  ![](/figure/ACM/fitting.png)
 
-Similar to Snakes: Active Contours Model, TF Chan [[1]](#1) would add some regularization terms into the energy function such as **Length of curve $C$** and (or) **Area of $R_i$**. The final energy function will be:
+Similar to Snakes: Active Contours Model, TF Chan [[1]](#1) would add some regularization terms into the energy function such as **Length of curve $C$** and (or) **Area of $R_i$**. The terms guarantee the curve small as much as possible.
+
+The energy function will be:
 
 $$\begin{aligned}
     E(C, c_1, c_2) &= \mu \, \operatorname{Length}(C) + \nu \, \operatorname{Area}(\operatorname{inside}(C)) \\
@@ -40,7 +42,7 @@ $$\begin{aligned}
          &+ \lambda_2 \iint_{R_o} |I(x,y) - c_o|^2 \, dx \, dy
 \end{aligned}$$
 
-The curcial step of this method is to replace an unknown curve $C: [0, 1] \rightarrow \Omega \subset \mathbb{R}^2$ by **an unknown surface $\phi: \Omega \subset \mathbb{R}^2 \rightarrow \mathbb{R}$**. The curve $C$, region inside $C$ - $R_i$ and outside $C$ - $R_o$ can be re - defined:
+The **crucial step** of this method is to **replace an unknown curve $C: [0, 1] \rightarrow \Omega \subset \mathbb{R}^2$ by an unknown surface $\phi: \Omega \subset \mathbb{R}^2 \rightarrow \mathbb{R}$**. The curve $C$, region inside $C$ - $R_i$ and outside $C$ - $R_o$ can be re - defined:
 
 $$\begin{equation*}
 \begin{cases}
@@ -87,10 +89,10 @@ $$\begin{equation*}
     <i>Dirac delta function</i>
 </p>
 
-Finally, the energy function will be:
-
+Finally, finding optimal curve $C$ is equivalent to find a level surface $\Phi$ such that:
+  
 $$\begin{aligned}
-    E(\phi, c_1, c_2) &= \iint_\Omega \mu \, \delta(\phi (x, y)) |\nabla \phi (x, y)| + \nu \, H(\phi (x, y))\\ 
+    \phi, c_i, c_o = \underset{\phi, c_i, c_o}{\operatorname{arg\,min}} E(\phi, c_1, c_2) &= \iint_\Omega \mu \, \delta(\phi (x, y)) |\nabla \phi (x, y)| + \nu \, H(\phi (x, y))\\ 
     &+ \lambda_1 H(\phi (x, y)) |I(x,y) - c_i|^2 + \lambda_2 (1 - H(\phi (x, y))) |I(x ,y) - c_o|^2 \, dx \, dy
 \end{aligned}$$
 
@@ -99,7 +101,7 @@ $$\begin{aligned}
 Again, the method solving this problem is **Euler - Lagrange Equation** and **gradient decent**. We recommend you read the previous blog to familiarize yourself with the way we expand formulation.
 
 $$\begin{aligned}
-    E(\phi, c_1, c_2) &= \iint_\Omega \mu \, \delta(\phi (x, y)) |\nabla \phi (x, y)| + \nu \, H(\phi (x, y))\\ 
+    E(\phi, c_i, c_o) &= \iint_\Omega \mu \, \delta(\phi (x, y)) |\nabla \phi (x, y)| + \nu \, H(\phi (x, y))\\ 
     &+ \lambda_1 H(\phi (x, y)) |I(x,y) - c_i|^2 + \lambda_2 (1 - H(\phi (x, y))) |I(x ,y) - c_o|^2 \, dx \, dy \\
     &= \iint_\Omega L(\phi, \nabla \phi, c_i, c_o) \, dx \, dy
 \end{aligned}$$
@@ -107,7 +109,7 @@ $$\begin{aligned}
 The optimal $\phi$, $c_i$ and $c_o$ are:
 
 $$\begin{aligned}
-  \underset{\phi, c_1, c_2}{\operatorname{arg\,min}} \, E(\phi, c_1, c_2) = \iint_\Omega L(\phi, \nabla \phi, c_i, c_o) \, dx \, dy
+  \underset{\phi, c_i, c_o}{\operatorname{arg\,min}} \, E(\phi, c_1, c_2) = \iint_\Omega L(\phi, \nabla \phi, c_i, c_o) \, dx \, dy
 \end{aligned}$$
 
 To solve this, first we would iteratively find optimal values/ function of each $c_i$, $c_o$ and $\phi$:

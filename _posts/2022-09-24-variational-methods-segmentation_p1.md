@@ -26,7 +26,7 @@ With two above assumptions we can derive an energy function to find $C$:
 
 $$E(C) = E_{image}(C) + E_{int}(C)$$
 
-* For the **first criterion**, we can utilize the property of image that is **drastic change of intensity in edge regions** to detect foreground and background. The energy function $E_{image}(C)$ should **force the curve toward to that boundary** of foreground and background region: 
+* For the **first criterion**, we can utilize the property of image that is **drastic change of intensity in edge regions** to detect foreground and background. The energy function $E_{image}(C)$ should **force the curve toward to that boundary** of foreground and background region:
 
 $$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
 
@@ -48,9 +48,9 @@ $$E_{int}(C) = \int_0^1 \alpha(s) |C_s|^2 + \beta(s) |C_{ss}|^2 \, ds$$
 
 Because of the diversity of object need to be segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
 
-**The total energy function** (proposed by Kass et al [[1]](#1)) needed to **minimize** is:
+Finally, **finding the curve $C$ fulfilling two those criteria is minimizing the total energy function** (proposed by Kass et al [[1]](#1)):
 
-$$E(C) = \dfrac{1}{2} \int_0^1 - |\nabla I(C)|^2 + \alpha (s) |C_s|^2 + \beta (s) |C_{ss}| \, ds$$
+$$C = \underset{C}{\operatorname{arg min}} \, E(C) = \underset{C}{\operatorname{arg min}} \, \dfrac{1}{2} \int_0^1 - |\nabla I(C)|^2 + \alpha (s) |C_s|^2 + \beta (s) |C_{ss}| \, ds$$
 
 ## Solution
 
