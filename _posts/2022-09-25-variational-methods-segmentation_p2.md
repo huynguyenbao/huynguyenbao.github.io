@@ -13,7 +13,7 @@ After finishing [Snakes problem](https://graphicsminer.github.io/mathematics/202
 
 Let $I: \Omega \rightarrow \mathbb{R}$ be a gray scale image, where $\Omega \subset \mathbb{R}^2$. The curve $C$ segments image $I$ into 2 partitions: $R_i$ - the region inside $C$,  and $R_o$ - the region outside $C$.
 
-Again, **our goal is still to find $C$** which is also to minimize energy function $E(C)$, but the energy function in here is a **little bit different** to that one in part 1. Instead of using line integral, Chan Tony F et al [[1]](#1) used **area integral over the image plane** to evaluate the performance of segmentation:
+Again, **our goal is still to find $C$** which is equivalent **to minimize energy function $E(C)$**, but the energy function in here is a **little bit different** to that one in part 1. Instead of using line integral, Chan Tony F et al [[1]](#1) used **area integral over the image plane** to evaluate the performance of segmentation:
 
 $$E(C) = E_i(C) + E_o(C) = \iint_{R_i} |I(x,y) - c_i|^2 \, dx \, dy + \iint_{R_o} |I(x,y) - c_o|^2 \, dx \, dy$$
 
@@ -89,7 +89,7 @@ $$\begin{equation*}
     <i>Dirac delta function</i>
 </p>
 
-Finally, finding optimal curve $C$ is equivalent to find a level surface $\Phi$ such that:
+Finally, **finding optimal curve $C$ is equivalent to find a level surface $\phi$ such that**:
   
 $$\begin{aligned}
     \phi, c_i, c_o = \underset{\phi, c_i, c_o}{\operatorname{arg\,min}} E(\phi, c_1, c_2) &= \iint_\Omega \mu \, \delta(\phi (x, y)) |\nabla \phi (x, y)| + \nu \, H(\phi (x, y))\\ 
