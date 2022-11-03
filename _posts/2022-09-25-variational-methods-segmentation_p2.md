@@ -1,6 +1,6 @@
 ---
 title: 'Variational Methods and Image Segmentation (Part 2)'
-date: 2022-09-24
+date: 2022-09-25
 permalink: /posts/2022/09/25/variational-methods/
 tags:
   - Variational Methods
@@ -11,7 +11,9 @@ After finishing [Snakes problem](https://graphicsminer.github.io/mathematics/202
 
 ## Formulation
 
-Let $I: \Omega \rightarrow \mathbb{R}$ be a gray scale image, where $\Omega \subset \mathbb{R}^2$. The curve $C$ segments image $I$ into 2 partitions: $R_i$ - the region inside $C$,  and $R_o$ - the region outside $C$. Let us define the energy function evaluating the performance of segmentation:
+Let $I: \Omega \rightarrow \mathbb{R}$ be a gray scale image, where $\Omega \subset \mathbb{R}^2$. The curve $C$ segments image $I$ into 2 partitions: $R_i$ - the region inside $C$,  and $R_o$ - the region outside $C$.
+
+Again, our goal is to find $C$, but let us define the energy function evaluating the performance of segmentation:
 
 $$E(C) = E_i(C) + E_o(C) = \iint_{R_i} |I(x,y) - c_i|^2 \, dx \, dy + \iint_{R_o} |I(x,y) - c_o|^2 \, dx \, dy$$
 

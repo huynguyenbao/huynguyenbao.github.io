@@ -1,6 +1,6 @@
 ---
 title: 'Variational Methods and Image Segmentation (Part 3)'
-date: 2022-09-24
+date: 2022-09-26
 permalink: /posts/2022/09/26/variational-methods/
 tags:
   - Variational Methods
@@ -11,7 +11,7 @@ This blog will show you the general version of [active contours model](https://g
 
 ## Problem
 
-Finding an optimal partition $\mathcal{P}(\Omega)$ which segments an input image $I$ can be seen as problem of maximizing a **posteriori probability** $p(\mathcal{P}(\Omega)\mid I)$ and the Bayes's rule for this conditional probability is:
+**Finding an optimal partition $\mathcal{P}(\Omega)$** which segments an input image $I$ can be seen as problem of maximizing a **posteriori probability** $p(\mathcal{P}(\Omega)\mid I)$ and the Bayes's rule for this conditional probability is:
 
 $$p(\mathcal{P}(\Omega)\mid I) = \dfrac{p(I\mid \mathcal{P}(\Omega)) \, p(\mathcal{P}(\Omega))}{p(I)}.$$
 
