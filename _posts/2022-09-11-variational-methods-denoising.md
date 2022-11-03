@@ -11,7 +11,6 @@ Variational methods are really powerful which has a variety of applications such
 
 Nowadays, the popularity and the adaptability power of CNNs are making engineers become depend on more dataset with human labeled ground truth, and the designing of CNNs like playing Lego, adding blocks, feeding an random input and anticipating a desire output. But have you imagined how "our ancestors" can remove noise in image without ground-truth? If you do, let's dive into mathematics :).
 
-
 ## Formulation
 
 Let $f: \Omega \rightarrow \mathbb{R}$ be a gray scaled image on a domain $\Omega \in \mathbb{R}^2$. Assume that we observed a noisy image $u$ and want to recover to free-noise image $f$. However, we do not know noise sources (white noise or poison), additive noise or multiplicate noise but only one noisy image $u$. To solve this inverse problem, we can have two assumptions based on our observation:
@@ -96,63 +95,74 @@ $$\begin{aligned}
 ### Code
 
 ```py
-def denoise(noisy_image, n_iters, weight, step):
+def denoise(noisy_image, n_iters):
     noisy_image = np.copy(noisy_image).astype(np.float32)
     denoised_image = np.copy(noisy_image)
-    ddepth = cv2.CV_32F
+    weight = 1
+    step = 0.5
 
-    kernel_x = np.array([
-        [0, 0, 0],
-        [-0.5, 0, 0.5],
-        [0, 0, 0]
-    ])
-    kernel_y = np.array([
-        [0, -0.5, 0],
-        [0, 0, 0],
-        [0, 0.5, 0]
-    ])
     for _ in range(n_iters):
-        grad_x = cv2.filter2D(denoised_image, ddepth, kernel_x)
-        grad_y = cv2.filter2D(denoised_image, ddepth, kernel_y)
+        grad_y, grad_x = np.gradient(denoised_image)
 
-        grad_xx = cv2.filter2D(grad_x, ddepth, kernel_x)
-        grad_yy= cv2.filter2D(grad_y, ddepth, kernel_y)
+        _, grad_xx = np.gradient(grad_x)
+        grad_yy, _ = np.gradient(grad_y)
 
-        grad = (denoised_image - noisy_image) - weight * (grad_xx + grad_yy)
-        denoised_image = np.clip(denoised_image - step * grad, 0, 255)
+        grad = (noisy_image - denoised_image) + weight * (grad_xx + grad_yy)
+        denoised_image = np.clip(denoised_image + step * grad, 0, 255)
 
     return denoised_image
 ```
 
 ### Result
 
-<p align = "center">
-    <img width="300"  src="/figure/variational_methods_denoising/noisy.jpg"/>
-    <br>
-    <i>Noisy Image</i>
-</p>
+Noisy Image             |  Denoised Image
+:-----------------------:|:-------------------------:
+![](/figure/Denoising/noisy.jpg)  |  ![](/figure/Denoising/L2_denoised.jpg)
 
-<p align = "center">
-    <img width="300"  src="/figure/variational_methods_denoising/denoised.jpg"/>
-    <br>
-    <i>Denoised Image</i>
-</p>
 
 ## Discussion
 
-In term of smoothness energy, there are several other options and one of them is total variation ($L_1$ norm) [[1]](#1) which is:
+### Alternative for Smoothness Term
+
+Regarding the energy function above, since the $E_{structure}$ is fixed in order to preserve the image structure while optimizing, people usually tweak and modify $E_{smoothness}$ to achieve desired results. **Total variation $L_1$** term can be an alternative for $L_2$ which makes edges in image *sharper* instead of blurry:
 
 $$E_{smoothness}(f) = \int_\Omega ||\nabla f|| \, \text{d}x \, \text{d}y = \int_\Omega \sqrt{f_x^2 + f_y^2} \, \text{d}x \, \text{d}y$$
 
-and:
+and the update equation for image function $f$ is:
 
 $$\begin{aligned}
-  \dfrac{dE}{df} &= \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) \\
-  &= (f - u) - \lambda \dfrac{\partial}{\partial x}\left(\dfrac{f_x}{\sqrt{f_x^2 + f_y^2}}\right) - \lambda \dfrac{\partial}{\partial y}\left(\dfrac{f_y}{\sqrt{f_x^2 + f_y^2}}\right) \\
-  &= (f - u) - \lambda \operatorname{div}\left(\dfrac{\nabla f}{||\nabla f||}\right)
+  \dfrac{df}{dt} = -\dfrac{dE}{df} &= -\dfrac{\partial L}{\partial f} + \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) + \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) \\
+  &= (u - f) + \lambda \dfrac{\partial}{\partial x}\left(\dfrac{f_x}{\sqrt{f_x^2 + f_y^2}}\right) + \lambda \dfrac{\partial}{\partial y}\left(\dfrac{f_y}{\sqrt{f_x^2 + f_y^2}}\right) \\
+  &= (u - f) + \lambda \operatorname{div}\left(\dfrac{\nabla f}{||\nabla f||}\right)
 \end{aligned}$$
+
+Noisy Image             |  $L_2$ Denoised Image           |  $L_1$ Denoised Image 
+:-----------------------:|:-------------------------:|:-------------------------:
+![](/figure/Denoising/noisy.jpg)  |  ![](/figure/Denoising/L2_denoised.jpg)  |  ![](/figure/Denoising/L1_denoised.jpg)
+
+
+We can easily notice that the image used $L_1$ loss is **shaper than** the one used $L_2$.
+
+
+**The smoothness term $L_1$** and its variations are usually used beside the difference between predicted images and ground truths while training image denoising CNN models **to preserve the clarity of detail in photo**.
+
+### Contrast to Deep Learning
+
+The formulation of DL image denoising methods is a little bit different to variational methods, which is:
+
+$$\theta = \underset{\theta}{\operatorname{arg min}} \, ||g_\theta(\textbf{y}) - \textbf{x}||_p$$
+
+where $\textbf{y}$ is observed noisy image, $\textbf{x}$ is clean image and $g_\theta(.)$ is a denoising CNN model with parameters $\theta$.
+
+However, having realistic ground truth image may be a challenging problem of this field since **shot noise (photon noise) is inevitable** when capturing a realistic image (ground truth is achieve by averaging a burst image - set of images capturing within small period of time). The image quality of result images of DL based methods usually is better than traditional, but normally only works on trained datasets. In some works like **medical image denoising**, where ground truths are **impossible to achieve**, self - supervised methods like *variational methods* or recently *noise2noise[[2]](#2), noise2void[[3]](#3)* are preferred.
 
 ## Reference
 
 <a id="1">[1]</a>
 Rudin, L. I.; Osher, S.; Fatemi, E. (1992). "Nonlinear total variation based noise removal algorithms". Physica D. 60 (1–4): 259–268
+
+<a id="2">[2]</a>
+Lehtinen, Jaakko, et al. "Noise2Noise: Learning image restoration without clean data." arXiv preprint arXiv:1803.04189 (2018).
+
+<a id="3">[3]</a>
+Krull, Alexander, Tim-Oliver Buchholz, and Florian Jug. "Noise2void-learning denoising from single noisy images." Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2019.
