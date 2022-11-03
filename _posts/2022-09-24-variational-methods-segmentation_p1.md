@@ -13,11 +13,26 @@ Convolution neural networks usually appear in segmentation problems because of i
 
 Let $I: \Omega \rightarrow \mathbb{R}$ be a gray scale image, where $\Omega \subset \mathbb{R}^2$. The curve that segments image $I$ into 2 partitions is denoted as $C: [0, 1] \rightarrow \Omega$, in other words $C = (x(s), y(s))$ where $s \in [0, 1]$.
 
-There are innumerable curves $C$, so how do we know which one is the most suitable for a given image? To answer that, Kass et al [[1]](#1) proposed an energy function $E(C)$ and the process of finding $C$ is minimizing $E(C)$:
+What we need to do is **to find $C$**.
 
-$$E(C) = E_{int}(C) + E_{image}(C)$$
+But, there are **innumerable curves $C$**, so how do we know which one is **the most suitable** for a given image?
 
-The internal energy $E_{int}(C)$ contains 2 small terms:
+To answer that, we need **some criteria** for a good curve $C$:
+
+1. Two regions foreground and background in input image should be separated completely.
+2. The curve $C$ should be continuos and smooth as much as possible.
+
+With two above assumptions we can derive an energy function to find $C$:
+
+$$E(C) = E_{image}(C) + E_{int}(C)$$
+
+1. For the first criterion, we can utilize the property of image that is drastic change of intensity in edge regions to detect foreground and background. The energy function $E_{image}(C)$ should  forces the curve toward to that boundary of foreground and background: 
+
+$$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
+
+If the curve is at the flat background, the magnitude of image gradient is zero, while when the curve is at boundary, the magnitude is the largest. Because of this, the external energy is negative of image gradient magnitude. $E_{image}(C)$ is also called external energy since it depends mainly on the input image.
+
+2. In the second criterion helps us derive an internal energy of curve $C$ which evaluates the continuity and smoothness of an arbitrary curve:
 
 * Continuity term:
     $$E_{cont}(C) = \int_0^1  |C_s|^2 \, ds = \int_0^1 \left|\dfrac{\partial x}{\partial s}\right|^2 + \left|\dfrac{\partial y}{\partial s}\right|^2 ds$$
@@ -29,13 +44,9 @@ The purpose of the energy is **to penalize the non - continuos and non - smooth 
 
 $$E_{int}(C) = \int_0^1 \alpha(s) |C_s|^2 + \beta(s) |C_{ss}|^2 \, ds$$
 
-The external energy forces the curve toward to the boundary of the given image.
+Because of the diversity of object need to segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
 
-$$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
-
-If the curve is at the flat background, the magnitude of image gradient is zero, while when the curve is at boundary, the magnitude is the largest. Because of this, the external energy is negative of image gradient magnitude.
-
-The total energy function needed to minimize is:
+**The total energy function** (proposed by Kass et al [[1]](#1)) needed to **minimize** is: 
 
 $$E(C) = \dfrac{1}{2} \int_0^1 - |\nabla I(C)|^2 + \alpha (s) |C_s|^2 + \beta (s) |C_{ss}| \, ds$$
 
@@ -168,6 +179,25 @@ Input Images             |  Results
 ![](/figure/Snakes/complex.png)  |  ![](/figure/Snakes/complex.gif)
 ![](/figure/Snakes/flower.png)  |  ![](/figure/Snakes/flower.gif)
 
+## Discussion
+
+One of the weakness of *Snakes* is its heavy reliance on the initialization of the curve $C$.
+
+<p align = "center">
+    <img width="500"  src="/figure/Snakes/failure_case.gif"/>
+    <br>
+    <i>Failure Case</i>
+</p>
+
+
+When the initial curve is inside the flatten foreground, it keeps shrinking to find the boundary and then vanishes.
+
+This is due to the local search (doing line integral along the curve $C$). Many noticed this and replaced **unknown curve $C$** by another **unknown level surface $\Phi$**. Read in part 2. :)
+
+In addition, in implementation, two weighted parameters $\alpha(s)$ and $\beta(s)$ are treated as constants for the sake of simplicity during optimization process. The combination of these parameters directly affect to the segmentation results as you can see in the *4 - petal flower* example, where the curve $C$ can not shrink to fit the boundary. This can be solved by replacing $\alpha = \alpha(I)$ and $\beta = \beta(I)$ where $\alpha$ and $\beta$ are two encoder - decoder CNN, which is more flexible [[2]](#2).
+
 ## References
 
 <a id="1">[1]</a> Kass, Michael, Andrew Witkin, and Demetri Terzopoulos. "Snakes: Active contour models." International journal of computer vision 1.4 (1988): 321-331.
+
+<a id="2">[2]</a> Xu, Ziqiang, et al. "CVNet: Contour Vibration Network for Building Extraction." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022.
