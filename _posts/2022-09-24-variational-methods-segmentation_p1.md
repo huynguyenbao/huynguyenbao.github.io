@@ -30,7 +30,7 @@ $$E(C) = E_{image}(C) + E_{int}(C)$$
 
 $$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
 
-If the curve is at the **flat region**, the magnitude of image gradient is **zero**, while when the curve is at **boundary**, the magnitude is **the largest**. Because of this, the external energy is negative of image gradient magnitude. In addition, $E_{image}(C)$ is called external energy since it depends mainly on the input image.
+If the curve is at the **flat region**, the magnitude of image gradient is **zero**, while when the curve is at **boundary**, the magnitude is **the largest**. Because of this, the external energy is **negative of image gradient magnitude**. In addition, $E_{image}(C)$ is called external energy since it depends mainly on the input image.
 
 * In the **second criterion** helps us derive an internal energy of curve $C$ which evaluates the **continuity and smoothness of an arbitrary curve**:
 
@@ -185,7 +185,7 @@ Input Images             |  Results
 
 ## Discussion
 
-One of the weakness of *Snakes* is its heavy reliance on the initialization of the curve $C$.
+One of the weakness of *Snakes* is its **heavy reliance on the initialization** of the curve $C$.
 
 <p align = "center">
     <img width="500"  src="/figure/Snakes/failure_case.gif"/>
