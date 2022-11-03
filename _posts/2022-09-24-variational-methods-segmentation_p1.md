@@ -26,27 +26,29 @@ With two above assumptions we can derive an energy function to find $C$:
 
 $$E(C) = E_{image}(C) + E_{int}(C)$$
 
-1. For the first criterion, we can utilize the property of image that is drastic change of intensity in edge regions to detect foreground and background. The energy function $E_{image}(C)$ should  forces the curve toward to that boundary of foreground and background: 
+* For the **first criterion**, we can utilize the property of image that is **drastic change of intensity in edge regions** to detect foreground and background. The energy function $E_{image}(C)$ should **force the curve toward to that boundary** of foreground and background region: 
 
 $$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
 
-If the curve is at the flat background, the magnitude of image gradient is zero, while when the curve is at boundary, the magnitude is the largest. Because of this, the external energy is negative of image gradient magnitude. $E_{image}(C)$ is also called external energy since it depends mainly on the input image.
+If the curve is at the **flat region**, the magnitude of image gradient is **zero**, while when the curve is at **boundary**, the magnitude is **the largest**. Because of this, the external energy is negative of image gradient magnitude. In addition, $E_{image}(C)$ is called external energy since it depends mainly on the input image.
 
-2. In the second criterion helps us derive an internal energy of curve $C$ which evaluates the continuity and smoothness of an arbitrary curve:
+* In the **second criterion** helps us derive an internal energy of curve $C$ which evaluates the **continuity and smoothness of an arbitrary curve**:
 
-* Continuity term:
+  * Continuity term:
+  
     $$E_{cont}(C) = \int_0^1  |C_s|^2 \, ds = \int_0^1 \left|\dfrac{\partial x}{\partial s}\right|^2 + \left|\dfrac{\partial y}{\partial s}\right|^2 ds$$
 
-* Smoothness term:
+  * Smoothness term:
+  
     $$E_{curve}(C) = \int_0^1 |C_{ss}|^2 \, ds = \int_0^1 \left|\dfrac{\partial^2 x}{\partial s^2}\right|^2 + \left|\dfrac{\partial^2 y}{\partial s^2}\right|^2 ds$$
 
 The purpose of the energy is **to penalize the non - continuos and non - smooth curve**:
 
 $$E_{int}(C) = \int_0^1 \alpha(s) |C_s|^2 + \beta(s) |C_{ss}|^2 \, ds$$
 
-Because of the diversity of object need to segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
+Because of the diversity of object need to be segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
 
-**The total energy function** (proposed by Kass et al [[1]](#1)) needed to **minimize** is: 
+**The total energy function** (proposed by Kass et al [[1]](#1)) needed to **minimize** is:
 
 $$E(C) = \dfrac{1}{2} \int_0^1 - |\nabla I(C)|^2 + \alpha (s) |C_s|^2 + \beta (s) |C_{ss}| \, ds$$
 
@@ -54,27 +56,30 @@ $$E(C) = \dfrac{1}{2} \int_0^1 - |\nabla I(C)|^2 + \alpha (s) |C_s|^2 + \beta (s
 
 ### Euler - Lagrange equation
 
-What we need to find right now is not finite number of parameters but actually the **function $C$** and how we minimize energy function $E$ where $C$ is an argument?
+What we need to find right now is **not finite number of parameters** but actually the **function $C$** and how we minimize energy function $E$ where $C$ is an argument?
 
-According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition (Read more at [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)). The energy function can be written in the form:
+According to Euler - Lagrange equation, the optimal function $f$ must hold the **necessary condition** (Read more at [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)).
+
+The energy function can be written in the form:
 
 $$\begin{equation}
   E(C) = \int_0^1L(C, C_s, C_{ss}) \, ds
 \end{equation}$$
 
-And the necessary condition is:
+And the **necessary condition** is:
 
 $$\begin{equation}
   \dfrac{dE}{dC} = \dfrac{\partial L}{\partial Cs} - \dfrac{\partial}{\partial s}\left(\dfrac{\partial L}{\partial C_s}\right) + \dfrac{\partial ^ 2}{\partial s^2}\left(\dfrac{\partial L}{\partial C_{ss}}\right) = 0
 \end{equation}$$
 
-In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, at least we still can find an acceptable solution by using  gradient descent.
+In fact, this necessary condition does not guarantee that the solution is global optimum but only **local optimum**. However, at least we still can find an acceptable solution by using gradient descent.
 
 Continue to expand the above equation and get:
 
 Since $C = (x(s), y(s))$, we will take derivative two times, respect to $x$ and to $y$.
 
 * $x = x(s)$
+  
 $$\begin{aligned}
   \dfrac{dE}{dx} &= \dfrac{\partial L}{\partial x} - \dfrac{\partial}{\partial s}\left(\dfrac{\partial L}{\partial x_s}\right) + \dfrac{\partial ^2}{\partial s^2}\left(\dfrac{\partial L}{\partial x_{ss}}\right) \\
   &= -(I_{x}I_{xx} + I_yI_{yx}) - \alpha (s) \dfrac{\partial x'}{\partial s} + \beta (s) \dfrac{\partial x''}{\partial s^2} \\
@@ -84,14 +89,13 @@ $$\begin{aligned}
 where $x^{(2)}$ and $x^{(4)}$ respectively, are  the second and fourth order derivative of $x$ respect to $s$.
 
 * $y = y(s)$
+  
 $$\begin{aligned}
   \dfrac{dE}{dy} &= \dfrac{\partial L}{\partial y} - \dfrac{\partial}{\partial s}\left(\dfrac{\partial L}{\partial y_s}\right) + \dfrac{\partial ^2}{\partial s^2}\left(\dfrac{\partial L}{\partial y_{ss}}\right) \\
   &= -(I_{x}I_{xy} + I_yI_{yy}) - \alpha (s) y^{(2)} + \beta (s) y^{(4)}
 \end{aligned}$$
 
-For the sake of simplicity, both weight parameters $\alpha(s)$ and $\beta(s)$ are considered as constant $\alpha$ and $\beta$.
-
-*Note: If you see some below expressions a little bit challenging, you can read this blog [this](https://huynguyenbao.github.io/posts/2021/08/variational-methods/) to have sense of how this method works.*
+For the sake of simplicity, both weight parameters $\alpha(s)$ and $\beta(s)$ are considered as **constants $\alpha$ and $\beta$**.
 
 ### Finite Difference
 
@@ -189,12 +193,11 @@ One of the weakness of *Snakes* is its heavy reliance on the initialization of t
     <i>Failure Case</i>
 </p>
 
-
-When the initial curve is inside the flatten foreground, it keeps shrinking to find the boundary and then vanishes.
+When the initial curve is **inside the flatten foreground**, it keeps **shrinking to find the boundary** and then **vanishes**.
 
 This is due to the local search (doing line integral along the curve $C$). Many noticed this and replaced **unknown curve $C$** by another **unknown level surface $\Phi$**. Read in part 2. :)
 
-In addition, in implementation, two weighted parameters $\alpha(s)$ and $\beta(s)$ are treated as constants for the sake of simplicity during optimization process. The combination of these parameters directly affect to the segmentation results as you can see in the *4 - petal flower* example, where the curve $C$ can not shrink to fit the boundary. This can be solved by replacing $\alpha = \alpha(I)$ and $\beta = \beta(I)$ where $\alpha$ and $\beta$ are two encoder - decoder CNN, which is more flexible [[2]](#2).
+In addition, in implementation, two weighted parameters $\alpha(s)$ and $\beta(s)$ are treated as constants for the sake of simplicity during optimization process. However, if we do not carefully choose values for the parameters, we could not get a desired result, as you can see in the *4 - petal flower* example, where the curve $C$ can not shrink to fit the boundary. Recently,  Xu, Ziqiang, et al [[2]](#2) fixed this by **replacing $\alpha = \alpha(I)$ and $\beta = \beta(I)$ where $\alpha$ and $\beta$ are two encoder - decoder CNN, which is more flexible**.
 
 ## References
 
