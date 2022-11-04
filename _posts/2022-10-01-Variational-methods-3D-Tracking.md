@@ -22,7 +22,7 @@ $$T = \left[\begin{matrix}
 
 with $R \in \mathbb{SO}(3)$ and $\textbf{t} \in \mathbb{R}^3$.
 
-*To understand more about the definition of $\mathbb{SE}(3)_$ (_Lie-group_ Special Euclidean_) as well as its properties, we recommend you to read chapter 2 of the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934).*
+*To understand more about the definition of $\mathbb{SE}(3)$ (Lie-group Special Euclidean) as well as its properties, we recommend you to read chapter 2 of the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934).*
 
 Another assumption of this tracking problem is that we must have the intrinsic matrix $K$ of our camera. This can be achieved easily by estimating the matrix with multiple checkerboard images captured beforehand.
 
@@ -85,7 +85,6 @@ $$\xi = [\omega_1, \omega_2, \omega_3, v_1, v_2, v_3]^T \in \mathbb{R}^6$$
 and the matrix exponential:
 
 $$\Delta T = \operatorname{exp}(\hat{\xi}) \in \mathbb{SE}(3)$$
-
 
 ## Statistical Image Segmentation
 
