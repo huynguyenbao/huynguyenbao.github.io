@@ -6,12 +6,12 @@ tags:
   - Computer Vision
 ---
 
-**A Corner** is a point whose local neighborhood stands in two dominant and different edge directions. In other words, a corner can be interpreted as the junction of two edges, where an edge is a sudden change in image brightness. Corners are the important features in the image, and they are generally termed as interest points which are invariant to translation, rotation and illumination.
+**A Corner** is a point whose local neighborhood stands in two dominant and different edge directions. In other words, a corner can be interpreted as the junction of two edges, where an edge is a sudden change in image brightness. Corners are the important features in the image, and they are generally termed as interest points that are invariant to translation, rotation, and illumination.
 
 Formulation and Solution
 -----
 
-**The Harris corner detector** uses geometry property of corners to detect them. As you see in the first image in figure 2, content of green window does not change when we shift the window in all direction. In the second, when the window lies on edge, its content does not change along edge direction, only change when shifting in other directions. Finally, is the case window lies on corner, the content of window varies when we shifts it in **all directions**. So that, we will find the corner region by placing a window in that place, if window content varies strongly in all directions, that region is corner. The **window content varies strongly** definition is measured by sum of square distance (SSD).
+**The Harris corner detector** uses the geometry property of corners to detect them. As you see in the first image in figure 2, the content of the green window does not change when we shift the window in all directions. In the second, when the window lies on edges, its content does not change along the edge direction, only changes when shifting in other directions. Finally, in cases the window lies on a corner, the content of the window varies when we shift it in **all directions**. So, we will find the corner region by placing a window in that place, if window content varies strongly in all directions, that region is the corner. The **window content varies strongly** definition is measured by taking sum of square distance (SSD).
 
 <p align="center">
     <img width="400"  src="/figure/harris_corner/corner.png"/>
@@ -19,11 +19,11 @@ Formulation and Solution
     <i>Figure 2: Intuition of Harris Corner Detector</i>
 </p>
 
-The variation can be defined as a sum of square-distance (SSD) as below, $(u, v)$ denotes the shift vector, $W$ is region needed to determine , $w(x,y)$ is a window function, $I(x,y)$ is image function, and at coordinate $(x, y)$,image has a certain intensity. The window function usually chosen is a rectangle or gaussian function.
+The variation can be defined as a sum of square distance (SSD) as below, $(u, v)$ denotes the shift vector, $W$ is the region needed to determine, $w(x,y)$ is a window function, $I(x,y)$ is image function, and at coordinate $(x, y)$, the image has a certain intensity. The window function usually chosen is a rectangle or gaussian function.
 
 $$ E(u, v) \approx \sum_{(x, y) \, \in \,W} w(x, y) \, [\,I(x + u, y+ v) - I(x, y)\,] \,^ {2} $$
 
-**The energy function value of $E(u, v)$ in region $W$ should be large for any shift.**
+**The energy function value of $E(u, v)$ in the region $W$ should be large for any shift.**
 
 The shifted intensity can be approximated by Taylor expansion:
 
@@ -72,7 +72,7 @@ $$\begin{aligned}
       & = \lambda_1 \lambda_2 - k \, (\lambda_1 +\lambda_2)^{2}.
 \end{aligned}$$
 
-The parameter k is usually set to between 0.04 and 0.06. If $R$ is large, it is corner. Otherwise negative $R$, it'll be edge; positive $R$ but small, the flat region.
+The parameter k is usually set to between 0.04 and 0.06. If $R$ is large, it is a corner. Otherwise negative $R$, it'll be edge; positive $R$ but small, the flat region.
 
 <!-- <p align = "center">
     <img width="300"  src="/figure/harris_corner/harris_region.jpg"/>
@@ -98,4 +98,4 @@ which basically means if $R$ is greater than a threshold, it is classified as a 
     <i>Figure 4: Shi-Tomashi Region</i>
 </p>
 
-Finally, the method is applied non-max suppression algorithm to remove redundant points.
+Finally, the method is applied non - max suppression algorithm to remove redundant points.

@@ -6,7 +6,7 @@ tags:
   - Computer Vision
 ---
 
-**Optical flow** is the pattern of appearance objects motion in image, between two successive frames caused by the movement of objects or camera. It is a 2D vector field, where each vector represents a displacement or movement of feature from first frame to second frame (see the below image).
+**Optical flow** is the pattern of appearance of objects' motion in an image, between two successive frames caused by the movement of objects or the camera. It is a 2D vector field, where each vector represents a displacement or movement of features from a first frame to a second frame (see the below image).
 
 ![alt text](/figure/optical_flow/definition.png "Title")
 
@@ -19,13 +19,13 @@ Being given 2 successive frames $I_1$ and $I_2$, we need to find the motion vect
 
 To solve this problem, [Horn & Schunck](https://www.caam.rice.edu/~zhang/caam699/opt-flow/horn81.pdf) had made some assumptions:
 
-1. **Images are captured in ambient light**: This means that the intensity of pixels do not depend on position of the camera.
+1. **Images are captured in ambient light**: This means that the intensity of pixels does not depend on the position of the camera.
 
 2. **Spatial Motion**: Pixels do not move fast.
 
 3. **Spatial Correlation**: All neighbors of one pixel also have the same motion as the center one.
 
-After having some assumptions, the problem can  be solved this easily.
+After having some assumptions, the problem can be solved easily.
 
 The first assumption let we have the equation: $I(x, y, t) = I(x + dx, y + dy, t + dt)$
 
@@ -39,7 +39,7 @@ $I(x, y, t) = I(x + dx, y + dy, t + dt) \approx I(x, y, t) + \nabla I_x dx + \na
 
 $\rightarrow \nabla I_x dx + \nabla I_y dy + \nabla I_t \approx 0.$ (1)
 
-Where $\nabla I_x$, $\nabla I_y$, $\nabla I_t$ are gradient of image respect to x-axis, y-axis, and time.
+Where $\nabla I_x$, $\nabla I_y$, $\nabla I_t$ are derivatives of image $I$ with respect to x - axis, y-axis, and time.
 
 $\nabla I_x (x, y)= I_t (x + 1, y) - I_t (x - 1, y)$.
 
@@ -49,7 +49,7 @@ $\nabla I_t (x, y)= I_{t + 1} (x, y) - I_t(x, y)$.
 
 To find $dx$, $dy$ in equation (1), we need at least 2 equations, and the last assumption will help us.
 
-In the third assumption, all neighbor of pixel will have the same motion. So that, we can assume that $3\times3$ region around pixel will have the same motion. Now we have 9 equations, so we can solve equation (1).
+In the third assumption, all neighbors of a pixel will have the same motion. So, we can assume that a $3\times3$ region around a pixel will have the same motion. Now we have 9 equations, so we can solve equation (1).
 
 $$\left[\begin{array}{cc}
     I_{x1} & I_{y1} \\
@@ -71,6 +71,6 @@ $$\left[\begin{array}{cc}
 \end{array}\right]
 $$
 
-The equation above can be considered as a liner system: $Ax = b$ with $x^T = \left[dx \quad dy\right]$.
+The equation above can be considered as a linear system: $Ax = b$ with $x^T = \left[dx \quad dy\right]$.
 
-There ara a lot of methods used to solve this equation: Close form, Pseudo Inverse, [Least squares](https://en.wikipedia.org/wiki/Least_squares), [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination), [Jacobi method](https://en.wikipedia.org/wiki/Jacobi_method) and [Gauss–Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#:~:text=In%20numerical%20linear%20algebra%2C%20the,a%20system%20of%20linear%20equations.). Or even, you can utilize [SVD](https://www.youtube.com/watch?v=PjeOmOz9jSY) to solve.
+There are a lot of methods used to solve this equation: Close form, Pseudo Inverse, [Least squares](https://en.wikipedia.org/wiki/Least_squares), [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination), [Jacobi method](https://en.wikipedia.org/wiki/Jacobi_method), and [Gauss–Seidel method](https://en.wikipedia.org/wiki/Gauss%E2%80%93Seidel_method#:~:text=In%20numerical%20linear%20algebra%2C%20the,a%20system%20of%20linear%20equations.). Or even, you can utilize [SVD](https://www.youtube.com/watch?v=PjeOmOz9jSY) to solve.

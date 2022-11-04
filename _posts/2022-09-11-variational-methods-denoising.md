@@ -7,18 +7,18 @@ tags:
   - Computer Vision
 ---
 
-Variational methods are really powerful which has a variety of applications such as 2D segmentation and 3D reconstruction. However, today I will present to you one of their interesting applications: Image Denoising.
+Variational methods are really powerful and have a variety of applications such as 2D segmentation and 3D reconstruction. However, today I will present to you one of their interesting applications: Image Denoising.
 
-Nowadays, the popularity and the adaptability power of CNNs are making engineers become depend on more dataset with human labeled ground truth, and the designing of CNNs like playing Lego, adding blocks, feeding an random input and anticipating a desire output. But have you imagined how "our ancestors" can remove noise in image without ground-truth? If you do, let's dive into mathematics :).
+Nowadays, the popularity and the adaptability power of CNNs are making engineers depend on more datasets with human-labeled ground truth, and the designing of CNNs like playing Lego, adding blocks, feeding a random input, and anticipating the desired output. But have you imagined how "our ancestors" can remove noise in an image without ground truth? If you do, let's dive into mathematics :).
 
 ## Formulation
 
-Let $f: \Omega \rightarrow \mathbb{R}$ be a gray scaled image on a domain $\Omega \in \mathbb{R}^2$. Assume that we observed a noisy image $u$ and want to recover to free-noise image $f$. However, we do not know noise sources (white noise or poison), additive noise or multiplicate noise but only one noisy image $u$. To solve this inverse problem, we can have two assumptions based on our observation:
+Let $f: \Omega \rightarrow \mathbb{R}$ be a gray-scaled image on a domain $\Omega \in \mathbb{R}^2$. Assume that we observed a noisy image $u$ and want to recover to free-noise image $f$. However, we do not know noise sources (white noise or poison), additive noise, or multiplicate noise but only one noisy image $u$. To solve this inverse problem, we can have two assumptions based on our observation:
 
 * The structure of $f$ should be *similar as possible* to that of $u$.
 * $f$ should be *spatially smooth*.
 
-With two above assumptions we can derive an energy function to find $f$:
+With the two above assumptions we can derive an energy function to find $f$:
 
 $$\begin{align}
   E(f, u) &= E_{structure}(f, u) + E_{smoothness}(f) \\
@@ -45,13 +45,13 @@ $$\begin{aligned}
   &= \dfrac{1}{2}\iint_{\Omega} (f - u)^2 + \lambda (f_x^2 + f_y^2) \, \text{d}x\,\text{d}y
 \end{aligned}$$
 
-where $\lambda$ is weighted number.
+where $\lambda$ is a weighted number.
 
 ## Solution
 
-What we need to find right now is not finite number of parameters but actually the **function $f$** and how we minimize energy function $E$ where $f$ is an argument?
+What we need to find right now is not a finite number of parameters but actually the **function $f$** and how we minimize energy function $E$ where $f$ is an argument
 
-According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition (Read more at [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)). The energy function can be written in the form:
+According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition (Read more [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)). The energy function can be written in the form:
 
 $$\begin{equation}
   E(f, u) = \iint_{\Omega}L(f, f_x, f_y,u) \, \text{d}x \, \text{d}y
@@ -63,7 +63,7 @@ $$\begin{equation}
   \dfrac{dE}{df} = \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) = 0
 \end{equation}$$
 
-In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, as least we still can find an acceptable solution by using  gradient decent.
+In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, at least we still can find an acceptable solution by using gradient descent.
 
 Continue to expand the above equation to get:
 
@@ -124,7 +124,7 @@ Noisy Image             |  Denoised Image
 
 ### Alternative for Smoothness Term
 
-Regarding the energy function above, since the $E_{structure}$ is fixed in order to preserve the image structure while optimizing, people usually tweak and modify $E_{smoothness}$ to achieve desired results. **Total variation $L_1$** term can be an alternative for $L_2$ which makes edges in image *sharper* instead of blurry:
+Regarding the energy function above, since the $E_{structure}$ is fixed in order to preserve the image structure while optimizing, people usually tweak and modify $E_{smoothness}$ to achieve desired results. **Total variation $L_1$** term can be an alternative for $L_2$ which makes edges in an image *sharper* instead of blurrier:
 
 $$E_{smoothness}(f) = \int_\Omega ||\nabla f|| \, \text{d}x \, \text{d}y = \int_\Omega \sqrt{f_x^2 + f_y^2} \, \text{d}x \, \text{d}y$$
 
@@ -144,17 +144,17 @@ Noisy Image             |  $L_2$ Denoised Image           |  $L_1$ Denoised Imag
 We can easily notice that the image used $L_1$ loss is **shaper than** the one used $L_2$.
 
 
-**The smoothness term $L_1$** and its variations are usually used beside the difference between predicted images and ground truths while training image denoising CNN models **to preserve the clarity of detail in photo**.
+**The smoothness term $L_1$** and its variations are usually used beside the difference between predicted images and ground truths while training CNN-based image denoising models **to preserve the clarity of detail in photos**.
 
 ### Contrast to Deep Learning
 
-The formulation of DL image denoising methods is a little bit different to variational methods, which is:
+The formulation of DL image denoising methods is a little bit different from variational methods, which is:
 
 $$\theta = \underset{\theta}{\operatorname{arg min}} \, ||g_\theta(\textbf{y}) - \textbf{x}||_p$$
 
-where $\textbf{y}$ is observed noisy image, $\textbf{x}$ is clean image and $g_\theta(.)$ is a denoising CNN model with parameters $\theta$.
+where $\textbf{y}$ is observed noisy image, $\textbf{x}$ is clean image and $g_\theta(.)$ is a CNN-based denoising model with parameters $\theta$.
 
-However, having realistic ground truth image may be a challenging problem of this field since **shot noise (photon noise) is inevitable** when capturing a realistic image (ground truth is achieve by averaging a burst image - set of images capturing within small period of time). The image quality of result images of DL based methods usually is better than traditional, but normally only works on trained datasets. In some works like **medical image denoising**, where ground truths are **impossible to achieve**, self - supervised methods like *variational methods* or recently *noise2noise[[2]](#2), noise2void[[3]](#3)* are preferred.
+However, having a realistic ground truth image may be a challenging problem in this field since **shot noise (photon noise) is inevitable** when capturing a realistic image (ground truth is achieved by averaging a burst image - a set of images captured within a small period of time). The image quality of result images of CNN-based methods usually is better than traditional, but normally only works on trained datasets. In some works like **medical image denoising**, where ground truths are **impossible to achieve**, self-supervised methods like *variational methods* or recently *noise2noise[[2]](#2), noise2void[[3]](#3)* are preferred.
 
 ## Reference
 

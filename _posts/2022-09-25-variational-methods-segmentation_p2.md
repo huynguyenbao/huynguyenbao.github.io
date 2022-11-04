@@ -42,7 +42,7 @@ $$\begin{aligned}
          &+ \lambda_2 \iint_{R_o} |I(x,y) - c_o|^2 \, dx \, dy
 \end{aligned}$$
 
-The **crucial step** of this method is to **replace an unknown curve $C: [0, 1] \rightarrow \Omega \subset \mathbb{R}^2$ by an unknown surface $\phi: \Omega \subset \mathbb{R}^2 \rightarrow \mathbb{R}$**. The curve $C$, region inside $C$ - $R_i$ and outside $C$ - $R_o$ can be re - defined:
+The **crucial step** of this method is to **replace an unknown curve $C: [0, 1] \rightarrow \Omega \subset \mathbb{R}^2$ by an unknown surface $\phi: \Omega \subset \mathbb{R}^2 \rightarrow \mathbb{R}$**. The curve $C$, region inside $C$ - $R_i$ and outside $C$ - $R_o$ can be re-defined:
 
 $$\begin{equation*}
 \begin{cases}
@@ -52,7 +52,7 @@ C &= \{(x, y) \in \Omega \, | \, \phi(x, y) = 0\} \\
 \end{cases}
 \end{equation*}$$
 
-We can compute length of curve $C$ and area of region inside $C$ by using *heaviside step function* and its derivative *dirac delta function*:
+We can compute the length of curve $C$ and area of the region inside $C$ by using *Heaviside step function* and its derivative *Dirac delta function*:
 
 $$\begin{aligned}
     \operatorname{Length}(C) &= \iint_\Omega |\nabla H (\phi(x, y))| \, dx \,dy = \iint_\Omega \delta(\phi(x ,y))|\nabla \phi(x, y)| \, dx \,dy \\
@@ -98,7 +98,7 @@ $$\begin{aligned}
 
 ## Solution
 
-Again, the method solving this problem is **Euler - Lagrange Equation** and **gradient decent**. We recommend you read the previous blog to familiarize yourself with the way we expand formulation.
+Again, the method solving this problem is **Euler - Lagrange Equation** and **gradient descent**. We recommend you read the previous blog to familiarize yourself with the way we expand formulation.
 
 $$\begin{aligned}
     E(\phi, c_i, c_o) &= \iint_\Omega \mu \, \delta(\phi (x, y)) |\nabla \phi (x, y)| + \nu \, H(\phi (x, y))\\ 
@@ -112,7 +112,7 @@ $$\begin{aligned}
   \underset{\phi, c_i, c_o}{\operatorname{arg\,min}} \, E(\phi, c_1, c_2) = \iint_\Omega L(\phi, \nabla \phi, c_i, c_o) \, dx \, dy
 \end{aligned}$$
 
-To solve this, first we would iteratively find optimal values/ function of each $c_i$, $c_o$ and $\phi$:
+To solve this, first, we would iteratively find optimal values/ function of each $c_i$, $c_o$ and $\phi$:
 
 * **Step 1**: Considering $\phi$ and $c_o$ as constants, the optimal value of $c_i$ is:
    $$c_i = \dfrac{\iint_\Omega H(\phi (x, y)) I(x, y) \, dx \, dy}{\iint_\Omega I(x, y) \, dx \, dy}$$
@@ -122,7 +122,7 @@ To solve this, first we would iteratively find optimal values/ function of each 
 * **Step 3**: Considering $c_i$ and $c_o$ as constants, update step of $\phi$ is:
    $$\dfrac{\partial \phi}{\partial t} = - \dfrac{dE}{d\phi} = \delta(\phi) \left( \mu \operatorname{div} \left(\dfrac{\nabla \phi}{|\nabla \phi|} \right) - \nu - \lambda_1 (I - c_i)^2 + \lambda_2 (I - c_o)^2 \right)$$
 
-In implementation, rather having heaviside step and dirac delta function as discrete functions, we replace them by their softer versions:
+In the implementation, rather than having Heaviside step and Dirac delta function as discrete functions, we replace them with their softer versions:
 
 $$\begin{aligned}
     H(x) &= \dfrac{1}{2}\left( 1 + \dfrac{2}{\pi} \operatorname{arctan}\left( \dfrac{x}{\epsilon}\right)\right) \\

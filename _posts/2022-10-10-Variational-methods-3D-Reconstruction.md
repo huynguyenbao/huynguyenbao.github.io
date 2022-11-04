@@ -7,7 +7,7 @@ tags:
   - 3D Computer Vision
 ---
 
-There are numerous methods for reconstructing a real object into mesh such as voxel carving which processes independently the input images or structure from motion. However, in this blog, we would like to introduce to you another solution for this ill-posed inverse computer vision problem. This method is volumetric approach, where each voxel is assigned two probability values for being in or out of 3D object. Let's start.
+There are numerous methods for reconstructing a real object into mesh such as voxel carving which processes independently the input images or structure from motion. However, in this blog, we would like to introduce to you another solution for this ill-posed inverse computer vision problem. This method is a volumetric approach, where each voxel is assigned two probability values for being in or out of 3D object. Let's start.
 
 ![](/figure/3DReconstruction/multiple-view-3D-recon.png)
 
@@ -15,7 +15,7 @@ There are numerous methods for reconstructing a real object into mesh such as vo
 
 ## Preliminaries
 
-Before diving to the main sections, we have to go through notations first.
+Before diving into the main sections, we have to go through notations first.
 
 ### Volume
 
@@ -74,12 +74,12 @@ $$\textbf{u}(\textbf{v}) = \begin{cases}
 
 where $\textbf{v}$ is a 3D coordinate of a voxel in volume $V$.
 
-Summary, the <u>inputs</u> of our 3D reconstruction problem include:
+In summary, the <u>inputs</u> of our 3D reconstruction problem include:
 
 * Sequence of images $\{I_i\}$
 * Sequence of model - view - projection matrices $\{\pi_i\}$ corresponding
 
-<u>What we need to find is so - called shape function $\textbf{u}(.)$</u>.
+<u>What we need to find is so-called shape function $\textbf{u}(.)$</u>.
 
 ## Generative Model
 
@@ -90,12 +90,12 @@ It is extremely challenging if there is no assumption for an inverse problem lik
 where:
 
 * $i$: the index of a frame - $i = 1...n$.
-* $R$: is a region variable, can be foreground or background region - $R \in \{R_f, R_b\}$
+* $R$: is a  random region variable, can be foreground or background - $R \in \{R_f, R_b\}$
 * $\textbf{c}$: color of voxel after being projected to $i^{th}$ image - $\textbf{c} \in \mathbb{R}^3$
 * $\textbf{v}$: voxel coordinate in volume $V$ - $\textbf{v} \in \mathbb{R}^3$
 * $\textbf{u}$: shape function of 3D object
 
-This graphical model may be biased to the heuristic of designers but in some point it is still valid. The random variable $\textbf{v}$ in $V$ depends on not only the shape of 3D object (obviously) but also foreground or background region $R$ that its projection to image planes belongs to. Whereas, the variable color $\textbf{c}$ undoubtedly depends on the region $R$.
+This graphical model may be biased to the heuristic of designers but in some point, it is still valid. The random variable $\textbf{v}$ in $V$ depends on not only the shape of 3D object (obviously) but also the foreground or background region $R$ that its projection to image planes belongs to. Whereas, the variable color $\textbf{c}$ undoubtedly depends on the region $R$.
 
 ## Maximizing A Posteriori
 
@@ -124,9 +124,9 @@ $$\begin{aligned}
     &\propto \underset{\textbf{v} \in \Omega_3}{\prod}\left\{\sum_{i\in \{ f, b\}} P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n})\right\}
 \end{aligned}$$
 
-The posterior has reveal its formulation, but we still have not known each small term in it.
+The posterior has revealed its formulation, but we still have not known each small term in it.
 
-* For **region posterior**, we can get its equation by applying Bayes' rule:
+* For the **region posterior**, we can get its equation by applying Bayes' rule:
 
 $$P(R_{i, 1...n} \mid \textbf{c}_{1...n}) = \dfrac{P(\textbf{c}_{1...n} \mid R_{i, 1...n}) P(R_{i,1...n})}{\underset{j \in \{f, b\}}{\sum}P(\textbf{c}_{1...n} \mid R_{j, 1...n}) P(R_{j,1...n})}$$
 
@@ -157,7 +157,7 @@ $$\begin{aligned}
 
 and $\zeta_f, \zeta_b$ being the average number of voxels (over n views) that project to a foreground pixel (with $P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$ and  $\textbf{c} = I_m(\pi_m(\textbf{v}))$) and a background pixel, respectively.
 
-Now, one question has come is that how can we compute two probabilities $$P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$$ with $$i \in \{ f, b\}$$. A straightforward way is to treat $$\{P(\textbf{c}_k \mid R_{i, k})\}$$ independently. Based on visibility, the probability of a voxel in foreground is equivalent to the probability that all cameras observe this voxel in foreground, whereas the probability of a voxel being a part of background is that at least one camera sees it as background. This way is pretty similar to voxel carving when a voxel is considered as background if its project on background.
+Now, one question has come is that how can we compute two probabilities $$P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$$ with $$i \in \{ f, b\}$$. A straightforward way is to treat $$\{P(\textbf{c}_k \mid R_{i, k})\}$$ independently. Based on visibility, the probability of a voxel in the foreground is equivalent to the probability that all cameras observe this voxel in the foreground, whereas the probability of a voxel being a part of the background is that at least one camera sees it as the background. This way is pretty similar to voxel carving when a voxel is considered as background if its projection on the background.
 
 $$\begin{aligned}
     P(\textbf{c}_{1...n} \mid R_{f, 1...n}) &= \prod_{k=1}^nP(\textbf{c}_k \mid R_{f, k}) \\
@@ -186,13 +186,13 @@ $$\begin{aligned}
     P_o &= \dfrac{\bar{\eta}_b}{\zeta_b}\dfrac{P(\textbf{c}_{1...n} \mid R_{b, 1...n})}{P(\textbf{c}_{1...n} \mid R_{f, 1...n}) \bar{\eta}_f + P(\textbf{c}_{1...n} \mid R_{b, 1...n}) \bar{\eta}_b}
 \end{aligned}$$
 
-There are many numerical optimization methods to maximize this posterior (basically it is likelihood) such as taking logarithm and using gradient descent, projected gradient descent or Gauss Newton Strategy. However for globally solvable formulation, Victor et al [[1]](#1) replaced logarithmic opinion pool by a linear opinion pool to fuse pixel - wise posteriors and added weighted surface regularization term:
+There are many numerical optimization methods to maximize this posterior (basically it is likelihood) such as taking logarithm and using gradient descent, projected gradient descent or Gauss Newton Strategy. However, for an globally solvable formulation, Victor et al [[1]](#1) replaced the logarithmic opinion pool by a linear opinion pool to fuse pixel-wise posteriors and added a weighted surface regularization term:
 
 $$E = \sum_{\textbf{v} \in \Omega_3}\{uP_i + (1 - u) P_o + \alpha |\nabla u| \}$$
 
 where $\alpha$ is a tunable parameter.
 
-For fast and global convergence, Victor et al [[1]](#1)  used continuos min cut / max flow [[3]](#3):
+For fast and global convergence, Victor et al [[1]](#1)  used continuous min-cut / max-flow [[3]](#3):
 
 $$E = \underset{p_t, p_s, p}{\operatorname{max}} \,\, \underset{u}{\operatorname{min}}\sum_\textbf{v}\{ u\cdot p_t + (1 - u) \cdot p_s + u \cdot \operatorname{div}p\}$$
 
@@ -209,13 +209,13 @@ To know the details of the algorithm, visit [[3]](#3) and [[4]](#4)
 
 ## Results
 
-Some may ask how can we know $\{\pi_k\}$ in the real environment?
+Some may ask how can we know $\{\pi_k\}$ in the real environment.
 
-To answer this, we use **ARCore** which simultaneously localizes the position of the camera in 3D world. The setting in mobile phone is straightforward.
+To answer this, we use **ARCore** which simultaneously localizes the position of the camera in 3D world. The setting on mobile phones is straightforward.
 
 * First, users will scan floors or flatten areas in order to detect the plane and estimate the camera poses.
 * Next step is to put a large cube (volume) on the detected plane and put the object needed to scan inside the cube.
-* Finally, to achieve the best result, users have to go around object to observe all the perspectives of it.
+* Finally, to achieve the best result, users have to go around the object to observe all the perspectives of it.
 
 <p align = "center">
 <iframe width="560"

@@ -7,11 +7,11 @@ tags:
   - Computer Vision
 ---
 
-Convolution neural networks usually appear in segmentation problems because of its high adaptation to many datasets and high performance. However, in return, they require ground truth data to learn and perform specific tasks, without ground truth their results are really poor. Today, I will introduce to you “old” segmentation methods but it can be applied in several certain problems in absence of datasets. This is called **Snakes: Active Contours Models**.
+Convolution neural networks usually appear in segmentation problems because of their high adaptation to many datasets and high performance. However, in return, they require ground truth data to learn and perform specific tasks, without ground truth their results are really poor. Today, I will introduce to you “old” segmentation methods but they can be applied to several certain problems in absence of datasets. This is called **Snakes: Active Contours Models**.
 
 ## Formulation
 
-Let $I: \Omega \rightarrow \mathbb{R}$ be a gray scale image, where $\Omega \subset \mathbb{R}^2$. The curve that segments image $I$ into 2 partitions is denoted as $C: [0, 1] \rightarrow \Omega$, in other words $C = (x(s), y(s))$ where $s \in [0, 1]$.
+Let $I: \Omega \rightarrow \mathbb{R}$ be a gray-scaled image, where $\Omega \subset \mathbb{R}^2$. The curve that segments image $I$ into 2 partitions is denoted as $C: [0, 1] \rightarrow \Omega$, in other words $C = (x(s), y(s))$ where $s \in [0, 1]$.
 
 What we need to do is **to find $C$**.
 
@@ -19,20 +19,20 @@ But, there are **innumerable curves $C$**, so how do we know which one is **the 
 
 To answer that, we need **some criteria** for a good curve $C$:
 
-1. Two regions foreground and background in input image should be separated completely.
-2. The curve $C$ should be continuos and smooth as much as possible.
+1. Two regions foreground and background in the input image should be separated completely.
+2. The curve $C$ should be continuous and smooth as much as possible.
 
-With two above assumptions we can derive an energy function to find $C$:
+With the two above assumptions we can derive an energy function to find $C$:
 
 $$E(C) = E_{image}(C) + E_{int}(C)$$
 
-* For the **first criterion**, we can utilize the property of image that is **drastic change of intensity in edge regions** to detect foreground and background. The energy function $E_{image}(C)$ should **force the curve toward to that boundary** of foreground and background region:
+* For the **first criterion**, we can utilize the property of an image that is the **drastic change of intensity in edge regions** to detect foreground and background. The energy function $E_{image}(C)$ should **force the curve toward that boundary** of foreground and background region:
 
 $$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
 
-If the curve is at the **flat region**, the magnitude of image gradient is **zero**, while when the curve is at **boundary**, the magnitude is **the largest**. Because of this, the external energy is **negative of image gradient magnitude**. In addition, $E_{image}(C)$ is called external energy since it depends mainly on the input image.
+If the curve is at the **flat region**, the magnitude of the image gradient is **zero**, while when the curve is at the **boundary**, the magnitude is **the largest**. Because of this, the external energy is **negative of image gradient magnitude**. In addition, $E_{image}(C)$ is called external energy since it depends mainly on the input image.
 
-* In the **second criterion** helps us derive an internal energy of curve $C$ which evaluates the **continuity and smoothness of an arbitrary curve**:
+* Tn the **second criterion** helps us derive an internal energy of curve $C$ which evaluates the **continuity and smoothness of an arbitrary curve**:
 
   * Continuity term:
   
@@ -42,13 +42,13 @@ If the curve is at the **flat region**, the magnitude of image gradient is **zer
   
     $$E_{curve}(C) = \int_0^1 |C_{ss}|^2 \, ds = \int_0^1 \left|\dfrac{\partial^2 x}{\partial s^2}\right|^2 + \left|\dfrac{\partial^2 y}{\partial s^2}\right|^2 ds$$
 
-The purpose of the energy is **to penalize the non - continuos and non - smooth curve**:
+The purpose of the energy is **to penalize the non-continuous and non-smooth curve**:
 
 $$E_{int}(C) = \int_0^1 \alpha(s) |C_s|^2 + \beta(s) |C_{ss}|^2 \, ds$$
 
-Because of the diversity of object need to be segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
+Because of the diversity of objects needed to be segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
 
-Finally, **finding the curve $C$ fulfilling two those criteria is minimizing the total energy function** (proposed by Kass et al [[1]](#1)):
+Finally, **finding the curve $C$ fulfilling these criteria is minimizing the total energy function** (proposed by Kass et al [[1]](#1)):
 
 $$C = \underset{C}{\operatorname{arg min}} \, E(C) = \underset{C}{\operatorname{arg min}} \, \dfrac{1}{2} \int_0^1 - |\nabla I(C)|^2 + \alpha (s) |C_s|^2 + \beta (s) |C_{ss}| \, ds$$
 
@@ -56,9 +56,9 @@ $$C = \underset{C}{\operatorname{arg min}} \, E(C) = \underset{C}{\operatorname{
 
 ### Euler - Lagrange equation
 
-What we need to find right now is **not finite number of parameters** but actually the **function $C$** and how we minimize energy function $E$ where $C$ is an argument?
+What we need to find right now is **not a finite number of parameters** but actually the **function $C$** and how we minimize energy function $E$ where $C$ is an argument
 
-According to Euler - Lagrange equation, the optimal function $f$ must hold the **necessary condition** (Read more at [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)).
+According to Euler - Lagrange equation, the optimal function $f$ must hold the **necessary condition** (Read more [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)).
 
 The energy function can be written in the form:
 
@@ -76,7 +76,7 @@ In fact, this necessary condition does not guarantee that the solution is global
 
 Continue to expand the above equation and get:
 
-Since $C = (x(s), y(s))$, we will take derivative two times, respect to $x$ and to $y$.
+Since $C = (x(s), y(s))$, we will take the derivative two times, with respect to $x$ and to $y$.
 
 * $x = x(s)$
   
@@ -99,7 +99,7 @@ For the sake of simplicity, both weight parameters $\alpha(s)$ and $\beta(s)$ ar
 
 ### Finite Difference
 
-In reality, we define the curve $C$ by a set of points $\{x_i, y_i\}$ not by parametric functions, so to find $x^{(2)}$ and $x^{(4)}$, the **central difference** will be used. (Read more at [here](https://en.wikipedia.org/wiki/Finite_difference))
+In reality, we define the curve $C$ by a set of points $\{x_i, y_i\}$ not by parametric functions, so to find $x^{(2)}$ and $x^{(4)}$, the **central difference** will be used. (Read more [here](https://en.wikipedia.org/wiki/Finite_difference))
 
 $$\begin{aligned}
   x^{(2)}(s) &\approx \dfrac{x(s + h) - 2x(s) + x(s-h)}{h^2} \\
@@ -148,7 +148,7 @@ $$\begin{equation}
         \end{array}\right] = A_4 X
 \end{equation}$$
 
-Finally, the term $-\alpha x^{(2)} + \beta x^{(4)}$ in Euler - Lagrange equation above is rewriten as matrix form: $-\alpha A_2 X + \beta A_4X$.
+Finally, the term $-\alpha x^{(2)} + \beta x^{(4)}$ in Euler - Lagrange equation above is rewritten as matrix form: $-\alpha A_2 X + \beta A_4X$.
 
 This is applied the same to $Y^{(2)}$ and $Y^{(4)}$.
 
@@ -160,11 +160,11 @@ The Euler - Lagrange equation becomes:
 
 $$\dfrac{dE}{dX} = -P_x(X) + AX$$
 
-In this step, we will use [implicit Euler method](https://en.wikipedia.org/wiki/Backward_Euler_method) and consider $P_x(X)$ as constant:
+In this step, we will use the [implicit Euler method](https://en.wikipedia.org/wiki/Backward_Euler_method) and consider $P_x(X)$ as constant:
 
 $$\dfrac{1}{\gamma}(X_t - X_{t+1}) = -P_x(X_t) + AX_{t+1}$$
 
-where $\gamma$ is step size.
+where $\gamma$ is the step size.
 
 Finally, the $X_{t+1}$ is obtained by:
 
@@ -185,7 +185,7 @@ Input Images             |  Results
 
 ## Discussion
 
-One of the weakness of *Snakes* is its **heavy reliance on the initialization** of the curve $C$.
+One of the weaknesses of *Snakes* is its **heavy reliance on the initialization** of the curve $C$.
 
 <p align = "center">
     <img width="500"  src="/figure/Snakes/failure_case.gif"/>
@@ -193,11 +193,11 @@ One of the weakness of *Snakes* is its **heavy reliance on the initialization** 
     <i>Failure Case</i>
 </p>
 
-When the initial curve is **inside the flatten foreground**, it keeps **shrinking to find the boundary** and then **vanishes**.
+When the initial curve is **inside the flattened foreground**, it keeps **shrinking to find the boundary** and then **vanishes**.
 
-This is due to the local search (doing line integral along the curve $C$). Many noticed this and replaced **unknown curve $C$** by another **unknown level surface $\Phi$**. Read in part 2. :)
+This is due to the local search (doing line integral along the curve $C$). Many noticed this and replaced **unknown curve $C$** with another **unknown level surface $\Phi$**. Read in part 2. :)
 
-In addition, in implementation, two weighted parameters $\alpha(s)$ and $\beta(s)$ are treated as constants for the sake of simplicity during optimization process. However, if we do not carefully choose values for the parameters, we could not get a desired result, as you can see in the *4 - petal flower* example, where the curve $C$ can not shrink to fit the boundary. Recently,  Xu, Ziqiang, et al [[2]](#2) fixed this by **replacing $\alpha = \alpha(I)$ and $\beta = \beta(I)$ where $\alpha$ and $\beta$ are two encoder - decoder CNN, which is more flexible**.
+In addition, in implementation, two weighted parameters $\alpha(s)$ and $\beta(s)$ are treated as constants for the sake of simplicity during the optimization process. However, if we do not carefully choose values for the parameters, we could not get the desired result, as you can see in the *4 - petal flower* example, where the curve $C$ can not shrink to fit the boundary. Recently,  Xu, Ziqiang, et al [[2]](#2) fixed this by **replacing $\alpha = \alpha(I)$ and $\beta = \beta(I)$ where $\alpha$ and $\beta$ are two encoder-decoder CNN, which is more flexible**.
 
 ## References
 

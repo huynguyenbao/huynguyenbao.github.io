@@ -48,7 +48,7 @@ Finally, maximizing a posteriori is equivalent to minimizing negative logarithm.
 
 $$E(\mathcal{P}(\Omega)) = -\sum_{i=1}^n\iint_{\Omega_i} \operatorname{log}(p(f_i(x, y))) \,dx \, dy - \nu |C|$$
 
-For simple cases, the distribution $p(f_i(x, y))$ can be non parametric, but it can be also modeled as parametric distribution with parameter $\theta$.
+For simple cases, the distribution $p(f_i(x, y))$ can be non-parametric, but it can be also modeled as parametric distribution with parameter $\theta$.
 
 The complex version of the above energy function is:
 
@@ -68,7 +68,7 @@ C &= \{(x, y) \in \Omega \, | \, \phi(x, y) = 0\} \\
 \end{cases}
 \end{equation*}$$
 
-With the introduction of heaviside step function $H(.)$, we can re - write the energy function:
+With the introduction of a Heaviside step function $H(.)$, we can re-write the energy function:
 
 * The first term:
 
@@ -114,7 +114,7 @@ $$\begin{aligned}
   \phi, \theta_1, \theta_2 = \underset{\phi, \theta_1, \theta_2}{\operatorname{arg\,min}} \, E(\phi, \theta_1, \theta_2) = \underset{\Omega}{\iint} L(\phi, \nabla \phi, \theta_1, \theta_2) \, dx \, dy
 \end{aligned}$$
 
-To solve this, first we would iteratively and respectively find optimal values/ function of each $\theta_1$, $\theta_2$ and $\phi$:
+To solve this, first, we would iteratively and respectively find optimal values/ function of each $\theta_1$, $\theta_2$, and $\phi$:
 
 * **Step 1**: Considering $\phi$ and $\theta_2$ as constants, the optimal value of $\theta_1$ is:
    $$\theta_1 = \underset{\theta_1}{\operatorname{arg\,min}} \, \iint_{\Omega} H(\phi(x, y)) \operatorname{log}(p(f_1(x, y)| \theta_1)) \, dx \, dy$$
@@ -125,7 +125,7 @@ To solve this, first we would iteratively and respectively find optimal values/ 
 * **Step 3**: Considering $\theta_1$ and $\theta_2$ as constants, update step of $\phi$ is:
    $$\dfrac{\partial \phi}{\partial t} = - \dfrac{dE}{d\phi} = \delta(\phi) \left( \nu \operatorname{div} \left(\dfrac{\nabla \phi}{|\nabla \phi|} \right) + \operatorname{log} \dfrac{p(f_1|\theta_1)}{p(f_2|\theta_2)} \right)$$
 
-In implementation, rather having heaviside step and dirac delta function as discrete functions, we replace them by their softer versions:
+In the implementation, rather than using Heaviside step and Dirac delta function as discrete functions, we replace them with their softer versions:
 
 $$\begin{aligned}
     H(x) &= \dfrac{1}{2}\left( 1 + \dfrac{2}{\pi} \operatorname{arctan}\left( \dfrac{x}{\epsilon}\right)\right) \\
@@ -154,9 +154,9 @@ $$
 \end{aligned}
 $$
 
-Have you seen the similarity of this and that of previous? :)
+Have you seen the similarity of this versus that of previous? :)
 
-### Vector - valued Images
+### Vector-valued Images
 
 Our assumption for feature vector $f_i$ can also be color vector $f = \left<R, G, B\right>$ or based on the structure of image $f = \left<I, \dfrac{I_x}{\vert\nabla I\vert}, \dfrac{I_y}{\vert\nabla I\vert}, \dfrac{2I_xI_y}{\vert\nabla I\vert}\right>$.
 

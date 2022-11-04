@@ -7,13 +7,13 @@ tags:
   - 3D Computer Vision
 ---
 
-This blog presents you a light weight real time segmentation and pose tracking method which only uses monocular RGB camera and can run with multiple objects and robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement. **Real-Time Monocular Segmentation and Pose Tracking**.
+This blog presents you with a lightweight real-time segmentation and pose tracking method which only uses only a monocular RGB camera and can run with multiple objects and is robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement. **Real-Time Monocular Segmentation and Pose Tracking**.
 
 ## Preliminaries
 
 Let $I$ be the image in the image domain $\Omega \subset \mathbb{R}^2$. With every pixel $\textbf{x} = [x, y]^T$, there is a corresponding color $\textbf{c} = I(x, y)$ (this can be grey value or RGB).
 
-The 3D model will be transformed from its model space into camera space by a transformation matrix $T$ (our camera is fixed at the origin and looks in the positive direction of $z$ axis - a little bit different to OpenGL). The rigid transformation matrix $T$ we call pose of 3D model and is presented by a $4 \times 4$ homogeneous matrix:
+The 3D model will be transformed from its model space into camera space by a transformation matrix $T$ (our camera is fixed at the origin and looks in the positive direction of $z$ axis - a little bit different from OpenGL). The rigid transformation matrix $T$ we call pose of 3D model and is presented by a $4 \times 4$ homogeneous matrix:
 
 $$T = \left[\begin{matrix}
     R & \textbf{t} \\
@@ -22,7 +22,7 @@ $$T = \left[\begin{matrix}
 
 with $R \in \mathbb{SO}(3)$ and $\textbf{t} \in \mathbb{R}^3$.
 
-*To understand more about the definition of $\mathbb{SE}(3)$ (Lie - group Special Euclidean ) as well as its properties, we recommend you read chapter 2 of the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934).*
+*To understand more about the definition of $\mathbb{SE}(3)_$ (_Lie-group_ Special Euclidean_) as well as its properties, we recommend you to read chapter 2 of the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934).*
 
 Another assumption of this tracking problem is that we must have the intrinsic matrix $K$ of our camera. This can be achieved easily by estimating the matrix with multiple checkerboard images captured beforehand.
 
@@ -42,19 +42,19 @@ $$Z'\textbf{x} = Z'\left[\begin{matrix}
 \left[\begin{matrix}
     f_x & 0 & c_x \\
     0 & f_y & c_y \\
-    0 & 0 & 1 
+    0 & 0 & 1
 \end{matrix}\right]
 \left[\begin{matrix}
     1 & 0 & 0 & 0 \\
     0 & 1 & 0 & 0 \\
-    0 & 0 & 1 & 0 
-\end{matrix}\right] 
+    0 & 0 & 1 & 0
+\end{matrix}\right]
 \left[\begin{matrix}
     r_{11} & r_{12} & r_{13} & t_1 \\
     r_{21} & r_{22} & r_{23} & t_2 \\
     r_{31} & r_{32} & r_{33} & t_3 \\
-    0 & 0 & 0 & 1 
-\end{matrix}\right] 
+    0 & 0 & 0 & 1
+\end{matrix}\right]
 \left[\begin{matrix}
     X_i \\
     Y_i \\
@@ -63,11 +63,11 @@ $$Z'\textbf{x} = Z'\left[\begin{matrix}
 \end{matrix}\right]
 $$
 
-The silhouette of 3D model in image plane after projection splits image into 2 regions: foreground $\Omega_f \subset \Omega$ and background $\Omega_b = \Omega \setminus \Omega_f$. In the figure below, the white region is foreground and the rest (black color) is background.
+The silhouette of a 3D model in an image plane after projection splits the image into 2 regions: foreground $\Omega_f \subset \Omega$ and background $\Omega_b = \Omega \setminus \Omega_f$. In the figure below, the white region is the foreground and the rest (black color) is the background.
 
 ![](/figure/Tracking/mask.jpg)
 
-For pose tracking, the goal of the problem is to find the **pose of 3D model in each frame**. With an assumption that the pose $T_k$ of frame $I_k$ is already known, we only need to perform pose tracking at frame $I_{k+1}$. Because of linearity of transformation, the pose of next frame can be expressed by the current pose according to this equation: $T_{k+1} = \Delta T T_{k}$. So, for each new frame, we just need to find $\Delta T$ to rectify the current pose $T_k$.
+For pose tracking, the goal of the problem is to find the **pose of the 3D model in each frame**. With an assumption that the pose $T_k$ of frame $I_k$ is already known, we only need to perform pose tracking at frame $I_{k+1}$. Because of the linearity of transformation, the pose of the next frame can be expressed by the current pose according to this equation: $T_{k+1} = \Delta T T_{k}$. **So, for each new frame, we just need to find $\Delta T$ to rectify the current pose $T_k$**.
 
 For pose optimization, we model the rigid body motion $\Delta T$ with twists:
 
@@ -78,7 +78,7 @@ $$\hat{\xi} = \left[ \begin{matrix}
 
 with $\textbf{w} \in \mathfrak{so}(3)$ and $\textbf{v} \in \mathbb{R}^3$.
 
-Each twist is parametrized by a six dimensional vector of so-called *twist coordinates*:
+Each twist is parametrized by a six-dimensional vector of so-called *twist coordinates*:
 
 $$\xi = [\omega_1, \omega_2, \omega_3, v_1, v_2, v_3]^T \in \mathbb{R}^6$$
 
@@ -86,29 +86,28 @@ and the matrix exponential:
 
 $$\Delta T = \operatorname{exp}(\hat{\xi}) \in \mathbb{SE}(3)$$
 
-*Again, if you have trouble with these notations, Chapter 2 Lie - Algebra in the book: [An Invitation to 3-D Vision](https://www.amazon.com/Invitation-3-D-Vision-Interdisciplinary-Mathematics/dp/0387008934) will help you.*
 
 ## Statistical Image Segmentation
 
 ### Shape Kernel $\Phi$
 
-The approach of this method is mainly based on statistical segmentation (you can read our blog in [here](https://graphicsminer.github.io/mathematics/2022/09/24/variational-method-and-image-segmentation_part3.html)), so as usual the silhouette of 3D model will be implicitly represented by a so-called shape kernel $\Phi$. This is called level set embedding function and the $\Phi$ must have the properties:
+The approach of this method is mainly based on statistical segmentation (you can read our blog [here](https://graphicsminer.github.io/mathematics/2022/09/24/variational-method-and-image-segmentation_part3.html)), so as usual the silhouette of 3D model will be implicitly represented by a so-called shape kernel $\Phi$. This is called level-set embedding function and the $\Phi$ must have the properties:
 
 $$\begin{equation*}
 \begin{cases}
 C &= \{(x, y) \in \Omega \, | \, \phi(x, y) = 0\} \\
-inside (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \lt 0\} \\
-outside (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \gt 0\}
+\operatorname{inside} (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \lt 0\} \\
+\operatorname{outside} (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \gt 0\}
 \end{cases}
 \end{equation*}$$
 
-where $C$ is contour of the silhouette (image below).
+where $C$ is the contour of the silhouette (image below).
 
 Silhouette             |  Contour
 :-----------------------:|:-------------------------:
 ![](/figure/Tracking/mask.jpg) |  ![](/figure/Tracking/edge.jpg)
 
-To present $\Phi$, we use signed distance function:
+To present $\Phi$, we use a signed distance function:
 
 $$d(\textbf{x}) = \underset{\textbf{x}_c \in C}{\operatorname{min}}|\textbf{x} - \textbf{x}_c|$$
 
@@ -125,25 +124,25 @@ Signed Distance Function             |  Heatmap
 :-----------------------:|:-------------------------:
 ![](/figure/Tracking/sdf.jpg) |  ![](/figure/Tracking/heatmap.jpg)
 
-For efficient method of calculating signed distance function, you can read [[6]](#6)
+To calculate signed distance function efficiently, you can read [[6]](#6)
 
 ### Generative Model
 
-Let's start first with graphical model that Victor et al [[1]](#1) proposed:
+It is extremely challenging if there is no assumption for an inverse problem like this. To reduce the complexity of the problem, Victor et al [[1]](#1) proposed a graphical model. Let's have a look at it:
 
 ![Graphical Model](/figure/Tracking/graphical_model.jpg)
 
 where
 
-* $\textbf{p}$: pose of 3D object (6 DoF).
-* $\Phi$: Shape kernel.
-* $\textbf{x}$: 2D coordinate in image plane.
-* $R$: Foreground or Background region.
-* $\textbf{c}$: color
+* $\textbf{p}$: pose of 3D object (6 DoF) parameterized by a twist coordinate $\xi$.
+* $\Phi$: is the shape kernel (as defined before).
+* $\textbf{x}$: is 2D coordinate of a pixel in image plane - $\textbf{x} = (x, y) \in \Omega \subset \mathbb{R}^2$.
+* $R$: is random region variable $R$, can be foreground or background - $R \in \{R_f, R_b\}$.
+* $\textbf{c}$: is RGB color - $\textbf{c} \in [0, 255] \times[0, 255] \times [0, 255]$
 
-This graphical model makes sense since random variable pose of 3D model will affect the shape kernel $\Phi$ through its silhouette. The probability random variable $\textbf{x}$ in image plane would depend on pose $\textbf{p}$ , the region $R$ whether foreground or background and $\Phi$. And finally, the probability of color $\textbf{c}$ definitely depends on the region $R$.
+This graphical model makes sense since the random variable pose of 3D model will affect the shape kernel $\Phi$ through its silhouette. The probability random variable $\textbf{x}$ in the image plane would depend on pose $\textbf{p}$, the region $R$ whether foreground or background, and $\Phi$. And finally, the probability of color $\textbf{c}$ definitely depends on the region $R$.
 
-Our goal now is to **maximize a posteriori** $P(\Phi, \textbf{p} \mid \Omega)$ with give image $I \subset \Omega$. However, first, let's have a look on **generative model** $P(\textbf{x}, \textbf{c}, R, \Phi, \textbf{p})$:
+Our goal now is to **maximize a posteriori** $P(\Phi, \textbf{p} \mid \Omega)$ with give image $I \subset \Omega$. However, first, let's have a look at **generative model** $P(\textbf{x}, \textbf{c}, R, \Phi, \textbf{p})$:
 
 $$P(\textbf{x}, \textbf{c}, R, \Phi, \textbf{p}) = P(\textbf{x} \mid R, \Phi, \textbf{p}) \, P(\textbf{c} \mid R) \, P(R) \, P(\Phi \mid \textbf{p}) \, P(\textbf{p})$$
 
@@ -183,37 +182,37 @@ $$\underset{\textbf{p}}{\operatorname{arg min}} \log{P(\Phi, \textbf{p}\mid \Ome
 
 ### Minimize Negative Logarithm Likelihood
 
-Our goal now is to minimize the negative log likelihood:
+Our goal now is to minimize the negative logarithm likelihood:
 
 $$\underset{\textbf{p}}{\operatorname{arg min}} \log{P(\Phi, \textbf{p}\mid \Omega)} = \sum_{\textbf{x}, \textbf{c}\in \Omega} -\operatorname{log}\left(\sum_{i=\{f, b\}} P(\textbf{x} \mid R_i, \Phi, \textbf{p})\, P(R_i \mid \textbf{c})\right)$$
 
 To solve this optimization problem, we need to know the explicit probability of each term in the equation:
 
-1. Let start first with $P(\textbf{x} \mid R_f, \Phi, \textbf{p})$.
+* Let start first with **pixel likelihood $P(\textbf{x} \mid R_f, \Phi, \textbf{p})$**.
 
-![](/figure/Tracking/pixel_probability.jpg)
+![](/figure/Tracking/pixel_likelihood.png)
 
-Intuitively, the probability of the red pixel in foreground $R_f$ will be:
+Intuitively, the likelihood probability of a <span style="color:red">red pixel</span> in foreground $R_f$ will be:
 
 $$P(\textbf{x} \mid R_f, \Phi, \textbf{p}) = \dfrac{1}{\operatorname{Area}_f}$$
 
-and that of the green pixel in background $R_b$ will be:
+and that of the <span style="color:green">green pixel</span> in background $R_b$ will be:
 
 $$P(\textbf{x} \mid R_b, \Phi, \textbf{p}) = \dfrac{1}{\operatorname{Area}_b}$$
 
-To generalize both expressions, we can utilize the shape kernel probability.
+To generalize both expressions, we can utilize the shape kernel property.
 
 We already know:
 
 $$\begin{equation*}
 \begin{cases}
 C &= \{(x, y) \in \Omega \, | \, \phi(x, y) = 0\} \\
-inside (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \lt 0\} \\
-outside (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \gt 0\}
+\operatorname{inside} (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \lt 0\} \\
+\operatorname{outside} (C) &= \{(x, y) \in \Omega \, | \, \phi(x, y) \gt 0\}
 \end{cases}
 \end{equation*}$$
 
-So, with the introduction of Heaviside function:
+So, with the introduction of a Heaviside function:
 
 $$\begin{equation*}
 H(x) = \begin{cases}
@@ -236,9 +235,9 @@ $$\begin{aligned}
 \eta_b &= \sum_{i = 1}^{N}1 - H(\Phi(\textbf{x}))
 \end{aligned}$$
 
-2. Second is $P(R_i \mid \textbf{c})$
+* Second is **region posterior $P(R_i \mid \textbf{c})$**.
 
-Base on Bayes' rule, we can get:
+Based on Bayes' rule, we can get:
 
 $$P(R_f \mid \textbf{c}) = \dfrac{P(\textbf{c} \mid R_f) P(R_f)}{P(\textbf{c} \mid R_f) P(R_f) + P(\textbf{c} \mid R_b) P(R_b)}$$
 
@@ -252,10 +251,10 @@ P(R_b) &= \dfrac{\eta_b}{\eta} \\
 \eta &= \eta_f + \eta_b
 \end{aligned}$$
 
-Two likelihood $P(\textbf{c} \mid R_f)$ and $P(\textbf{c} \mid R_b)$ are represented by two $32\times32\times32$ - bin histograms.
+Two likelihood $P(\textbf{c} \mid R_f)$ and $P(\textbf{c} \mid R_b)$ are simply represented by two $32\times32\times32$ - bin histograms.
 
 $$\begin{aligned}
-    E(\Phi, \textbf{p}) 
+    E(\Phi, \textbf{p})
     &= \sum_{\textbf{x}, \textbf{c} \in \Omega} -\operatorname{log}(\dfrac{H(\Phi(\textbf{x}))}{\eta_f}\dfrac{P(\textbf{c} \mid R_f)\eta_f}{P(\textbf{c} \mid R_f) \eta_f+ P(\textbf{c} \mid R_b) \eta_b} \\ 
     &+ \dfrac{1 - H(\Phi(\textbf{x}))}{\eta_b}\dfrac{P(\textbf{c} \mid R_b)\eta_b}{P(\textbf{c} \mid R_f) \eta_f+ P(\textbf{c} \mid R_b) \eta_b} )\\
     &= \sum_{\textbf{x}, \textbf{c} \in \Omega} -\operatorname{log} \left(H(\Phi(\textbf{x})) P_f + (1 - H(\Phi(\textbf{x})))P_b\right)
@@ -267,7 +266,7 @@ $$P_f = \dfrac{P(\textbf{c} \mid R_f)}{P(\textbf{c} \mid R_f) \eta_f+ P(\textbf{
 
 $$P_b = \dfrac{P(\textbf{c} \mid R_b)}{P(\textbf{c} \mid R_f) \eta_f+ P(\textbf{c} \mid R_b) \eta_b}$$
 
-Finally, we have the objective function for optimization problem:
+Finally, we have the objective function for the optimization problem:
 
 $$\begin{aligned}
     E(\textbf{p})
@@ -332,7 +331,7 @@ This is pretty easy thanks to chain rule:
 
 $$J = \dfrac{P_b - P_f}{H(\Phi(\textbf{x})) P_f + (1 - H(\Phi(\textbf{x})))P_b} \delta(\Phi(x)) \dfrac{\partial \Phi(\textbf{x})}{\partial \xi}$$
 
-where Dirac function $\delta(.)$ is derivative of Heaviside function $H(.)$. In implementation, the smooth Heaviside is used.
+where Dirac function $\delta(.)$ is derivative of Heaviside function $H(.)$. In the implementation, the smooth Heaviside is used.
 
 $$H(x) = \dfrac{1}{\pi} \left(-\operatorname{atan}(\epsilon \cdot  x) + \dfrac{\pi}{2}\right)$$
 
@@ -386,9 +385,9 @@ $$Z\textbf{x} = Z\left[\begin{array}{c}
 \end{array}\right] 
 $$
 
-where $[X', Y', Z', 1]^T$ is the current position of a point $[X, Y, Z, 1]^T$ at current frame.
+where $[X', Y', Z', 1]^T$ is the current position of a point $[X, Y, Z, 1]^T$ at the current frame.
 
-We assume that the movement of object between 2 frames is really small, the approximation below is true:
+We assume that the movement of the object between 2 frames is really small, the approximation below is true:
 
 $$\operatorname{exp}(\hat{\xi}) = \mathbb{I}_{4\times4} + \hat{\xi}$$
 
@@ -413,11 +412,11 @@ $$
 
 Some of you may ask how can we know the depth value $Z'$? 
 
-Obviously, because we project the 3D model into image plane, we definitely can know this (we are kings in computer graphics). In OpenGL, we can access depth map by the function [glReadPixel](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glReadPixels.xhtml), but with openGLES, a little trick is required that we have to compact depth value in fragment shader into RGBA value and render it before accessing with glReadPixel since openGLES doesn't support reading depth map operator, but there will be variance.
+Obviously, because we project the 3D model into the image plane, we definitely can know this (we are kings in computer graphics). In OpenGL, we can access depth map by the function [glReadPixel](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glReadPixels.xhtml), but with openGLES, a little trick is required that we have to compact depth values in fragment shader into RGBA value and render it before accessing with glReadPixel since openGLES doesn't support reading depth map operator, but there will be small errors.
 
 ### Rendering
 
-Because our camera is a little bit different to normal schema in OpenGL that is our camera simulates the real camera looking in positive direction of $z$ axis. So, the look at matrix and projection matrix would be different.
+Because our camera is a little bit different from the normal schema in OpenGL that is our camera simulates the real camera looking in the positive direction of $z$ axis. So, the look-at matrix and projection matrix would be different.
 
 $$\begin{aligned}
     L &= \left[ 
