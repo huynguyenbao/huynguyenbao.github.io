@@ -175,12 +175,18 @@ $$\begin{aligned}
     P(\textbf{c}_{1...n} \mid R_{b, 1...n}) &= 1 - \operatorname{exp} \left( \dfrac{\sum_{k = 1}^n1 - \operatorname{log}( 1 - P(\textbf{c}_k \mid R_{b, k}))}{n} \right) \\
 \end{aligned}$$
 
-The probability of foreground and background region over
-n views becomes $P(R_{f, 1...n}) = \dfrac{\bar{\eta_f}}{\eta}$ with hf being the average value of foreground area $\eta_f$ over the n views. $P(R_{b, 1...n})$ follows analogously ($\eta$ is the whole image area).
+The probability of foreground and background region over $n$ views becomes $P(R_{f, 1...n}) = \dfrac{\bar{\eta_f}}{\eta}$ with $\eta_f$ being the average value of foreground area $\eta_f$ over the $n$ views. $P(R_{b, 1...n})$ follows analogously ($\eta$ is the whole image area).
 
 So the final posterior equation is:
 
 $$E = P(u \mid \Omega_3) = \prod_{\textbf{v} \in \Omega_3}\{ uP_i + (1 - u)P_o\}$$
+
+where:
+
+$$\begin{aligned}
+    P_i &= \dfrac{\bar{\eta}_f}{\zeta_f}\dfrac{P(\textbf{c}_{1...n} \mid R_{f, 1...n})}{P(\textbf{c}_{1...n} \mid R_{f, 1...n}) \bar{\eta}_f + P(\textbf{c}_{1...n} \mid R_{b, 1...n}) \bar{\eta}_b} \\
+    P_o &= \dfrac{\bar{\eta}_b}{\zeta_b}\dfrac{P(\textbf{c}_{1...n} \mid R_{b, 1...n})}{P(\textbf{c}_{1...n} \mid R_{f, 1...n}) \bar{\eta}_f + P(\textbf{c}_{1...n} \mid R_{b, 1...n}) \bar{\eta}_b}
+\end{aligned}$$
 
 There are many numerical optimization methods to maximize this posterior (basically it is likelihood) such as taking logarithm and using gradient descent, projected gradient descent or Gauss Newton Strategy. However for globally solvable formulation, Victor et al [[1]](#1) replaced logarithmic opinion pool by a linear opinion pool to fuse pixel - wise posteriors and added weighted surface regularization term:
 
