@@ -60,7 +60,7 @@ These algorithms are usually used:
 
 ### Motion Model
 
-After detecting and tracking features, we have pairs of corresponding key points $\{(p^i_k, p^{i+1}_k)\}$ of two successive frames $I_i$ and $I_{i+1}$.
+After detecting and tracking features, we have pairs of corresponding key points $\{(p^i_{k}, p^{i+1}_{k})\}$ of two successive frames $I_i$ and $I_{i+1}$.
 
 ![](/figure/vid_stb/motion_model.png)
 
