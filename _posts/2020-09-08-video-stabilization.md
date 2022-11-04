@@ -19,7 +19,7 @@ where $I_i, I'_i: \Omega: \rightarrow \mathbb{R}^3$ are RGB image in domain $\Om
 As we mentioned before, **the movement** of a camera recording a video **is not perfect** which leads vibration inside video. Our goal is **to smooth that movement** to get stable frames.
 
 <p align="center">
-    <img width="400"  src="/figure/vid_stb/transformation.png"/>
+    <img width="400"  src="/figure/vd_stb/transformation.png"/>
     <br>
     <i>Figure 1: Correlation between the unstable frame and the stable</i>
 </p>
