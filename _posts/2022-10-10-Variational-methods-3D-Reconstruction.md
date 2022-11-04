@@ -15,13 +15,29 @@ There are numerous methods for reconstructing a real object into mesh such as vo
 
 ## Preliminaries
 
-We represent our local 3D environment which includes the 3D object needed to reconstruct by a volume $V$ which is defined by:
+Before diving to the main sections, we have to go through notations first.
+
+### Volume
+
+Let **volume $V$** be **our local 3D environment** which includes the 3D object needed to reconstruct.
 
 $$V := [v_{11}, v_{12}] \times [v_{21}, v_{22}] \times [v_{31}, v_{32}] \subset \mathbb{R}^3$$
 
 and each $v_{ij} \in \mathbb{R}$.
 
-Discretely, our volume $V$ is a set of voxels having a resolution $N_x \times N_y \times N_z$:
+where:
+
+* $[a, b] = \{ x \mid a \le x \le b \}$
+
+* $A \times B = \{(a, b) \mid a \in A \, \text{and} \, b \in B \}$ is Cartesian product of two sets.
+
+<u> Example</u>:
+
+![](../figure/3DReconstruction/volume.png)
+
+In $x$ axis, the volume $V$ in the image above goes from $0$ to $8$, from $0$ to $20$ for $y$ axis and from $0$ to $10$ for $z$ axis.
+
+Discretely, volume $V$ having a resolution $N_x \times N_y \times N_z$ is a set of voxels:
 
 $$V := \left\{ \left( \begin{matrix}
     v_{11} + i \cdot \dfrac{v_{12} - v_{11}}{N_x} \\
@@ -35,76 +51,110 @@ $$V := \left\{ \left( \begin{matrix}
     k = 0,..., N_z - 1 \\
 \end{matrix}\right\}$$
 
+### Images and Projection
+
 Let the sequence of input RGB images be:
 
 $$I_1, ..., I_n: \Omega \mapsto \mathbb{R}^3$$
 
-and the known model view project matrices corresponding to RGB images respectively be:
+and the **known model view projection matrices** corresponding to input RGB images respectively be:
 
 $$\pi_1, ..., \pi_n : V \mapsto \Omega$$
 
 where $\Omega \subset \mathbb{R}^2$.
 
+### Shape Function
+
+We present the 3D object by a function $\textbf{u}$. The definition of $\textbf{u}$ is:
+
+$$\textbf{u}(\textbf{v}) = \begin{cases}
+    1 \qquad \textbf{v} \in \text{3D object} \\
+    0 \qquad \text{otherwise}
+\end{cases}$$
+
+where $\textbf{v}$ is a 3D coordinate of a voxel in volume $V$.
+
+Summary, the <u>inputs</u> of our 3D reconstruction problem include:
+
+* Sequence of images $\{I_i\}$
+* Sequence of model - view - projection matrices $\{\pi_i\}$ corresponding
+
+<u>What we need to find is so - called shape function $\textbf{u}(.)$</u>.
+
 ## Generative Model
 
-Let's have a look at the below graphical model below:
+It is extremely challenging if there is no assumption for an inverse problem like this. To reduce the complexity of the problem, Victor el al [[1]](#1) proposed a graphical model. Let's have a look at it:
 
-![](/figure/3DReconstruction/3DRecon_graphical_model.png)
+![](/figure/3DReconstruction/graphical_model.png)
 
 where:
 
-* $R$: foreground or background region
-* $\textbf{c}$: color of a pixel
-* $\textbf{v}$: voxel
-* $u$: shape of 3D object
-* $n$: the index of a frame.
+* $i$: the index of a frame - $i = 1...n$.
+* $R$: is a region variable, can be foreground or background region - $R \in \{R_f, R_b\}$
+* $\textbf{c}$: color of voxel after being projected to $i^{th}$ image - $\textbf{c} \in \mathbb{R}^3$
+* $\textbf{v}$: voxel coordinate in volume $V$ - $\textbf{v} \in \mathbb{R}^3$
+* $\textbf{u}$: shape function of 3D object
 
 This graphical model may be biased to the heuristic of designers but in some point it is still valid. The random variable $\textbf{v}$ in $V$ depends on not only the shape of 3D object (obviously) but also foreground or background region $R$ that its projection to image planes belongs to. Whereas, the variable color $\textbf{c}$ undoubtedly depends on the region $R$.
 
 ## Maximizing A Posteriori
 
-Our goal is to **maximize a posteriori** $P(u \mid \{I_1, ..., I_n\})$ or in other words $P(u \mid \textbf{v}, \textbf{c}_{1...n})$.
+Our goal is **to find shape function $\textbf{u}$ given $\{ I_i, \pi_i\}$** or in statistical perspective, we need to seek $\textbf{u}$ such that **posteriori** $P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n})$ is maximum.
 
-To derive optimization equation for that, first let's start with the joint distribution for a given voxel $P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n})$:
+To derive formulation for this posterior, first let's start with the **joint distribution for a given voxel** $P(\textbf{u}, \textbf{v}, R_{1...n}, \textbf{c}_{1...n})$:
 
-$$P(u, \textbf{v}, R_{1...n}, \textbf{c}_{1...n}) = P(\textbf{v} \mid u, \textbf{v}, R_{1...n}) P(\textbf{c}_{1...n} \mid R_{1...n}) P(R_{1...n}) P(u)$$
+$$P(\textbf{u}, \textbf{v}, R_{1...n}, \textbf{c}_{1...n}) = P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{1...n}) P(\textbf{c}_{1...n} \mid R_{1...n}) P(R_{1...n}) P(\textbf{u})$$
 
 We divide both sides by $$P(\textbf{c}_{1...n}) = \underset{i \in {\{f, b\}}}{\sum}P(\textbf{c}_{1...n} \mid R_{i, 1...n}) P(R_{i, 1...n})$$ to get:
 
-$$P(u, \textbf{v}, R_{1...n} \mid \textbf{c}_{1...n}) = P(\textbf{v} \mid u, \textbf{v}, R_{1...n}) P(R_{1...n} \mid \textbf{c}_{1...n}) P(u)$$
+$$P(\textbf{u}, \textbf{v}, R_{1...n} \mid \textbf{c}_{1...n}) = P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{1...n}) P(R_{1...n} \mid \textbf{c}_{1...n}) P(\textbf{u})$$
 
 Next, we marginalize over $P(R_{1...n})$:
 
-$$P(u, \textbf{v} \mid \textbf{c}_{1...n}) = \underset{i \in \{ j, b\}}{\sum} P(\textbf{v} \mid u, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) P(u)$$
+$$P(\textbf{u}, \textbf{v} \mid \textbf{c}_{1...n}) = \underset{i \in \{ j, b\}}{\sum} P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) P(\textbf{u})$$
 
-With assumption that $P(\textbf{v})$ is constant, we can omit the random variable $\textbf{v}$ by divide $P(u, \textbf{v} \mid \textbf{c}_{1...n})$ by $P(\textbf{v})$:
+With **assumption that $P(\textbf{v})$ is constant**, we can omit the random variable $\textbf{v}$ by divide $P(\textbf{u}, \textbf{v} \mid \textbf{c}_{1...n})$ by $P(\textbf{v})$:
 
-$$P(u \mid \textbf{v}, \textbf{c}_{1...n}) \propto \underset{i \in \{ j, b\}}{\sum} P(\textbf{v} \mid u, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) P(u)$$
+$$P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n}) \propto \underset{i \in \{ j, b\}}{\sum} P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) P(\textbf{u})$$
 
-The prior $P(u)$ is also eliminated for the sake of simplicity. finally, the posterior over the volume becomes likelihood:
+**The prior $P(\textbf{u})$ is also eliminated** for the sake of simplicity. Finally, the **posterior** over the volume becomes **likelihood**:
 
 $$\begin{aligned}
-    P(u \mid \Omega_3) &\propto \underset{\textbf{v} \in \Omega_3}{\prod} P(u \mid \textbf{v}, \textbf{c}_{1...n}) \\
-    &\propto \underset{\textbf{v} \in \Omega_3}{\prod}  \left\{ \sum P(\textbf{v} \mid u, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) \right\}
+    P(\textbf{u} \mid \Omega_3) &\propto \underset{\textbf{v} \in \Omega_3}{\prod} P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n}) \\
+    &\propto \underset{\textbf{v} \in \Omega_3}{\prod}  \left\{ \sum_{i\in \{ f, b\}} P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) \right\}
 \end{aligned}$$
 
-where:
+The posterior has reveal its formulation, but we still have not known each small term in it.
+
+* For **region posterior**, we can get its equation by applying Bayes' rule:
 
 $$P(R_{i, 1...n} \mid \textbf{c}_{1...n}) = \dfrac{P(\textbf{c}_{1...n} \mid R_{i, 1...n}) P(R_{i,1...n})}{\underset{j \in \{f, b\}}{\sum}P(\textbf{c}_{1...n} \mid R_{j, 1...n}) P(R_{j,1...n})}$$
 
-and:
+* Regarding **voxel likelihood**, intuitively, we have:
+
+![](../figure/3DReconstruction/voxel_likelihood.png)
+
+For a <span style="color:red">red voxel</span> inside our 3D object (cylinder in the example), its probability would be:
 
 $$\begin{aligned}
-    P(\textbf{v} \mid u, R_{f, 1...n}) &= \dfrac{u}{\zeta_f} \\
-    P(\textbf{v} \mid u, R_{b, 1...n}) &= \dfrac{1 - u}{\zeta_b} 
+    P(\textbf{v} \mid \textbf{u}, R_{f, 1...n}) &= \dfrac{1}{\text{volume}_f} \\
+    P(\textbf{v} \mid u, R_{b, 1...n}) &= 0
 \end{aligned}$$
 
-with:
+For a <span style="color:green">gree voxel</span> outside our 3D object (cylinder in the example), its probability would be:
 
-$$u(\textbf{v}) = \begin{cases}
-    1 \qquad \textbf{v} \in \text{3D object} \\
-    0 \qquad \text{otherwise}
-\end{cases}$$
+$$\begin{aligned}
+    P(\textbf{v} \mid \textbf{u}, R_{f, 1...n}) &= 0 \\
+    P(\textbf{v} \mid u, R_{b, 1...n}) &= \dfrac{1}{\text{volume}_b}
+\end{aligned}$$
+
+Without loss of generality, with shape function $\textbf{u}$, we can have a general formulation of a voxel likelihood:
+
+$$\begin{aligned}
+    P(\textbf{v} \mid \textbf{u}, R_{f, 1...n}) &= \dfrac{\textbf{u}}{\zeta_f} \\
+    P(\textbf{v} \mid u, R_{b, 1...n}) &= \dfrac{1 - \textbf{u}}{\zeta_b}
+\end{aligned}$$
+
 
 and $\zeta_f, \zeta_b$ being the average number of voxels (over n views) that project to a foreground pixel (with $P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$ and  $\textbf{c} = I_m(\pi_m(\textbf{v}))$) and a background pixel, respectively.
 
