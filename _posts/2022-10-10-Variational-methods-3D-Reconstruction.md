@@ -39,7 +39,7 @@ In $x$ axis, the volume $V$ in the image above goes from $0$ to $8$, from $0$ to
 
 Discretely, volume $V$ having a resolution $N_x \times N_y \times N_z$ is a set of voxels:
 
-$$V := \left\{\left(\begin{matrix}
+$$V :=\left\{\left(\begin{matrix}
     v_{11} + i \cdot \dfrac{v_{12} - v_{11}}{N_x} \\
     v_{21} + j \cdot \dfrac{v_{22} - v_{21}}{N_y} \\
     v_{31} + k \cdot \dfrac{v_{32} - v_{31}}{N_x} \\
