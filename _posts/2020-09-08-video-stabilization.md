@@ -19,7 +19,7 @@ where $I_i, I'_i: \Omega: \rightarrow \mathbb{R}^3$ are RGB image in domain $\Om
 As we mentioned before, **the movement** of a camera recording a video **is not perfect** which leads vibration inside video. Our goal is **to smooth that movement** to get stable frames.
 
 <p align="center">
-    <img width="400"  src="/figure/vd_stb/transformation.png"/>
+    <img width="400"  src="/figure/vid_stb/transformation.png"/>
     <br>
     <i>Figure 1: Correlation between the unstable frame and the stable</i>
 </p>
@@ -28,7 +28,7 @@ Due to the **imperfection of the real camera's pose** (*"noise - vibration"* in 
 
 Expanding this to all shaky frames, we have this:
 
-![](/figure/vd_stb/formulation.png)
+![](/figure/vid_stb/formulation.png)
 
 where the transformation matrix $H_{i, i+1}$ presents the movement of the camera from frame $I_i$ to frame $I_{i + 1}$ and $G_i$ is the stabilizing transformation matrix.
 
@@ -38,7 +38,7 @@ where the transformation matrix $H_{i, i+1}$ presents the movement of the camera
 
 Traditional video stabilization methods all use the same framework which is:
 
-![](/figure/vd_stb/Framework.png)
+![](/figure/vid_stb/Framework.png)
 
 The framework includes 3 main steps:
 
@@ -62,7 +62,7 @@ These algorithms are usually used:
 
 After detecting and tracking features, we have pairs of corresponding key points $\{(p^i_k, p^{i+1}_k)\}$ of two successive frames $I_i$ and $I_{i+1}$.
 
-![](/figure/vd_stb/motion_model.png)
+![](/figure/vid_stb/motion_model.png)
 
 With assumption that the transformation matrix $H_{i, i+1}$ between two frames is a homography with 8 unknown parameter, we have the formulation:
 
@@ -97,7 +97,7 @@ The linear system above can be solved by Jacobi method, close form or least squa
 
 In addition, it depends on our assumption of camera movement between two successive frames. If we suppose that camera just translates, the number of parameters needed to find is just 2. But, the more parameters, the more accuracy camera movement we can find.
 
-![](/figure/vd_stb/transformations.png)
+![](/figure/vid_stb/transformations.png)
 
 ## Motion Compensation
 
@@ -105,7 +105,7 @@ In addition, it depends on our assumption of camera movement between two success
 
 First, we have an assumption that **the first original frame $I_1$ is always stable**.
 
-![](/figure/vd_stb/Cumulative_Transformation.png)
+![](/figure/vid_stb/Cumulative_Transformation.png)
 
 Because of the linearity of transformation matrices, we can find the **cumulative transformation matrix $H_{1,i}$ transforming original frame $I_1$ to original frame $I_i$** by:
 
@@ -123,7 +123,7 @@ with $\operatorname{smooth}(.)$ being an element wise gaussian convolution opera
 
 ### Motion Compensation
 
-![](/figure/vd_stb/motion_compensation.png)
+![](/figure/vid_stb/motion_compensation.png)
 
 After estimating $\bar{H}_{1,i}$, we can easily find the stabilizing matrix $G_i$ by:
 
@@ -145,19 +145,19 @@ This is an example after being applied the above strategy. The scene is static (
 
 Shaky Video             |  Stabilized but Uncropped Video           |  Fully Processed Video 
 :-----------------------:|:-------------------------:|:-------------------------:
-![](/figure/vd_stb/pattern.gif)  |  ![](/figure/vd_stb/uncropped_pattern.gif)  |  ![](/figure/vd_stb/stb_pattern.gif)
+![](/figure/vid_stb/pattern.gif)  |  ![](/figure/vid_stb/uncropped_pattern.gif)  |  ![](/figure/vid_stb/stb_pattern.gif)
 
 This video is recorded by a man while he was walking on street. There are some moving people in video but not too many and the sizes of them are small. Some details like trees are distorted after being stabilized.
 
 Shaky Video             |  Stabilized but Uncropped Video           |  Fully Processed Video 
 :-----------------------:|:-------------------------:|:-------------------------:
-![](/figure/vd_stb/sidewalk.gif)  |  ![](/figure/vd_stb/uncropped_sidewalk.gif)  |  ![](/figure/vd_stb/stb_sidewalk.gif)
+![](/figure/vid_stb/sidewalk.gif)  |  ![](/figure/vid_stb/uncropped_sidewalk.gif)  |  ![](/figure/vid_stb/stb_sidewalk.gif)
 
 This video recorded a dancing woman, and also there are some jitters inside it. The output is really bad. Because our assumption only deals with static scene. In this example, it is no longer true.
 
 Shaky Video             |  Stabilized but Uncropped Video
 :-----------------------:|:-------------------------:
-![](/figure/vd_stb/dancing.gif)  |  ![](/figure/vd_stb/uncropped_dancing.gif)
+![](/figure/vid_stb/dancing.gif)  |  ![](/figure/vid_stb/uncropped_dancing.gif)
 
 You can read [[1]](#1) to know more about other assumptions as well as different smoothing strategies.
 
