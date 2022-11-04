@@ -60,7 +60,7 @@ These algorithms are usually used:
 
 ### Motion Model
 
-After detecting and tracking features, we have pairs of corresponding key points $\{(p^i_{k}, p^{i+1}_{k})\}$ of two successive frames $I_i$ and $I_{i+1}$.
+After detecting and tracking features, we have pairs of corresponding key points $$\{(p^i_{k}, p^{i+1}_{k})\}$$ of two successive frames $I_i$ and $I_{i+1}$.
 
 ![](/figure/vid_stb/motion_model.png)
 
@@ -113,7 +113,7 @@ $$H_{1,i} = \prod_{k=2}^{i}H_{k-1,k} = H_{i-1, i}...H_{2,3}H_{1,2}$$
 
 Due to vibration while camera is moving, sequence $\{H_{1,i}\}$ will have noise, which lead to frames $\{I_i\}$ unstable. What we have to do is to smooth $\{H_{1, i}\}$.
 
-Suppose that smoothed matrix  $\bar{H}_{1, i}$ of $H_{1, n}$ with gaussian convolution:
+Suppose that smoothed matrix  $$\bar{H}_{1, i}$$ of $$H_{1, n}$$ with gaussian convolution:
 
 $$\bar{H}_{1, i} = \operatorname{smooth}(..., H_{1, i - 1}, H_{1, i}, H_{1, i + 1}, ...)$$
 
