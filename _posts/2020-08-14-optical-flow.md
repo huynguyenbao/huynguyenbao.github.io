@@ -10,7 +10,7 @@ tags:
 
 ![alt text](/figure/optical_flow/definition.png "Title")
 
-Formulation and Assumption
+Assumption and Formulation
 -----
 
 The problem:

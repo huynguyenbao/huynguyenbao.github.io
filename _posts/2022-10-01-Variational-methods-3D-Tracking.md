@@ -191,13 +191,19 @@ To solve this optimization problem, we need to know the explicit probability of 
 
 ![](/figure/Tracking/pixel_likelihood.png)
 
-Intuitively, the likelihood probability of a <span style="color:red">red pixel</span> in foreground $R_f$ will be:
+Intuitively, the likelihood probability of a <span style="color:red">red pixel</span> in foreground $R_f$ and background $R_b$ will be:
 
-$$P(\textbf{x} \mid R_f, \Phi, \textbf{p}) = \dfrac{1}{\operatorname{Area}_f}$$
+$$\begin{aligned}
+    P(\textbf{x} \mid R_f, \Phi, \textbf{p}) &= \dfrac{1}{\operatorname{Area}_f} \\
+    P(\textbf{x} \mid R_b, \Phi, \textbf{p}) &= 0
+\end{aligned}$$
 
-and that of the <span style="color:green">green pixel</span> in background $R_b$ will be:
+and that of the <span style="color:green">green pixel</span> in foreground $R_f$ and background $R_b$ will be:
 
-$$P(\textbf{x} \mid R_b, \Phi, \textbf{p}) = \dfrac{1}{\operatorname{Area}_b}$$
+$$\begin{aligned}
+    P(\textbf{x} \mid R_f, \Phi, \textbf{p}) &= 0
+    P(\textbf{x} \mid R_b, \Phi, \textbf{p}) &= \dfrac{1}{\operatorname{Area}_b}
+\end{aligned}$$
 
 To generalize both expressions, we can utilize the shape kernel property.
 
