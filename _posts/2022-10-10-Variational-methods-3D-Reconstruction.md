@@ -33,7 +33,7 @@ where:
 
 <u> Example</u>:
 
-![](../figure/3DReconstruction/volume.png)
+![](/figure/3DReconstruction/volume.png)
 
 In $x$ axis, the volume $V$ in the image above goes from $0$ to $8$, from $0$ to $20$ for $y$ axis and from $0$ to $10$ for $z$ axis.
 
@@ -132,7 +132,7 @@ $$P(R_{i, 1...n} \mid \textbf{c}_{1...n}) = \dfrac{P(\textbf{c}_{1...n} \mid R_{
 
 * Regarding **voxel likelihood**, intuitively, we have:
 
-![](../figure/3DReconstruction/voxel_likelihood.png)
+![](/figure/3DReconstruction/voxel_likelihood.png)
 
 For a <span style="color:red">red voxel</span> inside our 3D object (cylinder in the example), its probability would be:
 
@@ -154,7 +154,6 @@ $$\begin{aligned}
     P(\textbf{v} \mid \textbf{u}, R_{f, 1...n}) &= \dfrac{\textbf{u}}{\zeta_f} \\
     P(\textbf{v} \mid u, R_{b, 1...n}) &= \dfrac{1 - \textbf{u}}{\zeta_b}
 \end{aligned}$$
-
 
 and $\zeta_f, \zeta_b$ being the average number of voxels (over n views) that project to a foreground pixel (with $P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$ and  $\textbf{c} = I_m(\pi_m(\textbf{v}))$) and a background pixel, respectively.
 
