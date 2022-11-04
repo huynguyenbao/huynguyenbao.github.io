@@ -1,7 +1,7 @@
 ---
 title: 'Harris Corner Detection'
-date: 2020-08-19
-permalink: /posts/2020/09/18/video-stabilization/
+date: 2020-09-08
+permalink: /posts/2020/09/08/video-stabilization/
 tags:
   - Computer Vision
 ---
