@@ -39,7 +39,7 @@ In $x$ axis, the volume $V$ in the image above goes from $0$ to $8$, from $0$ to
 
 Discretely, volume $V$ having a resolution $N_x \times N_y \times N_z$ is a set of voxels:
 
-$$V := \left\{ \left( \begin{matrix}
+$$V := \left\{\left(\begin{matrix}
     v_{11} + i \cdot \dfrac{v_{12} - v_{11}}{N_x} \\
     v_{21} + j \cdot \dfrac{v_{22} - v_{21}}{N_y} \\
     v_{31} + k \cdot \dfrac{v_{32} - v_{31}}{N_x} \\
@@ -121,7 +121,7 @@ $$P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n}) \propto \underset{i \in \{ j
 
 $$\begin{aligned}
     P(\textbf{u} \mid \Omega_3) &\propto \underset{\textbf{v} \in \Omega_3}{\prod} P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n}) \\
-    &\propto \underset{\textbf{v} \in \Omega_3}{\prod}  \left\{ \sum_{i\in \{ f, b\}} P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n}) \right\}
+    &\propto \underset{\textbf{v} \in \Omega_3}{\prod}\left\{\sum_{i\in \{ f, b\}} P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n})\right\}
 \end{aligned}$$
 
 The posterior has reveal its formulation, but we still have not known each small term in it.
@@ -171,8 +171,7 @@ However, these joint probabilities are not calculated easily since their product
 
 $$\begin{aligned}
     P(\textbf{c}_{1...n} \mid R_{f, 1...n}) &= \operatorname{exp} \left( \dfrac{\sum_{k = 1}^n\operatorname{log}P(\textbf{c}_k \mid R_{f, k})}{n} \right) \\
-
-    P(\textbf{c}_{1...n} \mid R_{b, 1...n}) &= 1 - \operatorname{exp} \left( \dfrac{\sum_{k = 1}^n1 - \operatorname{log}( 1 - P(\textbf{c}_k \mid R_{b, k}))}{n} \right) \\
+    P(\textbf{c}_{1...n} \mid R_{b, 1...n}) &= 1 - \operatorname{exp} \left( \dfrac{\sum_{k = 1}^n1 - \operatorname{log}( 1 - P(\textbf{c}_k \mid R_{b, k}))}{n} \right)
 \end{aligned}$$
 
 The probability of foreground and background region over $n$ views becomes $P(R_{f, 1...n}) = \dfrac{\bar{\eta_f}}{\eta}$ with $\eta_f$ being the average value of foreground area $\eta_f$ over the $n$ views. $P(R_{b, 1...n})$ follows analogously ($\eta$ is the whole image area).
