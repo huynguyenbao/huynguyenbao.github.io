@@ -1,5 +1,5 @@
 ---
-title: 'Harris Corner Detection'
+title: 'Video Stabilization'
 date: 2020-09-08
 permalink: /posts/2020/09/08/video-stabilization/
 tags:
