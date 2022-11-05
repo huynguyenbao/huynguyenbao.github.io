@@ -5,7 +5,9 @@ permalink: /posts/2020/09/08/video-stabilization/
 tags:
   - Computer Vision
 ---
-Nowadays, cameras are very popular. They appear every where, are integrated into smartphones, cars, and drones. But because of unprofessional users, or external impact, the captured videos may have vibration inside. This leads to reducing video quality and performance of others high-level tasks like object detection, tracking. **Video stabilization** is process that aims to reduce the vibration, jitter inside video.
+**Video stabilization** is process that aims to reduce the vibration, jitter inside video.
+
+![](/figure/vid_stb/dancing.gif)
 
 ## Formulation
 
@@ -24,7 +26,7 @@ As we mentioned before, **the movement** of a camera recording a video **is not 
     <i>Figure 1: Correlation between the unstable frame and the stable</i>
 </p>
 
-Due to the **imperfection of the real camera's pose** (*"noise - vibration"* in the camera's pose), we need **to find a virtual camera**, that is **more stable** than the original. The difference between these two camera can be presented by **a transformation matrix $G$**.
+Due to the **imperfection of the real camera's pose** (*"noise - vibration"* in the camera's pose), we need **to find a virtual camera**, that is **more stable** than the original. The difference between these two cameras can be presented by **a transformation matrix $G$**.
 
 Expanding this to all shaky frames, we have this:
 
