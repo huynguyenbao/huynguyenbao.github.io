@@ -11,7 +11,7 @@ This blog will show you the general version of [active contours model](https://g
 
 ## Problem
 
-Finding the curve $C$ in segmentation problem is also **to find an optimal partition $\mathcal{P}(\Omega)$** which segments an input image $I$ into two regions or maybe more. **Find an optimal partition $\mathcal{P}(\Omega)$** can be seen as problem of maximizing a **posteriori probability** $p(\mathcal{P}(\Omega)\mid I)$.
+Finding the curve $C$ in segmentation problem is equivalent **to find an optimal partition $\mathcal{P}(\Omega)$** which segments an input image $I$ into two regions or maybe more. **Find an optimal partition $\mathcal{P}(\Omega)$** can be seen as problem of maximizing a **posteriori probability** $p(\mathcal{P}(\Omega)\mid I)$.
 
 To expand this further, Bayes's rule is used:
 

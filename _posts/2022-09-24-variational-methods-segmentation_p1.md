@@ -32,7 +32,7 @@ $$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
 
 If the curve is at the **flat region**, the magnitude of the image gradient is **zero**, while when the curve is at the **boundary**, the magnitude is **the largest**. Because of this, the external energy is **negative of image gradient magnitude**. In addition, $E_{image}(C)$ is called external energy since it depends mainly on the input image.
 
-* Tn the **second criterion** helps us derive an internal energy of curve $C$ which evaluates the **continuity and smoothness of an arbitrary curve**:
+* The **second criterion** helps us derive an internal energy of curve $C$ which evaluates the **continuity and smoothness of an arbitrary curve**:
 
   * Continuity term:
   
@@ -69,7 +69,7 @@ $$\begin{equation}
 And the **necessary condition** is:
 
 $$\begin{equation}
-  \dfrac{dE}{dC} = \dfrac{\partial L}{\partial Cs} - \dfrac{\partial}{\partial s}\left(\dfrac{\partial L}{\partial C_s}\right) + \dfrac{\partial ^ 2}{\partial s^2}\left(\dfrac{\partial L}{\partial C_{ss}}\right) = 0
+  \dfrac{dE}{dC} = \dfrac{\partial L}{\partial C_s} - \dfrac{\partial}{\partial s}\left(\dfrac{\partial L}{\partial C_s}\right) + \dfrac{\partial ^ 2}{\partial s^2}\left(\dfrac{\partial L}{\partial C_{ss}}\right) = 0
 \end{equation}$$
 
 In fact, this necessary condition does not guarantee that the solution is global optimum but only **local optimum**. However, at least we still can find an acceptable solution by using gradient descent.
@@ -148,9 +148,11 @@ $$\begin{equation}
         \end{array}\right] = A_4 X
 \end{equation}$$
 
-Finally, the term $-\alpha x^{(2)} + \beta x^{(4)}$ in Euler - Lagrange equation above is rewritten as matrix form: $-\alpha A_2 X + \beta A_4X$.
+Finally, the term $-\alpha x^{(2)} + \beta x^{(4)}$ in Euler - Lagrange equation above is rewritten as matrix form: 
 
-This is applied the same to $Y^{(2)}$ and $Y^{(4)}$.
+$$-\alpha A_2 X + \beta A_4X$$
+
+$Y^{(2)}$ and $Y^{(4)}$ go analogously.
 
 ### Implicit Euler method
 
