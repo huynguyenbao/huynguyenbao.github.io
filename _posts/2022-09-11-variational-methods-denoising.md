@@ -124,7 +124,7 @@ Noisy Image             |  Denoised Image
 
 ### Alternative for Smoothness Term
 
-Regarding the energy function above, since the $E_{structure}$ is fixed in order to preserve the image structure while optimizing, people usually tweak and modify $E_{smoothness}$ to achieve desired results. **Total variation $L_1$** term can be an alternative for $L_2$ which makes edges in an image *sharper* instead of blurrier:
+Regarding the energy function above, since the $E_\text{structure}$ is fixed in order to preserve the image structure while optimizing, people usually tweak and modify $E_\text{smoothness}$ to achieve desired results. **Total variation $L_1$** term can be an alternative for $L_2$ which makes edges in an image *sharper* instead of blurrier:
 
 $$E_\text{smoothness}(f) = \int_\Omega ||\nabla f|| \, \text{d}x \, \text{d}y = \int_\Omega \sqrt{f_x^2 + f_y^2} \, \text{d}x \, \text{d}y$$
 
@@ -140,9 +140,7 @@ Noisy Image             |  $L_2$ Denoised Image           |  $L_1$ Denoised Imag
 :-----------------------:|:-------------------------:|:-------------------------:
 ![](/figure/Denoising/noisy.jpg)  |  ![](/figure/Denoising/L2_denoised.jpg)  |  ![](/figure/Denoising/L1_denoised.jpg)
 
-
 We can easily notice that the image used $L_1$ loss is **shaper than** the one used $L_2$.
-
 
 **The smoothness term $L_1$** and its variations are usually used beside the difference between predicted images and ground truths while training CNN-based image denoising models **to preserve the clarity of detail in photos**.
 
