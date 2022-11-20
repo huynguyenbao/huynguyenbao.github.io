@@ -21,19 +21,19 @@ Let $f: \Omega \rightarrow \mathbb{R}$ be a gray-scaled image on a domain $\Omeg
 With the two above assumptions we can derive an energy function to find $f$:
 
 $$\begin{align}
-  E(f, u) &= E_{structure}(f, u) + E_{smoothness}(f) \\
+  E(f, u) &= E_\text{structure}(f, u) + E_\text{smoothness}(f) \\
 \end{align}$$
 
 The similarity of two images $f$ and $u$ is computed by:
 
 $$\begin{equation}
-  E_{structure}(f, u) = \dfrac{1}{2}\iint_{\Omega} (f - u)^2 \text{d}x\,\text{d}y
+  E_\text{structure}(f, u) = \dfrac{1}{2}\iint_{\Omega} (f - u)^2 \text{d}x\,\text{d}y
 \end{equation}$$
 
 while the smoothness can be evaluated:
 
 $$\begin{equation}
-  E_{smoothness}(f) = \dfrac{1}{2}\iint_{\Omega} ||\nabla f||^2 \text{d}x \, \text{d}y
+  E_\text{smoothness}(f) = \dfrac{1}{2}\iint_{\Omega} ||\nabla f||^2 \text{d}x \, \text{d}y
 \end{equation}$$
 
 where $\nabla f = <\partial f/\partial x, \partial f/ \partial y>$.
@@ -126,7 +126,7 @@ Noisy Image             |  Denoised Image
 
 Regarding the energy function above, since the $E_{structure}$ is fixed in order to preserve the image structure while optimizing, people usually tweak and modify $E_{smoothness}$ to achieve desired results. **Total variation $L_1$** term can be an alternative for $L_2$ which makes edges in an image *sharper* instead of blurrier:
 
-$$E_{smoothness}(f) = \int_\Omega ||\nabla f|| \, \text{d}x \, \text{d}y = \int_\Omega \sqrt{f_x^2 + f_y^2} \, \text{d}x \, \text{d}y$$
+$$E_\text{smoothness}(f) = \int_\Omega ||\nabla f|| \, \text{d}x \, \text{d}y = \int_\Omega \sqrt{f_x^2 + f_y^2} \, \text{d}x \, \text{d}y$$
 
 and the update equation for image function $f$ is:
 

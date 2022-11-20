@@ -24,27 +24,27 @@ To answer that, we need **some criteria** for a good curve $C$:
 
 With the two above assumptions we can derive an energy function to find $C$:
 
-$$E(C) = E_{image}(C) + E_{int}(C)$$
+$$E(C) = E_\text{image}(C) + E_\text{int}(C)$$
 
-* For the **first criterion**, we can utilize the property of an image that is the **drastic change of intensity in edge regions** to detect foreground and background. The energy function $E_{image}(C)$ should **force the curve toward that boundary** of foreground and background region:
+* For the **first criterion**, we can utilize the property of an image that is the **drastic change of intensity in edge regions** to detect foreground and background. The energy function $E_\text{image}(C)$ should **force the curve toward that boundary** of foreground and background region:
 
 $$E_{img}(C)= -\int_0^1 |\nabla I(C)|^2 \, ds = - \int_0^1 I_x^2 + I_y^2 \, ds$$
 
-If the curve is at the **flat region**, the magnitude of the image gradient is **zero**, while when the curve is at the **boundary**, the magnitude is **the largest**. Because of this, the external energy is **negative of image gradient magnitude**. In addition, $E_{image}(C)$ is called external energy since it depends mainly on the input image.
+If the curve is at the **flat region**, the magnitude of the image gradient is **zero**, while when the curve is at the **boundary**, the magnitude is **the largest**. Because of this, the external energy is **negative of image gradient magnitude**. In addition, $E_\text{image}(C)$ is called external energy since it depends mainly on the input image.
 
 * The **second criterion** helps us derive an internal energy of curve $C$ which evaluates the **continuity and smoothness of an arbitrary curve**:
 
   * Continuity term:
   
-    $$E_{cont}(C) = \int_0^1  |C_s|^2 \, ds = \int_0^1 \left|\dfrac{\partial x}{\partial s}\right|^2 + \left|\dfrac{\partial y}{\partial s}\right|^2 ds$$
+    $$E_\text{cont}(C) = \int_0^1  |C_s|^2 \, ds = \int_0^1 \left|\dfrac{\partial x}{\partial s}\right|^2 + \left|\dfrac{\partial y}{\partial s}\right|^2 ds$$
 
   * Smoothness term:
   
-    $$E_{curve}(C) = \int_0^1 |C_{ss}|^2 \, ds = \int_0^1 \left|\dfrac{\partial^2 x}{\partial s^2}\right|^2 + \left|\dfrac{\partial^2 y}{\partial s^2}\right|^2 ds$$
+    $$E_\text{curve}(C) = \int_0^1 |C_{ss}|^2 \, ds = \int_0^1 \left|\dfrac{\partial^2 x}{\partial s^2}\right|^2 + \left|\dfrac{\partial^2 y}{\partial s^2}\right|^2 ds$$
 
 The purpose of the energy is **to penalize the non-continuous and non-smooth curve**:
 
-$$E_{int}(C) = \int_0^1 \alpha(s) |C_s|^2 + \beta(s) |C_{ss}|^2 \, ds$$
+$$E_\text{int}(C) = \int_0^1 \alpha(s) |C_s|^2 + \beta(s) |C_{ss}|^2 \, ds$$
 
 Because of the diversity of objects needed to be segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
 
