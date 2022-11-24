@@ -7,7 +7,7 @@ tags:
   - Computer Vision
 ---
 
-This blog will show you the general version of [active contours model](https://graphicsminer.github.io/mathematics/2022/09/22/variational-methods-and-image-segmentation_part2.html) via **statistical perspective** and how to enhance the performance of the method.
+This blog will show you the general version of active contours model via **statistical perspective** and how to enhance the performance of the method.
 
 ## Problem
 
@@ -102,7 +102,7 @@ H(x) = \begin{cases}
 
 ## Solutions
 
-Again, the method solving this problem is **Euler - Lagrange Equation** and **gradient decent**. We recommend you read [the previous blog](https://graphicsminer.github.io/mathematics/2022/09/22/variational-methods-and-image-segmentation_part2.html) to familiarize yourself with the way we expand formulation.
+Again, the method solving this problem is **Euler - Lagrange Equation** and **gradient descent**. We recommend you read the part 2 to familiarize yourself with the way we expand formulation.
 
 $$
     E(\phi, \theta_1, \theta_2) = \underset{\Omega}{\iint} L(\phi, \nabla \phi, \theta_1, \theta_2) \, dx \, dy

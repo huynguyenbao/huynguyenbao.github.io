@@ -7,7 +7,7 @@ tags:
   - Computer Vision
 ---
 
-After finishing [Snakes problem](https://graphicsminer.github.io/mathematics/2022/09/20/variational-methods-and-image-segmentation_part1.html), today, we will get into an improvement of it which is called **Active Contours Without Edges**. The reason it has *"without edges"* is that the model doesn't use the image gradient information of input image. You can also read the original version at [here](https://www.math.ucla.edu/~lvese/PAPERS/IEEEIP2001.pdf).
+After finishing Snakes problem in part 1, today, we will get into an improvement of it which is called **Active Contours Without Edges**. The reason it has *"without edges"* is that the model doesn't use the image gradient information of input image. You can also read the original version at [here](https://www.math.ucla.edu/~lvese/PAPERS/IEEEIP2001.pdf).
 
 ## Formulation
 
