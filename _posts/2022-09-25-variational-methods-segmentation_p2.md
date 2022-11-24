@@ -52,7 +52,7 @@ C &= \{(x, y) \in \Omega \, | \, \phi(x, y) = 0\} \\
 \end{cases}
 \end{equation*}$$
 
-We can compute the length of curve $C$ and area of the region inside $C$ by using *Heaviside step function* and its derivative *Dirac delta function*:
+We can compute the length of curve $C$ and area of the region inside $C$ by using *Heaviside step function* ($H(.)$) and its derivative *Dirac delta function* ($\delta(.)$):
 
 $$\begin{aligned}
     \operatorname{Length}(C) &= \iint_\Omega |\nabla H (\phi(x, y))| \, dx \,dy = \iint_\Omega \delta(\phi(x ,y))|\nabla \phi(x, y)| \, dx \,dy \\
