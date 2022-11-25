@@ -7,7 +7,7 @@ tags:
   - 3D Computer Vision
 ---
 
-There are numerous methods for reconstructing a real object into mesh such as voxel carving which processes independently the input images or structure from motion. However, in this blog, we would like to introduce to you another solution for this ill-posed inverse computer vision problem. This method is a volumetric approach, where each voxel is assigned two probability values for being in or out of 3D object. Let's start.
+There are numerous methods for reconstructing a real object into the mesh, such as voxel carving, which independently processes the input images or structure from motion. However, in this blog, we would like to introduce to you another solution for this ill-posed inverse computer vision problem. This method is a volumetric approach, where each voxel is assigned two probability values for being in or out of the 3D object. Let's start.
 
 ![](/figure/3DReconstruction/multiple-view-3D-recon.png)
 
@@ -19,7 +19,7 @@ Before diving into the main sections, we have to go through notations first.
 
 ### Volume
 
-Let **volume $V$** be **our local 3D environment** which includes the 3D object needed to reconstruct.
+Let **volume $V$** be **our local 3D environment**, which includes the 3D object needed to reconstruct.
 
 $$V := [v_{11}, v_{12}] \times [v_{21}, v_{22}] \times [v_{31}, v_{32}] \subset \mathbb{R}^3$$
 
@@ -83,7 +83,7 @@ In summary, the <u>inputs</u> of our 3D reconstruction problem include:
 
 ## Generative Model
 
-It is extremely challenging if there is no assumption for an inverse problem like this. To reduce the complexity of the problem, Victor el al [[1]](#1) proposed a graphical model. Let's have a look at it:
+It is extremely challenging if there is no assumption for an inverse problem like this. To reduce the complexity of the problem, Victor et al. [[1]](#1) proposed a graphical model. Let's have a look at it:
 
 ![](/figure/3DReconstruction/graphical_model.png)
 
@@ -95,7 +95,7 @@ where:
 * $\textbf{v}$: voxel coordinate in volume $V$ - $\textbf{v} \in \mathbb{R}^3$
 * $\textbf{u}$: shape function of 3D object
 
-This graphical model may be biased to the heuristic of designers but in some point, it is still valid. The random variable $\textbf{v}$ in $V$ depends on not only the shape of 3D object (obviously) but also the foreground or background region $R$ that its projection to image planes belongs to. Whereas, the variable color $\textbf{c}$ undoubtedly depends on the region $R$.
+This graphical model may be biased to the heuristic of designers, but at some point, it is still valid. The random variable $\textbf{v}$ in $V$ depends on not only the shape of the 3D object (obviously) but also the foreground or background region $R$ that its projection to image planes belongs to. Whereas the variable color $\textbf{c}$ undoubtedly depends on the region $R$.
 
 ## Maximizing A Posteriori
 
@@ -157,7 +157,7 @@ $$\begin{aligned}
 
 and $\zeta_f, \zeta_b$ being the average number of voxels (over n views) that project to a foreground pixel (with $P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$ and  $\textbf{c} = I_m(\pi_m(\textbf{v}))$) and a background pixel, respectively.
 
-Now, one question has come is that how can we compute two probabilities $$P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$$ with $$i \in \{ f, b\}$$. A straightforward way is to treat $$\{P(\textbf{c}_k \mid R_{i, k})\}$$ independently. Based on visibility, the probability of a voxel in the foreground is equivalent to the probability that all cameras observe this voxel in the foreground, whereas the probability of a voxel being a part of the background is that at least one camera sees it as the background. This way is pretty similar to voxel carving when a voxel is considered as background if its projection on the background.
+Now, one question has come is that how can we compute two probabilities $$P(\textbf{c}_{1...n} \mid \textbf{R}_{i,1...n})$$ with $$i \in \{ f, b\}$$. A straightforward way is to treat $$\{P(\textbf{c}_k \mid R_{i, k})\}$$ independently. Based on visibility, the probability of a voxel in the foreground is equivalent to the probability that all cameras observe this voxel in the foreground, whereas the probability of a voxel being a part of the background is that at least one camera sees it as the background. This way is pretty similar to voxel carving when a voxel is considered as background if its projections on the background.
 
 $$\begin{aligned}
     P(\textbf{c}_{1...n} \mid R_{f, 1...n}) &= \prod_{k=1}^nP(\textbf{c}_k \mid R_{f, k}) \\
@@ -186,7 +186,7 @@ $$\begin{aligned}
     P_o &= \dfrac{\bar{\eta}_b}{\zeta_b}\dfrac{P(\textbf{c}_{1...n} \mid R_{b, 1...n})}{P(\textbf{c}_{1...n} \mid R_{f, 1...n}) \bar{\eta}_f + P(\textbf{c}_{1...n} \mid R_{b, 1...n}) \bar{\eta}_b}
 \end{aligned}$$
 
-There are many numerical optimization methods to maximize this posterior (basically it is likelihood) such as taking logarithm and using gradient descent, projected gradient descent or Gauss Newton Strategy. However, for an globally solvable formulation, Victor et al [[1]](#1) replaced the logarithmic opinion pool by a linear opinion pool to fuse pixel-wise posteriors and added a weighted surface regularization term:
+There are many numerical optimization methods to maximize this posterior (basically, it is likelihood), such as taking the logarithm and using gradient descent, projected gradient descent, or Gauss-Newton Strategy. However, for a globally solvable formulation, Victor et al. [[1]](#1) replaced the logarithmic opinion pool with a linear opinion pool to fuse pixel-wise posteriors and added a weighted surface regularization term:
 
 $$E = \sum_{\textbf{v} \in \Omega_3}\{uP_i + (1 - u) P_o + \alpha |\nabla u| \}$$
 
@@ -209,13 +209,13 @@ To know the details of the algorithm, visit [[3]](#3) and [[4]](#4)
 
 ## Results
 
-Some may ask how can we know $\{\pi_k\}$ in the real environment.
+Some may ask how we can know $\{\pi_k\}$ in the real environment.
 
-To answer this, we use **ARCore** which simultaneously localizes the position of the camera in 3D world. The setting on mobile phones is straightforward.
+To answer this, we use **ARCore**, which simultaneously localizes the position of the camera in the 3D world. The setting on mobile phones is straightforward.
 
 * First, users will scan floors or flatten areas in order to detect the plane and estimate the camera poses.
 * Next step is to put a large cube (volume) on the detected plane and put the object needed to scan inside the cube.
-* Finally, to achieve the best result, users have to go around the object to observe all the perspectives of it.
+* Finally, to achieve the best result, users have to go around the object to observe all its perspectives.
 
 <p align = "center">
 <iframe width="560"

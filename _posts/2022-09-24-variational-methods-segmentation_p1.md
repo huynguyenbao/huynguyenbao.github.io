@@ -7,7 +7,7 @@ tags:
   - Computer Vision
 ---
 
-Convolution neural networks usually appear in segmentation problems because of their high adaptation to many datasets and high performance. However, in return, they require ground truth data to learn and perform specific tasks, without ground truth their results are really poor. Today, I will introduce to you “old” segmentation methods but they can be applied to several certain problems in absence of datasets. This is called **Snakes: Active Contours Models**.
+Convolution neural networks usually appear in segmentation problems because of their high adaptation to many datasets and high performance. However, in return, they require ground truth data to learn and perform specific tasks, and without ground truth, their results are really poor. Today, I will introduce to you “old” segmentation methods, but they can be applied to several certain problems in the absence of datasets. This is called **Snakes: Active Contours Models**.
 
 ## Formulation
 
@@ -19,10 +19,10 @@ But, there are **innumerable curves $C$**, so how do we know which one is **the 
 
 To answer that, we need **some criteria** for a good curve $C$:
 
-1. Two regions foreground and background in the input image should be separated completely.
+1. The input image's two regions, foreground, and background, should be separated completely.
 2. The curve $C$ should be continuous and smooth as much as possible.
 
-With the two above assumptions we can derive an energy function to find $C$:
+With the two above assumptions, we can derive an energy function to find $C$:
 
 $$E(C) = E_\text{image}(C) + E_\text{int}(C)$$
 
@@ -46,7 +46,7 @@ The purpose of the energy is **to penalize the non-continuous and non-smooth cur
 
 $$E_\text{int}(C) = \int_0^1 \alpha(s) |C_s|^2 + \beta(s) |C_{ss}|^2 \, ds$$
 
-Because of the diversity of objects needed to be segmented (some are really smooth but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
+Because of the diversity of objects needed to be segmented (some are really smooth, but others may be spiky), two weights $\alpha(s)$ and $\beta(s)$ are added to control the contribution of two small energy functions in the objective function.
 
 Finally, **finding the curve $C$ fulfilling these criteria is minimizing the total energy function** (proposed by Kass et al [[1]](#1)):
 
@@ -72,9 +72,9 @@ $$\begin{equation}
   \dfrac{dE}{dC} = \dfrac{\partial L}{\partial C_s} - \dfrac{\partial}{\partial s}\left(\dfrac{\partial L}{\partial C_s}\right) + \dfrac{\partial ^ 2}{\partial s^2}\left(\dfrac{\partial L}{\partial C_{ss}}\right) = 0
 \end{equation}$$
 
-In fact, this necessary condition does not guarantee that the solution is global optimum but only **local optimum**. However, at least we still can find an acceptable solution by using gradient descent.
+In fact, this necessary condition does not guarantee that the solution is global optimum but only **local optimum**. However, at least we can still find an acceptable solution by using gradient descent.
 
-Continue to expand the above equation and get:
+Continue to expand the above equation and get the following:
 
 Since $C = (x(s), y(s))$, we will take the derivative two times, with respect to $x$ and to $y$.
 
@@ -199,7 +199,7 @@ When the initial curve is **inside the flattened foreground**, it keeps **shrink
 
 This is due to the local search (doing line integral along the curve $C$). Many noticed this and replaced **unknown curve $C$** with another **unknown level surface $\Phi$**. Read in part 2. :)
 
-In addition, in implementation, two weighted parameters $\alpha(s)$ and $\beta(s)$ are treated as constants for the sake of simplicity during the optimization process. However, if we do not carefully choose values for the parameters, we could not get the desired result, as you can see in the *4 - petal flower* example, where the curve $C$ can not shrink to fit the boundary. Recently,  Xu, Ziqiang, et al [[2]](#2) fixed this by **replacing $\alpha = \alpha(I)$ and $\beta = \beta(I)$ where $\alpha$ and $\beta$ are two encoder-decoder CNN, which is more flexible**.
+In addition, in implementation, two weighted parameters $\alpha(s)$ and $\beta(s)$ are treated as constants for the sake of simplicity during the optimization process. However, if we do not carefully choose values for the parameters, we cannot get the desired result, as you can see in the *4 - petal flower* example, where the curve $C$ can not shrink to fit the boundary. Recently,  Xu, Ziqiang, et al [[2]](#2) fixed this by **replacing $\alpha = \alpha(I)$ and $\beta = \beta(I)$ where $\alpha$ and $\beta$ are two encoder-decoder CNN, which is more flexible**.
 
 ## References
 

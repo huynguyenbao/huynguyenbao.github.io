@@ -5,7 +5,7 @@ permalink: /posts/2020/09/08/video-stabilization/
 tags:
   - Computer Vision
 ---
-**Video stabilization** is process that aims to reduce the vibration, jitter inside video.
+**Video stabilization** is a process that aims to reduce the vibration and jitter inside videos.
 
 ![](/figure/vid_stb/dancing.gif)
 
@@ -18,7 +18,7 @@ In video visualization, the input and output of the problem are obvious:
 
 where $I_i, I'_i: \Omega: \rightarrow \mathbb{R}^3$ are RGB image in domain $\Omega \subset \mathbb{R}^2$.
 
-As we mentioned before, **the movement** of a camera recording a video **is not perfect** which leads vibration inside video. Our goal is **to smooth that movement** to get stable frames.
+As we mentioned before, **the movement** of a camera recording a video **is not perfect**, which leads to vibration inside videos. Our goal is **to smooth that movement** to get stable frames.
 
 <p align="center">
     <img width="400"  src="/figure/vid_stb/transformation.png"/>
@@ -38,21 +38,21 @@ where the transformation matrix $H_{i, i+1}$ presents the movement of the camera
 
 ## Framework
 
-Traditional video stabilization methods all use the same framework which is:
+Traditional video stabilization methods all use the same framework, which is:
 
 ![](/figure/vid_stb/Framework.png)
 
-The framework includes 3 main steps:
+The framework includes three main steps:
 
 * **Motion estimation**: used to estimate the camera movement
-* **Motion compensation**: smoothing the camera motion and estimate transformation matrix G for each frame
-* **Post Processing**: applying the transformation to each frame and reduce side effects
+* **Motion compensation**: smoothing the camera motion and estimating transformation matrix G for each frame
+* **Post Processing**: applying the transformation to each frame and reducing side effects
 
 ## Motion Estimation
 
 ### Feature Detection and Tracking
 
-To stabilize frames, we must know the camera movement, but we do not have any information of camera movement in the world space. One way of **estimating the camera movement is based on the motion vectors of features inside image**. So, we need to **find image features** and **track them over time**.
+To stabilize frames, we must know the camera movement, but we do not have any information on camera movement in the world space. One way of **estimating the camera movement is based on the motion vectors of features inside the image**. So, we need to **find image features** and **track them over time**.
 
 These algorithms are usually used:
 
@@ -66,7 +66,7 @@ After detecting and tracking features, we have pairs of corresponding key points
 
 ![](/figure/vid_stb/motion_model.png)
 
-With assumption that the transformation matrix $H_{i, i+1}$ between two frames is a homography with 8 unknown parameter, we have the formulation:
+With the assumption that the transformation matrix $H_{i, i+1}$ between two frames is a homography with eight unknown parameters, we have the formulation:
 
 $$\begin{aligned}
     w' \textbf{p}^{i+1}_k &= H_{i, i+1} \textbf{p}^i_k \\
@@ -89,15 +89,15 @@ where $\textbf{p}$ is homogeneuos form of $p$.
 
 With $n$ pairs of corresponding key points $\{(p^i_k, p^{i+1}_k)\}$, we will have $n$ similar homography equations as above.
 
-To find these 8 parameters, we will rewrite homography equation to linear system:
+To find these eight parameters, we will rewrite the homography equation to the linear system:
 $$A \cdot h = b$$
 where $h^T =[h_{11}, h_{12}, h_{13}, h_{21}, h_{22},h_{23}, h_{31}, h_{32}, 1]$  is unknown vector with 8 parameters.
 
-So, we need at least 8 equations to solve, but more equations is better since there may be error/ noise in previous steps.
+So, we need at least eight equations to solve, but more equations are better since there may be errors/ noise in previous steps.
 
-The linear system above can be solved by Jacobi method, close form or least square, etc.
+The linear system above can be solved by the Jacobi method, close form or least square, etc.
 
-In addition, it depends on our assumption of camera movement between two successive frames. If we suppose that camera just translates, the number of parameters needed to find is just 2. But, the more parameters, the more accuracy camera movement we can find.
+In addition, it depends on our assumption of camera movement between two successive frames. If we suppose that the camera translates, the number of parameters needed to find is just 2. But, the more parameters, the more accurate camera movement we can find.
 
 ![](/figure/vid_stb/transformations.png)
 
@@ -131,7 +131,7 @@ After estimating $\bar{H}_{1,i}$, we can easily find the stabilizing matrix $G_i
 
 $$G_i = \bar{H}_{1,i} \cdot H^{-1}_{1,i}$$
 
-## Post processing
+## Post-processing
 
 To get a stabilize frame $I_i'$, we just wrap $I_i$ with $G_i$ by applying the equation:
 
@@ -139,7 +139,7 @@ $$I_i'(G_i \textbf{x}) = I_i(\textbf{x})$$
 
 with $\textbf{x} = [x, y, 1]^T$.
 
-After stabilizing frame $I_i$, we also need to eliminate empty space in transformed image. This step is called "crop and zoom".
+After stabilizing frame $I_i$, we also need to eliminate empty space in the transformed image. This step is called "crop and zoom."
 
 ## Results
 
@@ -149,13 +149,13 @@ Shaky Video             |  Stabilized but Uncropped Video           |  Fully Pro
 :-----------------------:|:-------------------------:|:-------------------------:
 ![](/figure/vid_stb/pattern.gif)  |  ![](/figure/vid_stb/uncropped_pattern.gif)  |  ![](/figure/vid_stb/stb_pattern.gif)
 
-This video is recorded by a man while he was walking on street. There are some moving people in video but not too many and the sizes of them are small. Some details like trees are distorted after being stabilized.
+This video was recorded by a man while he was walking on the street. There are some moving people in the video but not too many, and their sizes are small. Some details, like trees, are distorted after being stabilized.
 
 Shaky Video             |  Stabilized but Uncropped Video           |  Fully Processed Video 
 :-----------------------:|:-------------------------:|:-------------------------:
 ![](/figure/vid_stb/sidewalk.gif)  |  ![](/figure/vid_stb/uncropped_sidewalk.gif)  |  ![](/figure/vid_stb/stb_sidewalk.gif)
 
-This video recorded a dancing woman, and also there are some jitters inside it. The output is really bad. Because our assumption only deals with static scene. In this example, it is no longer true.
+This video recorded a dancing woman, and also, there are some jitters inside it. The output is really bad. Because our assumption only deals with a static scene. In this example, it is no longer true.
 
 Shaky Video             |  Stabilized but Uncropped Video
 :-----------------------:|:-------------------------:

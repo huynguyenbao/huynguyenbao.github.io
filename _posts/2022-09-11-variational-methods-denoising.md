@@ -7,9 +7,9 @@ tags:
   - Computer Vision
 ---
 
-Variational methods are really powerful and have a variety of applications such as 2D segmentation and 3D reconstruction. However, today I will present to you one of their interesting applications: Image Denoising.
+Variational methods are really powerful and have a variety of applications, such as 2D segmentation and 3D reconstruction. However, today I will present to you one of their interesting applications: Image Denoising.
 
-Nowadays, the popularity and the adaptability power of CNNs are making engineers depend on more datasets with human-labeled ground truth, and the designing of CNNs like playing Lego, adding blocks, feeding a random input, and anticipating the desired output. But have you imagined how "our ancestors" can remove noise in an image without ground truth? If you do, let's dive into mathematics :).
+Nowadays, the popularity and the adaptability power of CNNs are making engineers depend on more datasets with human-labeled ground truth, and the designing of CNNs like playing with Lego blocks, adding blocks, feeding a random input, and anticipating the desired output. But have you imagined how "our ancestors" can remove noise in an image without ground truth? If you do, let's dive into mathematics :).
 
 ## Formulation
 
@@ -18,7 +18,7 @@ Let $f: \Omega \rightarrow \mathbb{R}$ be a gray-scaled image on a domain $\Omeg
 * The structure of $f$ should be *similar as possible* to that of $u$.
 * $f$ should be *spatially smooth*.
 
-With the two above assumptions we can derive an energy function to find $f$:
+With the two above assumptions, we can derive an energy function to find $f$:
 
 $$\begin{align}
   E(f, u) &= E_\text{structure}(f, u) + E_\text{smoothness}(f) \\
@@ -30,7 +30,7 @@ $$\begin{equation}
   E_\text{structure}(f, u) = \dfrac{1}{2}\iint_{\Omega} (f - u)^2 \text{d}x\,\text{d}y
 \end{equation}$$
 
-while the smoothness can be evaluated:
+While the smoothness can be evaluated:
 
 $$\begin{equation}
   E_\text{smoothness}(f) = \dfrac{1}{2}\iint_{\Omega} ||\nabla f||^2 \text{d}x \, \text{d}y
@@ -49,7 +49,7 @@ where $\lambda$ is a weighted number.
 
 ## Solution
 
-What we need to find right now is not a finite number of parameters but actually the **function $f$** and how we minimize energy function $E$ where $f$ is an argument
+What we need to find right now is not a finite number of parameters but actually, the **function $f$** and how we minimize energy function $E$ where $f$ is an argument.
 
 According to Euler - Lagrange equation, the optimal function $f$ must hold the necessary condition (Read more [here](https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation)). The energy function can be written in the form:
 
@@ -63,7 +63,7 @@ $$\begin{equation}
   \dfrac{dE}{df} = \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) = 0
 \end{equation}$$
 
-In fact, this necessary condition does not guarantee that the solution is global optimum but only local optimum. However, at least we still can find an acceptable solution by using gradient descent.
+This necessary condition does not guarantee that the solution is global optimum but only local optimum. However, at least we can still find an acceptable solution by using gradient descent.
 
 Continue to expand the above equation to get:
 

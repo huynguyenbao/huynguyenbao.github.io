@@ -7,7 +7,7 @@ tags:
   - 3D Computer Vision
 ---
 
-This blog presents you with a lightweight real-time segmentation and pose tracking method which only uses only a monocular RGB camera and can run with multiple objects and is robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement. **Real-Time Monocular Segmentation and Pose Tracking**.
+This blog presents you with a lightweight real-time segmentation and pose tracking method which only uses only a monocular RGB camera and can run with multiple objects, and is robust to occlusion. You can watch the [demonstration](#demonstration) first to have a sense. The whole process is just mathematics which makes the output of each step predictable and allows us to have insight for further improvement. **Real-Time Monocular Segmentation and Pose Tracking**.
 
 ## Preliminaries
 
@@ -63,7 +63,7 @@ $$Z'\textbf{x} = Z'\left[\begin{matrix}
 \end{matrix}\right]
 $$
 
-The silhouette of a 3D model in an image plane after projection splits the image into 2 regions: foreground $\Omega_f \subset \Omega$ and background $\Omega_b = \Omega \setminus \Omega_f$. In the figure below, the white region is the foreground and the rest (black color) is the background.
+The silhouette of a 3D model in an image plane after projection splits the image into two regions: foreground $\Omega_f \subset \Omega$ and background $\Omega_b = \Omega \setminus \Omega_f$. In the figure below, the white region is the foreground, and the rest (black color) is the background.
 
 ![](/figure/Tracking/mask.jpg)
 
@@ -90,7 +90,7 @@ $$\Delta T = \operatorname{exp}(\hat{\xi}) \in \mathbb{SE}(3)$$
 
 ### Shape Kernel $\Phi$
 
-The approach of this method is mainly based on statistical segmentation (you can read our blog [here](https://graphicsminer.github.io/mathematics/2022/09/24/variational-method-and-image-segmentation_part3.html)), so as usual the silhouette of 3D model will be implicitly represented by a so-called shape kernel $\Phi$. This is called level-set embedding function and the $\Phi$ must have the properties:
+The approach of this method is mainly based on statistical segmentation (you can read our blog [here](https://graphicsminer.github.io/mathematics/2022/09/24/variational-method-and-image-segmentation_part3.html)), so as usual the silhouette of the 3D model will be implicitly represented by a so-called shape kernel $\Phi$. This is called the level-set embedding function, and the $\Phi$ must have the properties:
 
 $$\begin{equation*}
 \begin{cases}
@@ -123,11 +123,11 @@ Signed Distance Function             |  Heatmap
 :-----------------------:|:-------------------------:
 ![](/figure/Tracking/sdf.jpg) |  ![](/figure/Tracking/heatmap.jpg)
 
-To calculate signed distance function efficiently, you can read [[6]](#6)
+To calculate the signed distance function efficiently, you can read [[6]](#6)
 
 ### Generative Model
 
-It is extremely challenging if there is no assumption for an inverse problem like this. To reduce the complexity of the problem, Victor et al [[1]](#1) proposed a graphical model. Let's have a look at it:
+It is extremely challenging if there is no assumption for an inverse problem like this. To reduce the complexity of the problem, Victor et al. [[1]](#1) proposed a graphical model. Let's have a look at it:
 
 ![Graphical Model](/figure/Tracking/graphical_model.jpg)
 
@@ -139,7 +139,7 @@ where
 * $R$: is random region variable $R$, can be foreground or background - $R \in \{R_f, R_b\}$.
 * $\textbf{c}$: is RGB color - $\textbf{c} \in [0, 255] \times[0, 255] \times [0, 255]$
 
-This graphical model makes sense since the random variable pose of 3D model will affect the shape kernel $\Phi$ through its silhouette. The probability random variable $\textbf{x}$ in the image plane would depend on pose $\textbf{p}$, the region $R$ whether foreground or background, and $\Phi$. And finally, the probability of color $\textbf{c}$ definitely depends on the region $R$.
+This graphical model makes sense since the random variable pose of the 3D model will affect the shape kernel $\Phi$ through its silhouette. The probability random variable $\textbf{x}$ in the image plane would depend on pose $\textbf{p}$, the region $R$ whether foreground or background and $\Phi$. And finally, the probability of color $\textbf{c}$ definitely depends on the region $R$.
 
 Our goal now is to **maximize a posteriori** $P(\Phi, \textbf{p} \mid \Omega)$ with give image $I \subset \Omega$. However, first, let's have a look at **generative model** $P(\textbf{x}, \textbf{c}, R, \Phi, \textbf{p})$:
 
@@ -171,7 +171,7 @@ And final posterior over an image is:
 
 $$P(\Phi, \textbf{p} \mid \Omega) \propto \prod_{\textbf{x, c} \in \Omega } \sum_{i=\{f, b\}} \{P(\textbf{x} \mid R_i, \Phi, \textbf{p})\, P(R_i \mid \textbf{c})\} \, P(\Phi \mid \textbf{p}) \, P(\textbf{p})$$
 
-To reduce the complexity, Victor et al [[1]](#1) eliminated the prior term to get a simple version which makes maximizing a posterior become maximizing likelihood.
+To reduce the complexity, Victor et al. [[1]](#1) eliminated the prior term to get a simple version which makes maximizing a posterior become maximizing likelihood.
 
 $$P(\Phi, \textbf{p} \mid \Omega) \propto \prod_{\textbf{x, c} \in \Omega } \sum_{i=\{f, b\}} \{P(\textbf{x} \mid R_i, \Phi, \textbf{p})\, P(R_i \mid \textbf{c})\}$$
 
@@ -283,7 +283,7 @@ $$\begin{aligned}
 
 For the rest of the blog, we will use $\xi$ instead of pose $\textbf{p}$.
 
-To find $\xi$ such that energy function $E(\xi)$ is minimum, the numerical optimization method Gauss - Newton is chosen because of its fast convergence. However the energy function is not in linear form, so we need to rewrite it before applying Gauss - Newton strategy:
+To find $\xi$ such that energy function $E(\xi)$ is minimum, the numerical optimization method Gauss - Newton is chosen because of its fast convergence. However, the energy function is not in linear form, so we need to rewrite it before applying Gauss - Newton strategy:
 
 $$E(\xi) = \dfrac{1}{2}\sum_{\textbf{x}, \textbf{c} \in \Omega} \dfrac{1}{\psi(\textbf{x}, \textbf{c})}F^2(\textbf{x}, \textbf{c})$$
 
@@ -291,11 +291,11 @@ where:
 
 $$\psi(\textbf{x}, \textbf{c}) = F(\textbf{x}, \textbf{c})$$
 
-is considered as a constant when optimizing.
+is considered a constant when optimizing.
 
 ### Gauss - Newton Strategy
 
-The Jacobian and pseudo Hessian matrix are:
+The Jacobian and pseudo-Hessian matrix are:
 
 $$\begin{aligned}
     \dfrac{\partial E(\xi)}{\partial\xi} &= \dfrac{1}{2}\sum_{\textbf{x}, \textbf{c} \in \Omega}\psi(\textbf{x}, \textbf{c})\dfrac{\partial F^2(\textbf{x}, \textbf{c})}{\partial \xi} = \sum_{\textbf{x}, \textbf{c} \in \Omega}\psi(\textbf{x}, \textbf{c})F\dfrac{\partial F}{\partial \xi} \\
@@ -303,7 +303,7 @@ $$\begin{aligned}
     \dfrac{\partial^2 E(\xi)}{\partial\xi^2} &= \sum_{\textbf{x}, \textbf{c} \in \Omega}\psi(\textbf{x}, \textbf{c})\left( \left(\dfrac{\partial F}{\partial \xi}\right)^T\dfrac{\partial F}{\partial \xi} + F\dfrac{\partial^2 F}{\partial \xi^2} \right)
 \end{aligned}$$
 
-Approximating the energy function with Taylor series and the Hessian matrix by pseudo Hessian:
+Approximating the energy function with Taylor series and the Hessian matrix by pseudo-Hessian:
 
 $$E(\xi + \Delta\xi) \approx E(\xi) + \sum_{\Omega}J\Delta\xi + \dfrac{1}{2}\sum_{\Omega}\psi(\textbf{x})\Delta\xi^TJ^TJ\Delta\xi$$
 
@@ -314,7 +314,7 @@ $$\begin{aligned}
     \Rightarrow \left(\sum_{\Omega}J + \dfrac{1}{2}\sum_{\Omega}\psi(\textbf{x})\Delta\xi^TJ^TJ\right)\Delta\xi &= 0 \\
 \end{aligned}$$
 
-Since $\Delta \xi$ can not be zero so:
+Since $\Delta \xi$ can not be zero, so:
 
 $$\sum_{\Omega}J + \dfrac{1}{2}\sum_{\Omega}\psi(\textbf{x})\Delta\xi^TJ^TJ = 0$$
 
@@ -328,11 +328,11 @@ $$T \leftarrow \operatorname{exp}(\Delta \hat{\xi})T$$
 
 ### Chain rule
 
-We already have updated equation for $\Delta \xi$, what remains is how we construct the Jacobian and pseudo Hessian matrix.
+We already have an updated equation for $\Delta \xi$; what remains is how we construct the Jacobian and pseudo-Hessian matrix.
 
 $$F(\textbf{x}, \textbf{c}) = -\operatorname{log} (H(\Phi(\textbf{x})) P_f + (1 - H(\Phi(\textbf{x})))P_b)$$
 
-This is pretty easy thanks to chain rule:
+This is pretty easy, thanks to the chain rule:
 
 $$J = \dfrac{P_b - P_f}{H(\Phi(\textbf{x})) P_f + (1 - H(\Phi(\textbf{x})))P_b} \delta(\Phi(x)) \dfrac{\partial \Phi(\textbf{x})}{\partial \xi}$$
 
@@ -344,7 +344,7 @@ with $\epsilon = 0.1$.
 
 Next is derivative of $\dfrac{\partial \Phi(\textbf{x})}{\partial \textbf{p}}$.
 
-Based on chain rule, we have:
+Based on the chain rule, we have:
 
 $$\dfrac{\partial \Phi(\textbf{x})}{\partial \xi} = \dfrac{\partial \Phi}{\partial \textbf{x}} \dfrac{\partial \textbf{x}}{\partial \xi}$$
 
@@ -415,13 +415,13 @@ $$\dfrac{\partial \textbf{x}}{\partial \xi} =
 \right]
 $$
 
-Some of you may ask how can we know the depth value $Z'$? 
+Some of you may ask how we can know the depth value $Z'$. 
 
 Obviously, because we project the 3D model into the image plane, we definitely can know this (we are kings in computer graphics). In OpenGL, we can access depth map by the function [glReadPixel](https://registry.khronos.org/OpenGL-Refpages/gl4/html/glReadPixels.xhtml), but with openGLES, a little trick is required that we have to compact depth values in fragment shader into RGBA value and render it before accessing with glReadPixel since openGLES doesn't support reading depth map operator, but there will be small errors.
 
 ### Rendering
 
-Because our camera is a little bit different from the normal schema in OpenGL that is our camera simulates the real camera looking in the positive direction of $z$ axis. So, the look-at matrix and projection matrix would be different.
+Because our camera is a little bit different from the normal schema in OpenGL that is, our camera simulates the real camera looking in the positive direction of $z$ axis. So, the look-at matrix and projection matrix would be different.
 
 $$\begin{aligned}
     L &= \left[ 

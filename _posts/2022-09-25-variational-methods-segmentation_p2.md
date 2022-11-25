@@ -7,13 +7,13 @@ tags:
   - Computer Vision
 ---
 
-After finishing Snakes problem in part 1, today, we will get into an improvement of it which is called **Active Contours Without Edges**. The reason it has *"without edges"* is that the model doesn't use the image gradient information of input image. You can also read the original version at [here](https://www.math.ucla.edu/~lvese/PAPERS/IEEEIP2001.pdf).
+After finishing Snakes problem in part 1, today, we will get into an improvement of it which is called **Active Contours Without Edges**. The reason it has *"without edges"* is that the model doesn't use the image gradient information of the input image. You can also read the original version at [here](https://www.math.ucla.edu/~lvese/PAPERS/IEEEIP2001.pdf).
 
 ## Formulation
 
-Let $I: \Omega \rightarrow \mathbb{R}$ be a gray scale image, where $\Omega \subset \mathbb{R}^2$. The curve $C$ segments image $I$ into 2 partitions: $R_i$ - the region inside $C$,  and $R_o$ - the region outside $C$.
+Let $I: \Omega \rightarrow \mathbb{R}$ be a grayscale image, where $\Omega \subset \mathbb{R}^2$. The curve $C$ segments image $I$ into 2 partitions: $R_i$ - the region inside $C$,  and $R_o$ - the region outside $C$.
 
-Again, **our goal is still to find $C$** which is equivalent **to minimize energy function $E(C)$**, but the energy function in here is a **little bit different** to that one in part 1. Instead of using line integral, Chan Tony F et al [[1]](#1) used **area integral over the image plane** to evaluate the performance of segmentation:
+Again, **our goal is still to find $C$**, which is equivalent **to minimize energy function $E(C)$**, but the energy function here is a **little bit different** to that one in part 1. Instead of using line integral, Chan Tony F et al. [[1]](#1) used **area integral over the image plane** to evaluate the performance of segmentation:
 
 $$E(C) = E_i(C) + E_o(C) = \iint_{R_i} |I(x,y) - c_i|^2 \, dx \, dy + \iint_{R_o} |I(x,y) - c_o|^2 \, dx \, dy$$
 
@@ -32,7 +32,7 @@ Curve inside an object            |  Curve outside an object
 **Curve inside and outside an object** | **Curve fitting an object**
 ![](/figure/ACM/in_and_out.png)  |  ![](/figure/ACM/fitting.png)
 
-Similar to Snakes: Active Contours Model, TF Chan [[1]](#1) would add some regularization terms into the energy function such as **Length of curve $C$** and (or) **Area of $R_i$**. The terms guarantee the curve small as much as possible.
+Similar to the Snakes: Active Contours Model, TF Chan [[1]](#1) would add some regularization terms into the energy function such as **Length of curve $C$** and (or) **Area of $R_i$**. The terms guarantee the curve as small much as possible.
 
 The energy function will be:
 
@@ -75,7 +75,7 @@ H(x) = \begin{cases}
     <i>Heaviside step function</i>
 </p>
 
-* Dirac delta function is dedined:
+* Dirac delta function is defined:
 $$\begin{equation*}
     \delta(x) = \begin{cases}
         \infty & \quad x = 0 \\
@@ -112,7 +112,7 @@ $$\begin{aligned}
   \underset{\phi, c_i, c_o}{\operatorname{arg\,min}} \, E(\phi, c_1, c_2) = \iint_\Omega L(\phi, \nabla \phi, c_i, c_o) \, dx \, dy
 \end{aligned}$$
 
-To solve this, first, we would iteratively find optimal values/ function of each $c_i$, $c_o$ and $\phi$:
+To solve this, first, we would iteratively find optimal values/ function of each $c_i$, $c_o$, and $\phi$:
 
 * **Step 1**: Considering $\phi$ and $c_o$ as constants, the optimal value of $c_i$ is:
    $$c_i = \dfrac{\iint_\Omega H(\phi (x, y)) I(x, y) \, dx \, dy}{\iint_\Omega I(x, y) \, dx \, dy}$$
@@ -122,7 +122,7 @@ To solve this, first, we would iteratively find optimal values/ function of each
 * **Step 3**: Considering $c_i$ and $c_o$ as constants, update step of $\phi$ is:
    $$\dfrac{\partial \phi}{\partial t} = - \dfrac{dE}{d\phi} = \delta(\phi) \left( \mu \operatorname{div} \left(\dfrac{\nabla \phi}{|\nabla \phi|} \right) - \nu - \lambda_1 (I - c_i)^2 + \lambda_2 (I - c_o)^2 \right)$$
 
-In the implementation, rather than having Heaviside step and Dirac delta function as discrete functions, we replace them with their softer versions:
+In the implementation, rather than having the Heaviside step and Dirac delta function as discrete functions, we replace them with their softer versions:
 
 $$\begin{aligned}
     H(x) &= \dfrac{1}{2}\left( 1 + \dfrac{2}{\pi} \operatorname{arctan}\left( \dfrac{x}{\epsilon}\right)\right) \\
@@ -140,7 +140,7 @@ Input Images             |  Results
 
 ## Discuss
 
-The method depends heavily on the initial $\phi$ and the Euler - Lagrange equation which is just a necessary condition - it doesn't guarantee the global optimum and sometimes the result maybe is local optimum. As you can notice in the daisy flower sample, some regions in the background are recognized as foreground and the yellow disk flowers are the background.
+The method depends heavily on the initial $\phi$ and the Euler - Lagrange equation, which is just a necessary condition - it doesn't guarantee the global optimum, and sometimes the result maybe is the local optimum. As you can notice in the daisy flower sample, some regions in the background are recognized as the foreground, and the yellow disk flowers are the background.
 
 ## Reference
 <a id="1">[1]</a> CHAN, Tony F.; VESE, Luminita A. Active contours without edges. IEEE Transactions on image processing, 2001, 10.2: 266-277.
