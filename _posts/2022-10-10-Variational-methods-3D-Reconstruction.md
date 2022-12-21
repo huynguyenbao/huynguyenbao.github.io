@@ -199,7 +199,7 @@ $$E = \underset{p_t, p_s, p}{\operatorname{max}} \,\, \underset{\textbf{u}}{\ope
 such that:
 
 $$\begin{aligned}
-    u &\in [0, 1] \\
+    \textbf{u} &\in [0, 1] \\
     p_s(\textbf{v}) &\lt P_i(\textbf{v}) \\
     p_t(\textbf{v}) &\lt P_o(\textbf{v}) \\
     \mid p(\textbf{v}) \mid &\lt \alpha
