@@ -15,6 +15,6 @@ My research interests are in 3D Computer Vision (SLAM, 3D Reconstruction and Tra
 I received BE in Ho Chi Minh city University of Technology in 2021.
 
 ------
-<p align = "left">
+<!-- <p align = "left">
   <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=j7t3K3idJSPxwOLCI29NMBTjWBT0NMb38Osp01Kev0w"></script>
-</p>
+</p> -->

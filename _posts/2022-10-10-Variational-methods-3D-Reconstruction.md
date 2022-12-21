@@ -138,21 +138,21 @@ For a <span style="color:red">red voxel</span> inside our 3D object (cylinder in
 
 $$\begin{aligned}
     P(\textbf{v} \mid \textbf{u}, R_{f, 1...n}) &= \dfrac{1}{\text{volume}_f} \\
-    P(\textbf{v} \mid u, R_{b, 1...n}) &= 0
+    P(\textbf{v} \mid \textbf{u}, R_{b, 1...n}) &= 0
 \end{aligned}$$
 
 For a <span style="color:green">gree voxel</span> outside our 3D object (cylinder in the example), its probability would be:
 
 $$\begin{aligned}
     P(\textbf{v} \mid \textbf{u}, R_{f, 1...n}) &= 0 \\
-    P(\textbf{v} \mid u, R_{b, 1...n}) &= \dfrac{1}{\text{volume}_b}
+    P(\textbf{v} \mid \textbf{u}, R_{b, 1...n}) &= \dfrac{1}{\text{volume}_b}
 \end{aligned}$$
 
 Without loss of generality, with shape function $\textbf{u}$, we can have a general formulation of a voxel likelihood:
 
 $$\begin{aligned}
     P(\textbf{v} \mid \textbf{u}, R_{f, 1...n}) &= \dfrac{\textbf{u}}{\zeta_f} \\
-    P(\textbf{v} \mid u, R_{b, 1...n}) &= \dfrac{1 - \textbf{u}}{\zeta_b}
+    P(\textbf{v} \mid \textbf{u}, R_{b, 1...n}) &= \dfrac{1 - \textbf{u}}{\zeta_b}
 \end{aligned}$$
 
 and $\zeta_f, \zeta_b$ being the average number of voxels (over n views) that project to a foreground pixel (with $P(\textbf{c} \mid R_f) \gt P(\textbf{c} \mid R_b)$ and  $\textbf{c} = I_m(\pi_m(\textbf{v}))$) and a background pixel, respectively.
@@ -177,7 +177,7 @@ The probability of foreground and background region over $n$ views becomes $P(R_
 
 So the final posterior equation is:
 
-$$E = P(u \mid \Omega_3) = \prod_{\textbf{v} \in \Omega_3}\{ uP_i + (1 - u)P_o\}$$
+$$E = P(\textbf{u} \mid \Omega_3) = \prod_{\textbf{v} \in \Omega_3}\{ \textbf{u}P_i + (1 - \textbf{u})P_o\}$$
 
 where:
 
@@ -188,13 +188,13 @@ $$\begin{aligned}
 
 There are many numerical optimization methods to maximize this posterior (basically, it is likelihood), such as taking the logarithm and using gradient descent, projected gradient descent, or Gauss-Newton Strategy. However, for a globally solvable formulation, Victor et al. [[1]](#1) replaced the logarithmic opinion pool with a linear opinion pool to fuse pixel-wise posteriors and added a weighted surface regularization term:
 
-$$E = \sum_{\textbf{v} \in \Omega_3}\{uP_i + (1 - u) P_o + \alpha |\nabla u| \}$$
+$$E = \sum_{\textbf{v} \in \Omega_3}\{\textbf{u}P_i + (1 - \textbf{u}) P_o + \alpha |\nabla \textbf{u}| \}$$
 
 where $\alpha$ is a tunable parameter.
 
 For fast and global convergence, Victor et al [[1]](#1)  used continuous min-cut / max-flow [[3]](#3):
 
-$$E = \underset{p_t, p_s, p}{\operatorname{max}} \,\, \underset{u}{\operatorname{min}}\sum_\textbf{v}\{ u\cdot p_t + (1 - u) \cdot p_s + u \cdot \operatorname{div}p\}$$
+$$E = \underset{p_t, p_s, p}{\operatorname{max}} \,\, \underset{\textbf{u}}{\operatorname{min}}\sum_\textbf{v}\{ \textbf{u}\cdot p_t + (1 - \textbf{u}) \cdot p_s + \textbf{u} \cdot \operatorname{div}p\}$$
 
 such that:
 
