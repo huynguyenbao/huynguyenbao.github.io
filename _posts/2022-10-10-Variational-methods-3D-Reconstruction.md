@@ -65,9 +65,9 @@ where $\Omega \subset \mathbb{R}^2$.
 
 ### Shape Function
 
-We present the 3D object by a function $\textbf{u}$. The definition of $\textbf{u}$ is:
+We present the 3D object by a function $u$. The definition of $u$ is:
 
-$$\textbf{u}(\textbf{v}) = \begin{cases}
+$$u(\textbf{v}) = \begin{cases}
     1 \qquad \textbf{v} \in \text{3D object} \\
     0 \qquad \text{otherwise}
 \end{cases}$$
@@ -79,7 +79,7 @@ In summary, the <u>inputs</u> of our 3D reconstruction problem include:
 * Sequence of images $\{I_i\}$
 * Sequence of model - view - projection matrices $\{\pi_i\}$ corresponding
 
-<u>What we need to find is so-called shape function $\textbf{u}(.)$</u>.
+<u>What we need to find is so-called shape function $u(.)$</u>.
 
 ## Generative Model
 
@@ -93,7 +93,7 @@ where:
 * $R$: is a  random region variable, can be foreground or background - $R \in \{R_f, R_b\}$
 * $\textbf{c}$: color of voxel after being projected to $i^{th}$ image - $\textbf{c} \in \mathbb{R}^3$
 * $\textbf{v}$: voxel coordinate in volume $V$ - $\textbf{v} \in \mathbb{R}^3$
-* $\textbf{u}$: shape function of 3D object
+* $\textbf{u}$: $= u(\textbf{v})$
 
 This graphical model may be biased to the heuristic of designers, but at some point, it is still valid. The random variable $\textbf{v}$ in $V$ depends on not only the shape of the 3D object (obviously) but also the foreground or background region $R$ that its projection to image planes belongs to. Whereas the variable color $\textbf{c}$ undoubtedly depends on the region $R$.
 
@@ -120,7 +120,7 @@ $$P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n}) \propto \underset{i \in \{ j
 **The prior $P(\textbf{u})$ is also eliminated** for the sake of simplicity. Finally, the **posterior** over the volume becomes **likelihood**:
 
 $$\begin{aligned}
-    P(\textbf{u} \mid \Omega_3) &\propto \underset{\textbf{v} \in \Omega_3}{\prod} P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n}) \\
+    P(u \mid \Omega_3) &\propto \underset{\textbf{v} \in \Omega_3}{\prod} P(\textbf{u} \mid \textbf{v}, \textbf{c}_{1...n}) \\
     &\propto \underset{\textbf{v} \in \Omega_3}{\prod}\left\{\sum_{i\in \{ f, b\}} P(\textbf{v} \mid \textbf{u}, \textbf{v}, R_{i, 1...n}) P(R_{i, 1...n} \mid \textbf{c}_{1...n})\right\}
 \end{aligned}$$
 
@@ -177,7 +177,7 @@ The probability of foreground and background region over $n$ views becomes $P(R_
 
 So the final posterior equation is:
 
-$$E = P(\textbf{u} \mid \Omega_3) = \prod_{\textbf{v} \in \Omega_3}\{ \textbf{u}P_i + (1 - \textbf{u})P_o\}$$
+$$E = P(u \mid \Omega_3) = \prod_{\textbf{v} \in \Omega_3}\{ \textbf{u}P_i + (1 - \textbf{u})P_o\}$$
 
 where:
 
