@@ -39,6 +39,12 @@ Work experience
 
     * Detecting 3D bounding box of company's products in AR environment.
 
+* Oct. 2020 – Oct. 2021: **Undergraduate Research Assistant at HCMUT**
+  * Self-supervised CNN - based Image Denoising
+    * Analysed Stein’s unbiased risk estimate and blind spot networks’ architectures
+  * Image Denoising for Smartphones
+    * Proposed and implemented a denoising model processing a 12MB noisy image within 1 second
+
 * Jun 2020 - Oct 2020: **Intern at Graphicsminer**
   
   * Learning Computer Graphic, Computer Vision.
@@ -47,9 +53,9 @@ Work experience
 Skills
 ======
 
-* Proficient: Python, C/ C++
+* Proficient: Python, C/ C++, Java
 * Framework: Tensorflow, Torch, OpenCV, OpenGL
-* Familiar: Java, C#, Matlab
+* Familiar: C#, Matlab
 * Language:
   * IELTS 7.0 (Expire on Jun 2024)
   * TOEIC 825 (Expire on Aug 2022)
