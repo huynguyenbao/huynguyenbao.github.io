@@ -21,7 +21,7 @@ Education
 Work experience
 ======
 
-* Oct 2020 - Present: **Research Engineer at Graphicsminer**
+* Oct 2021 - Present: **Research Engineer at Graphicsminer**
   
   * Working on SLAM (Simultaneous Localization and Mapping) on smartphone.
 
