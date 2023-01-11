@@ -5,6 +5,6 @@ permalink: /arts/
 author_profile: true
 ---
 
-### The Terminator
+### T-800
 
-![alt text](/figure/arts/the_terminator.jpg "Title")
+![alt text](/figure/arts/the_terminator.png "Title")
