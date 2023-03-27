@@ -59,7 +59,7 @@ $$\begin{equation}
     P(\mathcal{D}\mid\mathcal{H}_i) \simeq \underbrace{P(\mathcal{D}\mid  \textbf{w}_\text{MAP}, \mathcal{H}_i)}_\text{best-fit likelihood} \underbrace{P(\textbf{w}_\text{MAP}\mid\mathcal{H}_i)\sigma_{\textbf{w}\mid\mathcal{D}}}_\text{Occam's factor}
 \end{equation}$$
 
-where $\textbf{w}_{MAP}$ is achieved by maximizing the posterior $P(\textbf{w} \mid \mathcal{D}, \mathcal{H}_i)$ and $\sigma_{\textbf{w}\mid\mathcal{D}}$  is the posterior uncertainty in $\textbf{w}$, is derived from $-\nabla\nabla\ln P(\textbf{w} \mid \mathcal{D}, \mathcal{H}_i)_{\textbf{w}_{\text{MAP}}}$. For the sake of simplicity, MacKay assumes that prior $P(\textbf{w}\mid\mathcal{H}_i)$ is uniform on a large interval $\sigma_{\textbf{w}}$, which represents the range of possible values of $\textbf{w}$ under $\mathcal{H}_i$. Hence, $P(\textbf{w}_{\text{MAP}}\mid\mathcal{H}_i) = 1/\sigma_{\textbf{w}}$ and Occam's factor is:
+where $$\textbf{w}_\text{MAP}$$ is achieved by maximizing the posterior $P(\textbf{w} \mid \mathcal{D}, \mathcal{H}_i)$ and $\sigma_{\textbf{w}\mid\mathcal{D}}$  is the posterior uncertainty in $\textbf{w}$, is derived from $-\nabla\nabla\ln P(\textbf{w} \mid \mathcal{D}, \mathcal{H}_i)_{\textbf{w}_\text{MAP}}$. For the sake of simplicity, MacKay assumes that prior $P(\textbf{w}\mid\mathcal{H}_i)$ is uniform on a large interval $\sigma_\textbf{w}$, which represents the range of possible values of $\textbf{w}$ under $\mathcal{H}_i$. Hence, $P(\textbf{w}_\text{MAP}\mid\mathcal{H}_i) = 1/\sigma_\textbf{w}$ and Occam's factor is:
 
 $$\begin{equation}
     \text{Occam's factor} = \dfrac{\sigma_{\textbf{w}\mid\mathcal{D}}}{\sigma_\textbf{w}}.
