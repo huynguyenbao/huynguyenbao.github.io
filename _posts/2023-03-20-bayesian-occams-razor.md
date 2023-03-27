@@ -1,5 +1,5 @@
 ---
-title: 'Bayesian Occam's Razor'
+title: 'Bayesian Occam's Razr'
 date: 2023-03-20
 permalink: /posts/2023/03/20/bayesian-occams-razor/
 tags:
