@@ -1,6 +1,6 @@
 ---
 title: 'Computer Graphics 2024 - Project'
-date: 2020-08-14
+date: 2025-01-25
 permalink: /posts/2025/01/25/CG/
 tags:
   - Computer Graphics
@@ -14,11 +14,11 @@ Bao-Huy Nguyen & Anh Dang Le Tran
 
 When I saw the topic, I quickly recalled my working place. Messy, unorganized, chaostic sometimes dirty maybe are the words that other people would use to describe it. However, somehow, strangely, to me it's still really "organised" since I know where things are in my desk (or somehow I purposely and unconsciously put them there), and they are there just because of balance and harmony.
 
-<p align = "center">
+<!-- <p align = "center">
     <img width="500"  src="/figure/Snakes/failure_case.gif"/>
     <br>
     <i>My Working Place</i>
-</p>
+</p> -->
 
 
 In addition, we are really interested in the nostalgia trend recently hence we want to make a scene that reminds everyone (maybe mostly boys) about their childhoods, video games in late night and no homework. Chilling time, peaceful moment in the messy place.
@@ -71,6 +71,7 @@ Code:
 * `src\utils\lowdiscrepancy.hpp`
 
 Below are the results of using two different samplers, independent and halton with the same 64 samples.
+
 |                        Indpdn                        |                        Halton                        |
 | :--------------------------------------------------: | :--------------------------------------------------: |
 | ![](/figure/ComputerGraphics/halton/independent.jpg) | ![](/figure/ComputerGraphics/halton/halton_owen.jpg) |
