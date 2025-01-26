@@ -88,6 +88,7 @@ Code:
 
 
 Below is the result after apply bloom. We can clearly see the effects of extending edges of two emissive objects.
+
 |                     Input                     |                     Output                     |
 | :-------------------------------------------: | :--------------------------------------------: |
 | ![](/figure/ComputerGraphics/bloom/input.jpg) | ![](/figure/ComputerGraphics/bloom/output.jpg) |
