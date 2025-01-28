@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Slider Test</title>
+    <title>Image Slider with Captions in Textboxes</title>
     <style>
         .slideshow-container {
-            max-width: 512;
+            max-width: 500px;
             position: relative;
             margin: auto;
         }
 
         .slides {
             display: none;
+            position: relative;
         }
 
         .prev,
@@ -27,7 +28,6 @@
             color: white;
             font-weight: bold;
             font-size: 18px;
-            font-family: "Arial", sans-serif;
             transition: 0.6s ease;
             border-radius: 0 3px 3px 0;
             user-select: none;
@@ -44,26 +44,33 @@
         }
 
         .text {
-            color: #f2f2f2;
-            font-size: 15px;
-            padding: 8px 12px;
             position: absolute;
             bottom: 8px;
             width: 100%;
             text-align: center;
-            font-family: "Arial", sans-serif;
+        }
+
+        .textbox {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #f2f2f2;
+            border: none;
+            padding: 8px 12px;
+            width: 90%;
+            font-size: 15px;
+            box-sizing: border-box;
+            margin: auto;
+            text-align: center;
         }
 
         .dot {
             cursor: pointer;
-            height: 15px;
-            width: 15px;
+            height: 10px;
+            width: 10px;
             margin: 0 2px;
             background-color: #bbb;
             border-radius: 50%;
             display: inline-block;
             transition: background-color 0.6s ease;
-            font-family: "Arial", sans-serif;
         }
 
         .active,
@@ -106,12 +113,12 @@
 
     <div class="slideshow-container">
         <div class="slides fade">
-            <div class="text">Emissive</div>
             <img src="/figure/ComputerGraphics/area_light/without.jpg" style="width:100%">
+            <div class="text"><input class="textbox" type="text" value="Emissive Object"></div>
         </div>
         <div class="slides fade">
-            <div class="text">AreaLight</div>
             <img src="/figure/ComputerGraphics/area_light/with.jpg" style="width:100%">
+            <div class="text"><input class="textbox" type="text" value="AreaLight"></div>
         </div>
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
