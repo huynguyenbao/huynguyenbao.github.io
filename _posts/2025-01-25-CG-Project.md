@@ -324,11 +324,11 @@ Code:
 ### CRT TV Effect
 
 The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look closely to the screen, we can easily notice with our naked eyes that there are many separate red, green and blue pixels. And because the screen is curved, we can see some curved line strips in the screen. Although we can implement a texture class to simulate that effect, for the sake of simplicty, we modify the texture of screen byt multiplying it with a CRT pattern.
-<!-- 
-| Before |                                After                                 |
-| :----: | :------------------------------------------------------------------: |
-| ![]()  | ![](/figure/ComputerGraphics/normal_mapping/normal_mapping_test.png) |
- -->
+
+|                    Pattern                    |                   After                    |
+| :-------------------------------------------: | :----------------------------------------: |
+| ![](/figure/ComputerGraphics/crt/pattern.jpg) | ![](/figure/ComputerGraphics/crt/crop.jpg) |
+
 
 
 ## Final Submission
