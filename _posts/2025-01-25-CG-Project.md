@@ -72,12 +72,19 @@ Code:
 * `src\samplers\halton.cpp`
 * `src\utils\lowdiscrepancy.hpp`
 
-Below are the results of using two different samplers, independent and halton with the same 64 samples.
+Below are the results of using Independent Sampler and Halton sampler with 3 different randomizer strategies. All of them use same number of samples, 64.
 
-|                        Indepedent                         |                     HaltonOwen                     |
+|                        Indepedent                         |                    OwenScramble                    |
 | :-------------------------------------------------------: | :------------------------------------------------: |
 |   ![](/figure/ComputerGraphics/halton/independent.png)    |   ![](/figure/ComputerGraphics/halton/owen.png)    |
 | ![](/figure/ComputerGraphics/halton/crop_independent.png) | ![](/figure/ComputerGraphics/halton/crop_owen.png) |
+
+
+|                     PermuteDigit                      |                   RadicalInverse                   |
+| :---------------------------------------------------: | :------------------------------------------------: |
+|   ![](/figure/ComputerGraphics/halton/permute.png)    |   ![](/figure/ComputerGraphics/halton/none.png)    |
+| ![](/figure/ComputerGraphics/halton/crop_permute.png) | ![](/figure/ComputerGraphics/halton/crop_none.png) |
+
 
 ### Post Processing
 
@@ -189,15 +196,146 @@ We want to model plastic material for our NES Console (which is made of plastic)
 Code:
 * `src\bsdfs\disney.cpp`
 
+| Subsurface |
+| ---------- |
+
+|                                  0.0                                  |                                  0.1                                  |                                  0.2                                  |
+| :-------------------------------------------------------------------: | :-------------------------------------------------------------------: | :-------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/subsurface/subsurface0_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface1_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface2_test.jpeg) |
+
+
+|                                  0.3                                  |                                  0.4                                  |                                  0.5                                  |
+| :-------------------------------------------------------------------: | :-------------------------------------------------------------------: | :-------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/subsurface/subsurface3_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface4_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface5_test.jpeg) |
+
+
+|                                  0.6                                  |                                  0.7                                  |                                  0.8                                  |
+| :-------------------------------------------------------------------: | :-------------------------------------------------------------------: | :-------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/subsurface/subsurface6_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface7_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface7_test.jpeg) |
+
+
+
+|                                  0.9                                  |                                  1.0                                   |                                  0.0                                  |
+| :-------------------------------------------------------------------: | :--------------------------------------------------------------------: | :-------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/subsurface/subsurface9_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface10_test.jpeg) | ![](/figure/ComputerGraphics/disney/subsurface/subsurface0_test.jpeg) |
+
+| Anisotropic |
+| ----------- |
+
+
+|                                   0.0                                   |                                   0.1                                   |                                   0.2                                   |
+| :---------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic0_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic1_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic2_test.jpeg) |
+
+
+|                                   0.3                                   |                                   0.4                                   |                                   0.5                                   |
+| :---------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic3_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic4_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic5_test.jpeg) |
+
+|                                   0.6                                   |                                   0.7                                   |                                   0.8                                   |
+| :---------------------------------------------------------------------: | :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic6_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic7_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic8_test.jpeg) |
+
+|                                   0.9                                   |                                   1.0                                    |                                   0.0                                   |
+| :---------------------------------------------------------------------: | :----------------------------------------------------------------------: | :---------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic9_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic10_test.jpeg) | ![](/figure/ComputerGraphics/disney/anisotropic/anisotropic0_test.jpeg) |
+
+| Clearcoat |
+| --------- |
+
+|                                 0.0                                 |                                 0.1                                 |                                 0.2                                 |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat0_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat1_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat2_test.jpeg) |
+
+
+|                                 0.3                                 |                                 0.4                                 |                                 0.5                                 |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat3_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat4_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat5_test.jpeg) |
+
+|                                 0.6                                 |                                 0.7                                 |                                 0.8                                 |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat6_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat7_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat8_test.jpeg) |
+
+
+|                                 0.9                                 |                                 1.0                                  |                                 0.0                                 |
+| :-----------------------------------------------------------------: | :------------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat9_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat10_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoat/clearcoat0_test.jpeg) |
+
+| ClearcoatGloss |
+| -------------- |
+
+|                                      0.0                                      |                                      0.1                                      |                                      0.2                                      |
+| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss0_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss1_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss2_test.jpeg) |
+
+
+|                                      0.3                                      |                                      0.4                                      |                                      0.5                                      |
+| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss3_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss4_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss5_test.jpeg) |
+
+|                                      0.6                                      |                                      0.7                                      |                                      0.8                                      |
+| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss6_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss7_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss8_test.jpeg) |
+
+
+|                                      0.9                                      |                                      1.0                                       |                                      0.0                                      |
+| :---------------------------------------------------------------------------: | :----------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss9_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss10_test.jpeg) | ![](/figure/ComputerGraphics/disney/clearcoatGloss/clearcoatGloss0_test.jpeg) |
+
+| Metallic |
+| -------- |
+
+|                                0.0                                |                                0.1                                |                                0.2                                |
+| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/metallic/metallic0_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic1_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic2_test.jpeg) |
+
+
+|                                0.3                                |                                0.4                                |                                0.5                                |
+| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/metallic/metallic3_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic4_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic5_test.jpeg) |
+
+|                                0.6                                |                                0.7                                |                                0.8                                |
+| :---------------------------------------------------------------: | :---------------------------------------------------------------: | :---------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/metallic/metallic6_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic7_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic8_test.jpeg) |
+
+
+|                                0.9                                |                                1.0                                 |                                0.0                                |
+| :---------------------------------------------------------------: | :----------------------------------------------------------------: | :---------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/metallic/metallic9_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic10_test.jpeg) | ![](/figure/ComputerGraphics/disney/metallic/metallic0_test.jpeg) |
+
+
+| Roughness |
+| --------- |
+
+|                                 0.0                                 |                                 0.1                                 |                                 0.2                                 |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/roughness/roughness0_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness1_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness2_test.jpeg) |
+
+
+|                                 0.3                                 |                                 0.4                                 |                                 0.5                                 |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/roughness/roughness3_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness4_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness5_test.jpeg) |
+
+|                                 0.6                                 |                                 0.7                                 |                                 0.8                                 |
+| :-----------------------------------------------------------------: | :-----------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/roughness/roughness6_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness7_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness8_test.jpeg) |
+
+
+|                                 0.9                                 |                                 1.0                                  |                                 0.0                                 |
+| :-----------------------------------------------------------------: | :------------------------------------------------------------------: | :-----------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/roughness/roughness9_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness10_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness0_test.jpeg) |
+
+
 ## Other Features
 
 ### CRT TV Effect
 
 The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look closely to the screen, we can easily notice with our naked eyes that there are many separate red, green and blue pixels. And because the screen is curved, we can see some curved line strips in the screen. Although we can implement a texture class to simulate that effect, for the sake of simplicty, we modify the texture of screen byt multiplying it with a CRT pattern.
-
+<!-- 
 | Before |                                After                                 |
 | :----: | :------------------------------------------------------------------: |
 | ![]()  | ![](/figure/ComputerGraphics/normal_mapping/normal_mapping_test.png) |
+ -->
 
 
 ## Final Submission
