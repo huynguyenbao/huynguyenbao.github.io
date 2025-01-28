@@ -119,6 +119,184 @@ We want to increase a little bit of realism to our glass material, hence impleme
 Code: 
 * `src\bsdfs\roughdielectric.cpp`
 
+<p align="center">
+    <div style="margin: 10px; text-align: center;">
+        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_00_test.jpeg" alt="Image 1" width="200"/>
+        <br>
+        <i>Roughness 0.0</i>
+    </div>
+    <div style="margin: 10px; text-align: center;">
+        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_01_test.jpeg" alt="Image 2" width="200"/>
+        <br>
+        <i>Roughness 0.1</i>
+    </div>
+    <div style="margin: 10px; text-align: center;">
+        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_02_test.jpeg" alt="Image 3" width="200"/>
+        <br>
+        <i>Roughness 0.2</i>
+    </div>
+    <br>
+    <div style="margin: 10px; text-align: center;">
+        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_03_test.jpeg" alt="Image 4" width="200"/>
+        <br>
+        <i>Title for Image 4</i>
+    </div>
+    <div style="margin: 10px; text-align: center;">
+        <img src="URL_TO_IMAGE5" alt="Image 5" width="200"/>
+        <br>
+        <i>Title for Image 5</i>
+    </div>
+    <div style="margin: 10px; text-align: center;">
+        <img src="URL_TO_IMAGE6" alt="Image 6" width="200"/>
+        <br>
+        <i>Title for Image 6</i>
+    </div>
+</p>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .slideshow-container {
+    max-width: 500px;
+    position: relative;
+    margin: auto;
+  }
+
+  .slides {
+    display: none;
+  }
+
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+
+  .active, .dot:hover {
+    background-color: #717171;
+  }
+
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+</style>
+</head>
+<body>
+
+<div class="slideshow-container">
+
+<div class="slides fade">
+  <div class="text">Caption for Image 1</div>
+  <img src="/figure/ComputerGraphics/halton/independent.jpg" style="width:100%">
+</div>
+
+<div class="slides fade">
+  <div class="text">Caption for Image 2</div>
+  <img src="/figure/ComputerGraphics/halton/halton_permute.jpg" style="width:100%">
+</div>
+
+<div class="slides fade">
+  <div class="text">Caption for Image 3</div>
+  <img src="/figure/ComputerGraphics/halton/halton_owen.jpg" style="width:100%">
+</div>
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
+</div>
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("slides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+
+</body>
+</html>
 
 ### Area Light
 
