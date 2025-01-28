@@ -330,6 +330,15 @@ Code:
 | ![](/figure/ComputerGraphics/disney/roughness/roughness9_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness10_test.jpeg) | ![](/figure/ComputerGraphics/disney/roughness/roughness0_test.jpeg) |
 
 
+
+**SpecularTransmittance 1.0, and Roughness**
+
+|                                       0.0                                       |                                       0.1                                       |                                       0.2                                       |
+| :-----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/disney/transmittance/transmittance_roughness0.jpg) | ![](/figure/ComputerGraphics/disney/transmittance/transmittance_roughness1.jpg) | ![](/figure/ComputerGraphics/disney/transmittance/transmittance_roughness2.jpg) |
+
+
+
 ## Other Features
 
 ### CRT TV Effect
