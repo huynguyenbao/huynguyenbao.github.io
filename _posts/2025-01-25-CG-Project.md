@@ -14,19 +14,20 @@ Bao-Huy Nguyen & Anh Dang Le Tran
 
 When I saw the topic, I quickly recalled my working place. Messy, unorganized, chaostic sometimes dirty maybe are the words that other people would use to describe it. However, somehow, strangely, to me it's still really "organised" since I know where things are in my desk (or somehow I purposely and unconsciously put them there), and they are there just because of balance and harmony.
 
-<!-- <p align = "center">
-    <img width="500"  src="/figure/Snakes/failure_case.gif"/>
-    <br>
-    <i>My Working Place</i>
-</p> -->
-
 
 In addition, we are really interested in the nostalgia trend recently hence we want to make a scene that reminds everyone (maybe mostly boys) about their childhoods, video games in late night and no homework. Chilling time, peaceful moment in the messy place.
 
-<p align = "center">
-    <img width="500"  src="/figure/ComputerGraphics/Scene_layout_structure.png"/>
+<p align="center">
+  <span style="display: inline-block; text-align: center; margin-right: 20px;">
+    <img width="500" src="/figure/ComputerGraphics/Scene_layout_structure.png"/>
     <br>
-    <i>Layout of the scene </i>
+    <i>Layout of the scene</i>
+  </span>
+  <span style="display: inline-block; text-align: center;">
+    <img width="500" src="/figure/ComputerGraphics/instagram.png"/>
+    <br>
+    <i>Inspired Image</i>
+  </span>
 </p>
 
 
@@ -96,7 +97,7 @@ Code:
 
 * `src\postprocess\bloom.cpp`
 
-<iframe src="/figure/ComputerGraphics/html/bloom.html" style="width: 100%; height: 512px;" frameborder="0"></iframe>
+<iframe src="/figure/ComputerGraphics/html/bloom.html" style="width: 100%; height: 600px;" frameborder="0"></iframe>
 
 Below is the result after apply bloom. We can clearly see the effects of extending edges of two emissive objects.
 
@@ -116,7 +117,7 @@ Since our render uses the Monte Carlo method to compute the high-dimensional int
 Code:
 * `src\postprocess\denoise.cpp`
 
-<iframe src="/figure/ComputerGraphics/html/denoiser.html" style="width: 100%; height: 512px;" frameborder="0"></iframe>
+<iframe src="/figure/ComputerGraphics/html/denoiser.html" style="width: 100%; height: 600px;" frameborder="0"></iframe>
 
 
 
@@ -146,7 +147,7 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-<iframe src="/figure/ComputerGraphics/html/arealight.html" style="width: 100%; height: 512px;" frameborder="0"></iframe>
+<iframe src="/figure/ComputerGraphics/html/arealight.html" style="width: 100%; height: 600px;" frameborder="0"></iframe>
 
  
 ### Spot Light
@@ -169,15 +170,24 @@ The perspective pin pole camera model in our renderer could not capture the focu
 Code:
 * `src\cameras\thinlens.cpp`
 
-|                                 Lens Radius 0.05                                 |                                 Lens Radius 0.10                                 |                                 Lens Radius 0.15                                 |                                 Lens Radius 0.20                                 |                                 Lens Radius 0.25                                 |
-| :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
-| ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_005_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_010_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_015_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_020_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_025_test.jpeg) |
+**Lens Radius**
+|                                 Lens Radius 0.05                                 |                                 Lens Radius 0.10                                 |                                 Lens Radius 0.15                                 |
+| :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_005_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_010_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_015_test.jpeg) |
 
+|                                 Lens Radius 0.20                                 |                                 Lens Radius 0.25                                 |                                 Lens Radius 0.05                                 |
+| :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_020_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_025_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_005_test.jpeg) |
 
-|                          Plane of Focus Distance 1.0                          |                          Plane of Focus Distance 3.0                          |                          Plane of Focus Distance 5.0                          |                          Plane of Focus Distance 7.0                          |                          Plane of Focus Distance 9.0                          |
-| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
-| ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_1_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_3_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_5_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_7_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_9_test.jpeg) |
+**Plane of Focus Distance**
 
+|                          Plane of Focus Distance 1.0                          |                          Plane of Focus Distance 3.0                          |                          Plane of Focus Distance 5.0                          |
+| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_1_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_3_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_5_test.jpeg) |
+
+|                          Plane of Focus Distance 7.0                          |                          Plane of Focus Distance 9.0                          |                          Plane of Focus Distance 1.0                          |
+| :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: | :---------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_7_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_9_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_fd_1_test.jpeg) |
 
 ### MIS Path Tracer 
 
