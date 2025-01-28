@@ -167,114 +167,145 @@ Code:
 * `include\lightwave\shape.hpp`
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Image Comparison Slider</title>
 <style>
-  .container {
+  .slideshow-container {
+    max-width: 500px;
     position: relative;
-    width: 50%;
-    overflow: hidden;
-    border: 2px solid #ddd;
     margin: auto;
   }
 
-  .image-wrapper {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+  .slides {
+    display: none;
   }
 
-  .image-wrapper img {
-    width: 100%;
-    height: auto;
-  }
-
-  .caption {
+  .prev, .next {
+    cursor: pointer;
     position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
     color: white;
-    padding: 5px;
-    border-radius: 3px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
   }
 
-  .slider-bar {
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
     position: absolute;
-    width: 5px;
-    height: 100%;
-    background-color: #333;
-    cursor: ew-resize;
-    z-index: 2;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+
+  .active, .dot:hover {
+    background-color: #717171;
+  }
+
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 0.5s;
+    animation-name: fade;
+    animation-duration: 0.5s;
+  }
+
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
   }
 </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="image-wrapper" id="first">
-    <img src="/figure/ComputerGraphics/area_light/without.jpg" alt="First Image">
-    <div class="caption">Caption for Image 1</div>
-  </div>
-  <div class="image-wrapper" id="second" style="clip: rect(0px, 50%, 100%, 0px);">
-    <img src="/figure/ComputerGraphics/area_light/with.jpg" alt="Second Image">
-    <div class="caption">Caption for Image 2</div>
-  </div>
-  <div class="image-wrapper" id="third" style="clip: rect(0px, 50%, 100%, 0px);">
-    <img src="URL_TO_IMAGE3" alt="Third Image">
-    <div class="caption">Caption for Image 3</div>
-  </div>
-  <div class="slider-bar" id="slider1" style="left: 50%;"></div>
-  <div class="slider-bar" id="slider2" style="left: 75%;"></div>
+<div class="slideshow-container">
+
+<div class="slides fade">
+  <div class="text">Emissive Object</div>
+  <img src="/figure/ComputerGraphics/area_light/without.jpg" style="width:100%">
+</div>
+
+<div class="slides fade">
+  <div class="text">Area Light</div>
+  <img src="/figure/ComputerGraphics/area_light/with.jpg" style="width:100%">
+</div>
+
+
+<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1)"></span> 
+  <span class="dot" onclick="currentSlide(2)"></span> 
+  <span class="dot" onclick="currentSlide(3)"></span> 
 </div>
 
 <script>
-  var slider1 = document.getElementById('slider1');
-  var slider2 = document.getElementById('slider2');
-  var first = document.getElementById('first');
-  var second = document.getElementById('second');
-  var third = document.getElementById('third');
-  var isDragging1 = false;
-  var isDragging2 = false;
+var slideIndex = 1;
+showSlides(slideIndex);
 
-  slider1.addEventListener('mousedown', function(e) {
-    isDragging1 = true;
-  });
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
 
-  slider2.addEventListener('mousedown', function(e) {
-    isDragging2 = true;
-  });
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
 
-  document.addEventListener('mouseup', function(e) {
-    isDragging1 = false;
-    isDragging2 = false;
-  });
-
-  document.addEventListener('mousemove', function(e) {
-    if (isDragging1) {
-      var x = e.clientX - first.getBoundingClientRect().left;
-      if (x < 0) x = 0;
-      if (x > first.offsetWidth) x = first.offsetWidth;
-      slider1.style.left = x + 'px';
-      second.style.clip = 'rect(0px, ' + x + 'px, 100%, 0px)';
-    }
-    if (isDragging2) {
-      var x = e.clientX - second.getBoundingClientRect().left;
-      if (x < slider1.style.left.replace('px', '') * 1 + 10) x = slider1.style.left.replace('px', '') * 1 + 10;
-      if (x > second.offsetWidth) x = second.offsetWidth;
-      slider2.style.left = x + 'px';
-      third.style.clip = 'rect(0px, ' + x + 'px, 100%, ' + slider1.style.left + 'px)';
-    }
-  });
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("slides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
 </script>
 
 </body>
 </html>
+
 
 ### Spot Light
 
