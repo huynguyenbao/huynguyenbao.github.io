@@ -60,7 +60,7 @@ Code:
 Below is the result with `alpha=0.2`.
 
 <p align = "center">
-    <img width="500"  src="/figure/ComputerGraphics/alpha_masking/alpha.jpg"/>
+    <img width="400"  src="/figure/ComputerGraphics/alpha_masking/alpha.jpg"/>
     <br>
 </p>
 ### Halton Sampler
@@ -108,6 +108,8 @@ Since our render uses the Monte Carlo method to compute the high-dimensional int
 Code:
 * `src\postprocess\denoise.cpp`
 
+<iframe src="/figure/ComputerGraphics/html/denoiser.html" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+
 
 
 ### Rough Dielectric 
@@ -136,7 +138,7 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-<iframe src="/figure/ComputerGraphics/html/arealight.html" style="width: 100%; height: 400px;" frameborder="0"></iframe>
+<iframe src="/figure/ComputerGraphics/html/arealight.html" style="width: 100%; height: 500px;" frameborder="0"></iframe>
 
  
 ### Spot Light
@@ -176,7 +178,7 @@ Faithfully tracing each ray in BSDF sampling will produce unbias results in rend
 Code:
 * `src\integrators\mis_pathtracer.cpp`
 
-<iframe src="/figure/ComputerGraphics/html/mis.html" style="width: 100%; height: 400px;" frameborder="0"></iframe>
+<iframe src="/figure/ComputerGraphics/html/mis.html" style="width: 100%; height: 500px;" frameborder="0"></iframe>
 
  
 ### Disney Bsdf
