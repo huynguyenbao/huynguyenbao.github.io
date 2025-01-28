@@ -143,7 +143,7 @@ Code:
 <head>
 <style>
   .slideshow-container {
-    max-width: 200px;
+    max-width: 400px;
     position: relative;
     margin: auto;
   }
