@@ -59,8 +59,10 @@ Code:
   
 Below is the result with `alpha=0.2`.
 
-![](/figure/ComputerGraphics/alpha_masking/alpha.jpg) 
-
+<p align = "center">
+    <img width="500"  src="/figure/ComputerGraphics/alpha_masking/alpha.jpg"/>
+    <br>
+</p>
 ### Halton Sampler
 
 The `Independent` sampler sometimes, unluckly, produces many samples in a region and that leads to high variant results. This may require a large number of sample to cover all the possible incoming light directions to an intersection point to achieve less variance. However, the more samples, the slower renderer is. To get better visual quality with the same amount of samples, we follow the intruction from [PBR](https://www.pbr-book.org/4ed/Sampling_and_Reconstruction/Halton_Sampler) to implement Halton Sampler. The visual quality is significantly enhanced compared to `Independent` sampler with the same amount of samples per pixel.
@@ -91,144 +93,6 @@ Code:
 Below is the result after apply bloom. We can clearly see the effects of extending edges of two emissive objects.
 
 
-<html>
-<head>
-<style>
-  .slideshow-container {
-    max-width: 400px;
-    position: relative;
-    margin: auto;
-  }
-
-  .slides {
-    display: none;
-  }
-
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-  }
-
-  .active, .dot:hover {
-    background-color: #717171;
-  }
-
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 0.5s;
-    animation-name: fade;
-    animation-duration: 0.5s;
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-</style>
-</head>
-<body>
-
-<div class="slideshow-container">
-
-<div class="slides fade">
-  <div class="text">Before</div>
-  <img src="/figure/ComputerGraphics/bloom/input.jpg" style="width:100%">
-</div>
-
-<div class="slides fade">
-  <div class="text">After</div>
-  <img src="/figure/ComputerGraphics/bloom/output.jpg" style="width:100%">
-</div>
-
-
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-</div>
-<br>
-
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-</div>
-
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("slides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-</script>
-
-</body>
-</html>
-
 #### Reinhard
 
 Although human visual perception has a relatively high dynamic range, most of monitors can only represent RGB color in range [0, 255] or [0, 1]. Output of our renderer is an high dynamic range image without an upper intensity limitation. To map a high dynamic range image to [0, 1] to display it, we refer this [guidline](https://64.github.io/tonemapping/) to implement tonemapping alogrithms.
@@ -244,144 +108,6 @@ Since our render uses the Monte Carlo method to compute the high-dimensional int
 Code:
 * `src\postprocess\denoise.cpp`
 
-
-<html>
-<head>
-<style>
-  .slideshow-container {
-    max-width: 400px;
-    position: relative;
-    margin: auto;
-  }
-
-  .slides {
-    display: none;
-  }
-
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-  }
-
-  .active, .dot:hover {
-    background-color: #717171;
-  }
-
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 0.5s;
-    animation-name: fade;
-    animation-duration: 0.5s;
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-</style>
-</head>
-<body>
-
-<div class="slideshow-container">
-
-<div class="slides fade">
-  <div class="text">Noisy</div>
-  <img src="/figure/ComputerGraphics/denoiser/noisy.jpg" style="width:100%">
-</div>
-
-<div class="slides fade">
-  <div class="text">Denoised</div>
-  <img src="/figure/ComputerGraphics/denoiser/denoise.jpg" style="width:100%">
-</div>
-
-
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-</div>
-<br>
-
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-</div>
-
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("slides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-</script>
-
-</body>
-</html>
 
 
 ### Rough Dielectric 
@@ -410,144 +136,16 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-<html>
-<head>
-<style>
-  .slideshow-container {
-    max-width: 400px;
-    position: relative;
-    margin: auto;
-  }
-
-  .slides {
-    display: none;
-  }
-
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-  }
-
-  .active, .dot:hover {
-    background-color: #717171;
-  }
-
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 0.5s;
-    animation-name: fade;
-    animation-duration: 0.5s;
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-</style>
-</head>
-<body>
-
-<div class="slideshow-container">
-
-<div class="slides fade">
-  <div class="text">Emissive Object</div>
-  <img src="/figure/ComputerGraphics/area_light/without.jpg" style="width:100%">
+<!-- Slider 1 -->
+<div class="container">
+  <div class="image-wrapper" id="first1">
+    <img src="/figure/ComputerGraphics/area_light/without.jpg" alt="First Image Set 1">
+  </div>
+  <div class="image-wrapper" id="second1" style="clip: rect(0px, 50%, 100%, 0px);">
+    <img src="/figure/ComputerGraphics/area_light/with.jpg" alt="Second Image Set 1">
+  </div>
+  <div class="slider-bar" id="slider1" style="left: 50%;"></div>
 </div>
-
-<div class="slides fade">
-  <div class="text">Area Light</div>
-  <img src="/figure/ComputerGraphics/area_light/with.jpg" style="width:100%">
-</div>
-
-
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-</div>
-<br>
-
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-</div>
-
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("slides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-</script>
-
-</body>
-</html>
-
 
 ### Spot Light
 
@@ -586,150 +184,17 @@ Faithfully tracing each ray in BSDF sampling will produce unbias results in rend
 Code:
 * `src\integrators\mis_pathtracer.cpp`
 
-
-<html>
-<head>
-<style>
-  .slideshow-container {
-    max-width: 400px;
-    position: relative;
-    margin: auto;
-  }
-
-  .slides {
-    display: none;
-  }
-
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-  }
-
-  .active, .dot:hover {
-    background-color: #717171;
-  }
-
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 0.5s;
-    animation-name: fade;
-    animation-duration: 0.5s;
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-</style>
-</head>
-<body>
-
-<div class="slideshow-container">
-
-<div class="slides fade">
-  <div class="text">BSDF</div>
-  <img src="/figure/ComputerGraphics/mis/bsdf.jpg" style="width:100%">
+<!-- Slider 2 -->
+<div class="container">
+  <div class="image-wrapper" id="first2">
+    <img src="/figure/ComputerGraphics/mis/bsdf.jpg" alt="First Image Set 2">
+  </div>
+  <div class="image-wrapper" id="second2" style="clip: rect(0px, 50%, 100%, 0px);">
+    <img src="/figure/ComputerGraphics/mis/nee.jpg" alt="Second Image Set 2">
+  </div>
+  <div class="slider-bar" id="slider2" style="left: 50%;"></div>
 </div>
 
-<div class="slides fade">
-  <div class="text">NEE</div>
-  <img src="/figure/ComputerGraphics/mis/nee.jpg" style="width:100%">
-</div>
-
-<div class="slides fade">
-  <div class="text">MIS</div>
-  <img src="/figure/ComputerGraphics/mis/mis.jpg" style="width:100%">
-</div>
-
-
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-</div>
-<br>
-
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-</div>
-
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("slides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-</script>
-
-</body>
-</html>
 
 ### Disney Bsdf
 
@@ -760,3 +225,63 @@ The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look 
 <a id="3">[3]</a> Yuan, Jing, Egil Bae, and Xue-Cheng Tai. "A study on continuous max-flow and min-cut approaches." 2010 ieee computer society conference on computer vision and pattern recognition. IEEE, 2010.
 
 <a id="4">[4]</a> Chambolle, Antonin. "An algorithm for total variation minimization and applications." Journal of Mathematical imaging and vision 20.1 (2004): 89-97. -->
+
+<style>
+  .container {
+    position: relative;
+    width: 50%;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    margin: 20px auto;
+  }
+
+  .image-wrapper {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slider-bar {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: #333;
+    cursor: ew-resize;
+    z-index: 2;
+  }
+</style>
+
+<script>
+  function setupSlider(sliderId, firstId, secondId) {
+    var slider = document.getElementById(sliderId);
+    var first = document.getElementById(firstId);
+    var second = document.getElementById(secondId);
+    var isDragging = false;
+
+    slider.addEventListener('mousedown', function(e) {
+      isDragging = true;
+    });
+
+    document.addEventListener('mouseup', function(e) {
+      isDragging = false;
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      var x = e.clientX - first.getBoundingClientRect().left;
+      if (x < 0) x = 0;
+      if (x > first.offsetWidth) x = first.offsetWidth;
+      slider.style.left = x + 'px';
+      second.style.clip = 'rect(0px, ' + x + 'px, 100%, 0px)';
+    });
+  }
+
+  setupSlider('slider1', 'first1', 'second1');
+  setupSlider('slider2', 'first2', 'second2');
+</script>
