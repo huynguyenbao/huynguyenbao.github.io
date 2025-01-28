@@ -154,149 +154,6 @@ Code:
 </p>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-  .slideshow-container {
-    max-width: 500px;
-    position: relative;
-    margin: auto;
-  }
-
-  .slides {
-    display: none;
-  }
-
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-  }
-
-  .active, .dot:hover {
-    background-color: #717171;
-  }
-
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 1.5s;
-    animation-name: fade;
-    animation-duration: 1.5s;
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-</style>
-</head>
-<body>
-
-<div class="slideshow-container">
-
-<div class="slides fade">
-  <div class="text">Caption for Image 1</div>
-  <img src="/figure/ComputerGraphics/halton/independent.jpg" style="width:100%">
-</div>
-
-<div class="slides fade">
-  <div class="text">Caption for Image 2</div>
-  <img src="/figure/ComputerGraphics/halton/halton_permute.jpg" style="width:100%">
-</div>
-
-<div class="slides fade">
-  <div class="text">Caption for Image 3</div>
-  <img src="/figure/ComputerGraphics/halton/halton_owen.jpg" style="width:100%">
-</div>
-
-<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-</div>
-<br>
-
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-  <span class="dot" onclick="currentSlide(3)"></span> 
-</div>
-
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("slides");
-  var dots = document.getElementsByClassName("dot");
-  if (n > slides.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-}
-</script>
-
-</body>
-</html>
 
 ### Area Light
 
@@ -309,9 +166,83 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-|                         w/o                          |                        w/                         |
-| :--------------------------------------------------: | :-----------------------------------------------: |
-| ![](/figure/ComputerGraphics/area_light/without.jpg) | ![](/figure/ComputerGraphics/area_light/with.jpg) |
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Area Light</title>
+<style>
+  .container {
+    position: relative;
+    width: 50%;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    margin: auto;
+  }
+
+  .image-wrapper {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+  }
+
+  .slider-bar {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: #333;
+    cursor: ew-resize;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="image-wrapper" id="before">
+    <img src="/figure/ComputerGraphics/area_light/without.jpg" alt="Before">
+        <div class="caption">Using An Emissive Object</div>
+  </div>
+  <div class="image-wrapper" id="after" style="clip: rect(0px, 50%, 100%, 0px);">
+    <img src="/figure/ComputerGraphics/area_light/with.jpg" alt="After">
+    <div class="caption">Using An Area Light</div>
+  </div>
+  <div class="slider-bar" id="slider"></div>
+</div>
+
+<script>
+  var slider = document.getElementById('slider');
+  var before = document.getElementById('before');
+  var after = document.getElementById('after');
+  var isDragging = false;
+
+  slider.addEventListener('mousedown', function(e) {
+    isDragging = true;
+  });
+
+  document.addEventListener('mouseup', function(e) {
+    isDragging = false;
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    var x = e.clientX - before.getBoundingClientRect().left;
+    if (x < 0) x = 0;
+    if (x > before.offsetWidth) x = before.offsetWidth;
+    slider.style.left = x + 'px';
+    after.style.clip = 'rect(0px, ' + x + 'px, 100%, 0px)';
+  });
+</script>
+
+</body>
+</html>
 
 ### Spot Light
 
