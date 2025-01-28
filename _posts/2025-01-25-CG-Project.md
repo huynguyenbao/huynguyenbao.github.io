@@ -166,24 +166,115 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-# Image Comparison Slider
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Comparison Slider</title>
+<style>
+  .container {
+    position: relative;
+    width: 50%;
+    overflow: hidden;
+    border: 2px solid #ddd;
+    margin: auto;
+  }
 
-<div style="position: relative; width: 100%; max-width: 600px;">
-  <div style="position: absolute; z-index: 1; overflow: hidden; width: 50%;">
-    <img src="/figure/ComputerGraphics/area_light/without.jpg" style="display: block; width: 100%;" alt="Before">
+  .image-wrapper {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    width: 100%;
+    height: auto;
+  }
+
+  .caption {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+  }
+
+  .slider-bar {
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background-color: #333;
+    cursor: ew-resize;
+    z-index: 2;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="image-wrapper" id="first">
+    <img src="/figure/ComputerGraphics/area_light/without.jpg" alt="First Image">
+    <div class="caption">Caption for Image 1</div>
   </div>
-  <div>
-    <img src="/figure/ComputerGraphics/area_light/with.jpg" style="display: block; width: 100%;" alt="After">
+  <div class="image-wrapper" id="second" style="clip: rect(0px, 50%, 100%, 0px);">
+    <img src="/figure/ComputerGraphics/area_light/with.jpg" alt="Second Image">
+    <div class="caption">Caption for Image 2</div>
   </div>
-  <input 
-    type="range" 
-    min="0" 
-    max="100" 
-    value="50" 
-    oninput="this.previousElementSibling.style.width = this.value + '%'" 
-    style="width: 100%; position: absolute; bottom: -20px; z-index: 2;">
+  <div class="image-wrapper" id="third" style="clip: rect(0px, 50%, 100%, 0px);">
+    <img src="URL_TO_IMAGE3" alt="Third Image">
+    <div class="caption">Caption for Image 3</div>
+  </div>
+  <div class="slider-bar" id="slider1" style="left: 50%;"></div>
+  <div class="slider-bar" id="slider2" style="left: 75%;"></div>
 </div>
 
+<script>
+  var slider1 = document.getElementById('slider1');
+  var slider2 = document.getElementById('slider2');
+  var first = document.getElementById('first');
+  var second = document.getElementById('second');
+  var third = document.getElementById('third');
+  var isDragging1 = false;
+  var isDragging2 = false;
+
+  slider1.addEventListener('mousedown', function(e) {
+    isDragging1 = true;
+  });
+
+  slider2.addEventListener('mousedown', function(e) {
+    isDragging2 = true;
+  });
+
+  document.addEventListener('mouseup', function(e) {
+    isDragging1 = false;
+    isDragging2 = false;
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (isDragging1) {
+      var x = e.clientX - first.getBoundingClientRect().left;
+      if (x < 0) x = 0;
+      if (x > first.offsetWidth) x = first.offsetWidth;
+      slider1.style.left = x + 'px';
+      second.style.clip = 'rect(0px, ' + x + 'px, 100%, 0px)';
+    }
+    if (isDragging2) {
+      var x = e.clientX - second.getBoundingClientRect().left;
+      if (x < slider1.style.left.replace('px', '') * 1 + 10) x = slider1.style.left.replace('px', '') * 1 + 10;
+      if (x > second.offsetWidth) x = second.offsetWidth;
+      slider2.style.left = x + 'px';
+      third.style.clip = 'rect(0px, ' + x + 'px, 100%, ' + slider1.style.left + 'px)';
+    }
+  });
+</script>
+
+</body>
+</html>
 
 ### Spot Light
 
