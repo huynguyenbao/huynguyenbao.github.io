@@ -137,15 +137,25 @@ Code:
 * `include\lightwave\shape.hpp`
 
 <!-- Slider 1 -->
-<div class="container">
-  <div class="image-wrapper" id="first1">
-    <img src="/figure/ComputerGraphics/area_light/without.jpg" alt="First Image Set 1">
+# Section 1: Image Slider 1
+<div class="slideshow-container">
+  <div class="slides fade">
+    <div class="text">Caption for Image 1</div>
+    <img src="/figure/ComputerGraphics/area_light/without.jpg" style="width:100%">
   </div>
-  <div class="image-wrapper" id="second1" style="clip: rect(0px, 50%, 100%, 0px);">
-    <img src="/figure/ComputerGraphics/area_light/with.jpg" alt="Second Image Set 1">
+  <div class="slides fade">
+    <div class="text">Caption for Image 2</div>
+    <img src="/figure/ComputerGraphics/area_light/with.jpg" style="width:100%">
   </div>
-  <div class="slider-bar" id="slider1" style="left: 50%;"></div>
+  <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
 </div>
+<br>
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1, 1)"></span>
+  <span class="dot" onclick="currentSlide(2, 1)"></span>
+</div>
+
 
 ### Spot Light
 
@@ -184,15 +194,27 @@ Faithfully tracing each ray in BSDF sampling will produce unbias results in rend
 Code:
 * `src\integrators\mis_pathtracer.cpp`
 
-<!-- Slider 2 -->
-<div class="container">
-  <div class="image-wrapper" id="first2">
-    <img src="/figure/ComputerGraphics/mis/bsdf.jpg" alt="First Image Set 2">
+<div class="slideshow-container">
+  <div class="slides fade">
+    <div class="text">Caption for Image 4</div>
+    <img src="/figure/ComputerGraphics/mis/bsdf.jpg" style="width:100%">
   </div>
-  <div class="image-wrapper" id="second2" style="clip: rect(0px, 50%, 100%, 0px);">
-    <img src="/figure/ComputerGraphics/mis/nee.jpg" alt="Second Image Set 2">
+  <div class="slides fade">
+    <div class="text">Caption for Image 5</div>
+    <img src="/figure/ComputerGraphics/mis/nee.jpg" style="width:100%">
   </div>
-  <div class="slider-bar" id="slider2" style="left: 50%;"></div>
+  <div class="slides fade">
+    <div class="text">Caption for Image 6</div>
+    <img src="/figure/ComputerGraphics/mis/mis.jpg" style="width:100%">
+  </div>
+  <a class="prev" onclick="plusSlides(-1, 2)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1, 2)">&#10095;</a>
+</div>
+<br>
+<div style="text-align:center">
+  <span class="dot" onclick="currentSlide(1, 2)"></span>
+  <span class="dot" onclick="currentSlide(2, 2)"></span>
+  <span class="dot" onclick="currentSlide(3, 2)"></span>
 </div>
 
 
@@ -227,61 +249,110 @@ The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look 
 <a id="4">[4]</a> Chambolle, Antonin. "An algorithm for total variation minimization and applications." Journal of Mathematical imaging and vision 20.1 (2004): 89-97. -->
 
 <style>
-  .container {
+  .slideshow-container {
+    max-width: 500px;
     position: relative;
-    width: 50%;
-    overflow: hidden;
-    border: 2px solid #ddd;
-    margin: 20px auto;
+    margin: auto;
   }
 
-  .image-wrapper {
+  .slides {
+    display: none;
+  }
+
+  .prev, .next {
+    cursor: pointer;
     position: absolute;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
   }
 
-  .image-wrapper img {
-    width: 100%;
-    height: auto;
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
   }
 
-  .slider-bar {
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+  .text {
+    color: #f2f2f2;
+    font-size: 15px;
+    padding: 8px 12px;
     position: absolute;
-    width: 5px;
-    height: 100%;
-    background-color: #333;
-    cursor: ew-resize;
-    z-index: 2;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+
+  .active, .dot:hover {
+    background-color: #717171;
+  }
+
+  .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 0.5s; /* Adjust this value to make the transition faster */
+    animation-name: fade;
+    animation-duration: 0.5s; /* Adjust this value to make the transition faster */
+  }
+
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
   }
 </style>
 
 <script>
-  function setupSlider(sliderId, firstId, secondId) {
-    var slider = document.getElementById(sliderId);
-    var first = document.getElementById(firstId);
-    var second = document.getElementById(secondId);
-    var isDragging = false;
+  var slideIndex = [1, 1];
+  var slideId = ["slides1", "slides2"]
+  showSlides(1, 0);
+  showSlides(1, 1);
 
-    slider.addEventListener('mousedown', function(e) {
-      isDragging = true;
-    });
-
-    document.addEventListener('mouseup', function(e) {
-      isDragging = false;
-    });
-
-    document.addEventListener('mousemove', function(e) {
-      if (!isDragging) return;
-      var x = e.clientX - first.getBoundingClientRect().left;
-      if (x < 0) x = 0;
-      if (x > first.offsetWidth) x = first.offsetWidth;
-      slider.style.left = x + 'px';
-      second.style.clip = 'rect(0px, ' + x + 'px, 100%, 0px)';
-    });
+  function plusSlides(n, no) {
+    showSlides(slideIndex[no] += n, no);
   }
 
-  setupSlider('slider1', 'first1', 'second1');
-  setupSlider('slider2', 'first2', 'second2');
+  function currentSlide(n, no) {
+    showSlides(slideIndex[no] = n, no);
+  }
+
+  function showSlides(n, no) {
+    var i;
+    var x = document.getElementsByClassName(slideId[no]);
+    var dots = document.getElementsByClassName("dot");
+    if (n > x.length) {slideIndex[no] = 1}    
+    if (n < 1) {slideIndex[no] = x.length}
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";  
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    x[slideIndex[no]-1].style.display = "block";  
+    dots[slideIndex[no]-1].className += " active";
+  }
 </script>
