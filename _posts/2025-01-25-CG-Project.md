@@ -166,83 +166,24 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Area Light</title>
-<style>
-  .container {
-    position: relative;
-    width: 50%;
-    overflow: hidden;
-    border: 2px solid #ddd;
-    margin: auto;
-  }
+# Image Comparison Slider
 
-  .image-wrapper {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-  }
-
-  .image-wrapper img {
-    width: 100%;
-    height: auto;
-  }
-
-  .slider-bar {
-    position: absolute;
-    width: 5px;
-    height: 100%;
-    background-color: #333;
-    cursor: ew-resize;
-    z-index: 2;
-  }
-</style>
-</head>
-<body>
-
-<div class="container">
-  <div class="image-wrapper" id="before">
-    <img src="/figure/ComputerGraphics/area_light/without.jpg" alt="Before">
-        <div class="caption">Using An Emissive Object</div>
+<div style="position: relative; width: 100%; max-width: 600px;">
+  <div style="position: absolute; z-index: 1; overflow: hidden; width: 50%;">
+    <img src="/figure/ComputerGraphics/area_light/without.jpg" style="display: block; width: 100%;" alt="Before">
   </div>
-  <div class="image-wrapper" id="after" style="clip: rect(0px, 50%, 100%, 0px);">
-    <img src="/figure/ComputerGraphics/area_light/with.jpg" alt="After">
-    <div class="caption">Using An Area Light</div>
+  <div>
+    <img src="/figure/ComputerGraphics/area_light/with.jpg" style="display: block; width: 100%;" alt="After">
   </div>
-  <div class="slider-bar" id="slider"></div>
+  <input 
+    type="range" 
+    min="0" 
+    max="100" 
+    value="50" 
+    oninput="this.previousElementSibling.style.width = this.value + '%'" 
+    style="width: 100%; position: absolute; bottom: -20px; z-index: 2;">
 </div>
 
-<script>
-  var slider = document.getElementById('slider');
-  var before = document.getElementById('before');
-  var after = document.getElementById('after');
-  var isDragging = false;
-
-  slider.addEventListener('mousedown', function(e) {
-    isDragging = true;
-  });
-
-  document.addEventListener('mouseup', function(e) {
-    isDragging = false;
-  });
-
-  document.addEventListener('mousemove', function(e) {
-    if (!isDragging) return;
-    var x = e.clientX - before.getBoundingClientRect().left;
-    if (x < 0) x = 0;
-    if (x > before.offsetWidth) x = before.offsetWidth;
-    slider.style.left = x + 'px';
-    after.style.clip = 'rect(0px, ' + x + 'px, 100%, 0px)';
-  });
-</script>
-
-</body>
-</html>
 
 ### Spot Light
 
