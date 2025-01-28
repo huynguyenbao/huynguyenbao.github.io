@@ -109,7 +109,7 @@ Since our render uses the Monte Carlo method to compute the high-dimensional int
 Code:
 * `src\postprocess\denoise.cpp`
 
-<iframe src="/figure/ComputerGraphics/html/denoiser.html" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+<iframe src="/figure/ComputerGraphics/html/denoiser.html" style="width: 100%; height: 512px;" frameborder="0"></iframe>
 
 
 
@@ -139,7 +139,7 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-<iframe src="/figure/ComputerGraphics/html/arealight.html" style="width: 100%; height: 500px;" frameborder="0"></iframe>
+<iframe src="/figure/ComputerGraphics/html/arealight.html" style="width: 100%; height: 512px;" frameborder="0"></iframe>
 
  
 ### Spot Light

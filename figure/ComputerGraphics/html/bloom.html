@@ -4,136 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Comparison Slider</title>
+    <title>Image Slider Test</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f4f4f4;
-        }
-
-        .comparison-container {
+        .slideshow-container {
+            max-width: 512;
             position: relative;
-            width: 500px;
-            height: 300px;
-            overflow: hidden;
+            margin: auto;
         }
 
-        .comparison-container img {
+        .slides {
+            display: none;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
             position: absolute;
-            top: 0;
-            left: 0;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .text {
+            color: #548ccc;
+            font-size: 15px;
+            padding: 8px 12px;
+            position: absolute;
+            bottom: 8px;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            text-align: center;
         }
 
-        .comparison-slider {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            width: 4px;
-            background-color: #fff;
-            cursor: ew-resize;
-            z-index: 2;
-            transform: translateX(-50%);
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 2px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
         }
 
-        .comparison-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 50%;
-            height: 100%;
-            overflow: hidden;
+        .active,
+        .dot:hover {
+            background-color: #717171;
         }
 
-        .comparison-overlay img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .fade {
+            -webkit-animation-name: fade;
+            -webkit-animation-duration: 0.5s;
+            /* Adjust this value to make the transition faster */
+            animation-name: fade;
+            animation-duration: 0.5s;
+            /* Adjust this value to make the transition faster */
+        }
+
+        @-webkit-keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes fade {
+            from {
+                opacity: .4
+            }
+
+            to {
+                opacity: 1
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="comparison-container">
-        <!-- Image in the background -->
-        <img src="/figure/ComputerGraphics/bloom/input.jpg" alt="After Image">
-
-        <!-- Overlay with image to compare -->
-        <div class="comparison-overlay">
-            <img src="/figure/ComputerGraphics/bloom/output.jpg" alt="Before Image">
+    <div class="slideshow-container">
+        <div class="slides fade">
+            <div class="text">Before</div>
+            <img src="/figure/ComputerGraphics/bloom/input.jpg" style="width:100%">
         </div>
-
-        <!-- Vertical slider -->
-        <div class="comparison-slider"></div>
+        <div class="slides fade">
+            <div class="text">Denoise</div>
+            <img src="/figure/ComputerGraphics/bloom/output.jpg" style="width:100%">
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br>
+    <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
     </div>
 
     <script>
-        const container = document.querySelector('.comparison-container');
-        const overlay = document.querySelector('.comparison-overlay');
-        const slider = document.querySelector('.comparison-slider');
+        var slideIndex = 1;
+        showSlides(slideIndex);
 
-        let isDragging = false;
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
 
-        const handleMouseMove = (e) => {
-            if (!isDragging) return;
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
 
-            const rect = container.getBoundingClientRect();
-            let offsetX = e.clientX - rect.left;
-
-            // Constrain the slider within the container
-            if (offsetX < 0) offsetX = 0;
-            if (offsetX > rect.width) offsetX = rect.width;
-
-            // Update overlay and slider position
-            overlay.style.width = `${offsetX}px`;
-            slider.style.left = `${offsetX}px`;
-        };
-
-        const handleMouseDown = () => {
-            isDragging = true;
-        };
-
-        const handleMouseUp = () => {
-            isDragging = false;
-        };
-
-        // Event listeners
-        slider.addEventListener('mousedown', handleMouseDown);
-        window.addEventListener('mouseup', handleMouseUp);
-        window.addEventListener('mousemove', handleMouseMove);
-
-        // Touch events for mobile support
-        slider.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            e.preventDefault();
-        });
-        window.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-        window.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-
-            const rect = container.getBoundingClientRect();
-            let offsetX = e.touches[0].clientX - rect.left;
-
-            if (offsetX < 0) offsetX = 0;
-            if (offsetX > rect.width) offsetX = rect.width;
-
-            overlay.style.width = `${offsetX}px`;
-            slider.style.left = `${offsetX}px`;
-        });
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("slides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
     </script>
 
 </body>
