@@ -136,6 +136,8 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
+<iframe src="/figure/ComputerGraphics/html/arealight.html" style="width: 100%; height: 400px;" frameborder="0"></iframe>
+
  
 ### Spot Light
 
