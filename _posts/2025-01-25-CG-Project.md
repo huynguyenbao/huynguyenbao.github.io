@@ -119,41 +119,13 @@ We want to increase a little bit of realism to our glass material, hence impleme
 Code: 
 * `src\bsdfs\roughdielectric.cpp`
 
-<p align="center">
-    <div style="margin: 10px; text-align: center;">
-        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_00_test.jpeg" alt="Image 1" width="200"/>
-        <br>
-        <i>Roughness 0.0</i>
-    </div>
-    <div style="margin: 10px; text-align: center;">
-        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_01_test.jpeg" alt="Image 2" width="200"/>
-        <br>
-        <i>Roughness 0.1</i>
-    </div>
-    <div style="margin: 10px; text-align: center;">
-        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_02_test.jpeg" alt="Image 3" width="200"/>
-        <br>
-        <i>Roughness 0.2</i>
-    </div>
-    <br>
-    <div style="margin: 10px; text-align: center;">
-        <img src="/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_03_test.jpeg" alt="Image 4" width="200"/>
-        <br>
-        <i>Title for Image 4</i>
-    </div>
-    <div style="margin: 10px; text-align: center;">
-        <img src="URL_TO_IMAGE5" alt="Image 5" width="200"/>
-        <br>
-        <i>Title for Image 5</i>
-    </div>
-    <div style="margin: 10px; text-align: center;">
-        <img src="URL_TO_IMAGE6" alt="Image 6" width="200"/>
-        <br>
-        <i>Title for Image 6</i>
-    </div>
-</p>
+|                                    Roughness 0.0                                     |                                    Roughness 0.1                                     |                                    Roughness 0.2                                     |
+| :----------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_00_test.jpeg) | ![](/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_01_test.jpeg) | ![](/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_02_test.jpeg) |
 
-
+|                                    Roughness 0.3                                     |                                    Roughness 0.4                                     |                                    Roughness 0.5                                     |
+| :----------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_03_test.jpeg) | ![](/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_04_test.jpeg) | ![](/figure/ComputerGraphics/rough-dielectric/emission_roughdielectric_05_test.jpeg) |
 
 ### Area Light
 
@@ -171,7 +143,7 @@ Code:
 <head>
 <style>
   .slideshow-container {
-    max-width: 500px;
+    max-width: 200px;
     position: relative;
     margin: auto;
   }
