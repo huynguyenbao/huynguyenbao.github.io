@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Comparison Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .comparison-container {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .comparison-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .comparison-slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background-color: #fff;
+            cursor: ew-resize;
+            z-index: 2;
+            transform: translateX(-50%);
+        }
+
+        .comparison-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .comparison-overlay img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="comparison-container">
+        <!-- Image in the background -->
+        <img src="/figure/ComputerGraphics/bloom/input.jpg" alt="After Image">
+
+        <!-- Overlay with image to compare -->
+        <div class="comparison-overlay">
+            <img src="/figure/ComputerGraphics/bloom/output.jpg" alt="Before Image">
+        </div>
+
+        <!-- Vertical slider -->
+        <div class="comparison-slider"></div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.comparison-container');
+        const overlay = document.querySelector('.comparison-overlay');
+        const slider = document.querySelector('.comparison-slider');
+
+        let isDragging = false;
+
+        const handleMouseMove = (e) => {
+            if (!isDragging) return;
+
+            const rect = container.getBoundingClientRect();
+            let offsetX = e.clientX - rect.left;
+
+            // Constrain the slider within the container
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+
+            // Update overlay and slider position
+            overlay.style.width = `${offsetX}px`;
+            slider.style.left = `${offsetX}px`;
+        };
+
+        const handleMouseDown = () => {
+            isDragging = true;
+        };
+
+        const handleMouseUp = () => {
+            isDragging = false;
+        };
+
+        // Event listeners
+        slider.addEventListener('mousedown', handleMouseDown);
+        window.addEventListener('mouseup', handleMouseUp);
+        window.addEventListener('mousemove', handleMouseMove);
+
+        // Touch events for mobile support
+        slider.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            e.preventDefault();
+        });
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+
+            const rect = container.getBoundingClientRect();
+            let offsetX = e.touches[0].clientX - rect.left;
+
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+
+            overlay.style.width = `${offsetX}px`;
+            slider.style.left = `${offsetX}px`;
+        });
+    </script>
+
+</body>
+
+</html>

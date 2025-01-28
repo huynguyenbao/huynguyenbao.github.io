@@ -89,6 +89,7 @@ Code:
 
 * `src\postprocess\bloom.cpp`
 
+<iframe src="/figure/ComputerGraphics/html/bloom.html" style="width: 100%; height: 500px;" frameborder="0"></iframe>
 
 Below is the result after apply bloom. We can clearly see the effects of extending edges of two emissive objects.
 
