@@ -136,25 +136,7 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-<div class="slideshow-container" id="slides1">
-  <div class="slides fade">
-    <div class="text">Caption for Image 1</div>
-    <img src="/figure/ComputerGraphics/area_light/without.jpg" style="width:100%">
-  </div>
-  <div class="slides fade">
-    <div class="text">Caption for Image 2</div>
-    <img src="/figure/ComputerGraphics/area_light/with.jpg" style="width:100%">
-  </div>
-  <a class="prev" onclick="plusSlides(-1, 1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1, 1)">&#10095;</a>
-</div>
-<br>
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1, 1)"></span>
-  <span class="dot" onclick="currentSlide(2, 1)"></span>
-</div>
-
-
+ 
 ### Spot Light
 
 Our scene has the vibe of late game night and sometimes we only want to shine a specific area but not the whole sence. Point light and directional light are not a good choice in this case. To this end, we refer to [PBR](https://pbr-book.org/3ed-2018/Light_Sources/Point_Lights) to implement another light class, spotlight, to handle this task. 
@@ -192,30 +174,9 @@ Faithfully tracing each ray in BSDF sampling will produce unbias results in rend
 Code:
 * `src\integrators\mis_pathtracer.cpp`
 
-<div class="slideshow-container" id="slides2">
-  <div class="slides fade">
-    <div class="text">Caption for Image 4</div>
-    <img src="/figure/ComputerGraphics/mis/bsdf.jpg" style="width:100%">
-  </div>
-  <div class="slides fade">
-    <div class="text">Caption for Image 5</div>
-    <img src="/figure/ComputerGraphics/mis/nee.jpg" style="width:100%">
-  </div>
-  <div class="slides fade">
-    <div class="text">Caption for Image 6</div>
-    <img src="/figure/ComputerGraphics/mis/mis.jpg" style="width:100%">
-  </div>
-  <a class="prev" onclick="plusSlides(-1, 2)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1, 2)">&#10095;</a>
-</div>
-<br>
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1, 2)"></span>
-  <span class="dot" onclick="currentSlide(2, 2)"></span>
-  <span class="dot" onclick="currentSlide(3, 2)"></span>
-</div>
+<iframe src="/figure/ComputerGraphics/html/mis.html" style="width: 100%; height: 400px;" frameborder="0"></iframe>
 
-
+ 
 ### Disney Bsdf
 
 We want to model plastic material for our NES Console (which is made of plastic) that sometimes reflects light at grazing angles. The reflectance is modeled by coating a layer on the diffuse material. We faithfully follow the instruction from [the UCSD homework](https://cseweb.ucsd.edu/~tzli/cse272/wi2023/homework1.pdf) to implement Disney Bsdf. This bsdf unifies all the material that we have implemented so far. Although not 100% physcially accurate, it still gives good and reasonable results.
@@ -245,112 +206,3 @@ The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look 
 <a id="3">[3]</a> Yuan, Jing, Egil Bae, and Xue-Cheng Tai. "A study on continuous max-flow and min-cut approaches." 2010 ieee computer society conference on computer vision and pattern recognition. IEEE, 2010.
 
 <a id="4">[4]</a> Chambolle, Antonin. "An algorithm for total variation minimization and applications." Journal of Mathematical imaging and vision 20.1 (2004): 89-97. -->
-
-<style>
-  .slideshow-container {
-    max-width: 500px;
-    position: relative;
-    margin: auto;
-  }
-
-  .slides {
-    display: none;
-  }
-
-  .prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    padding: 16px;
-    margin-top: -22px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    border-radius: 0 3px 3px 0;
-    user-select: none;
-  }
-
-  .next {
-    right: 0;
-    border-radius: 3px 0 0 3px;
-  }
-
-  .prev:hover, .next:hover {
-    background-color: rgba(0,0,0,0.8);
-  }
-
-  .text {
-    color: #f2f2f2;
-    font-size: 15px;
-    padding: 8px 12px;
-    position: absolute;
-    bottom: 8px;
-    width: 100%;
-    text-align: center;
-  }
-
-  .dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-  }
-
-  .active, .dot:hover {
-    background-color: #717171;
-  }
-
-  .fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 0.5s; /* Adjust this value to make the transition faster */
-    animation-name: fade;
-    animation-duration: 0.5s; /* Adjust this value to make the transition faster */
-  }
-
-  @-webkit-keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-
-  @keyframes fade {
-    from {opacity: .4}
-    to {opacity: 1}
-  }
-</style>
-
-<script>
-  var slideIndex = [1, 1];
-  var slideId = ["slides1", "slides2"]
-  showSlides(1, 0);
-  showSlides(1, 1);
-
-  function plusSlides(n, no) {
-    showSlides(slideIndex[no] += n, no);
-  }
-
-  function currentSlide(n, no) {
-    showSlides(slideIndex[no] = n, no);
-  }
-
-  function showSlides(n, no) {
-    var i;
-    var x = document.getElementsByClassName(slideId[no]);
-    var dots = document.getElementsByClassName("dot");
-    if (n > x.length) {slideIndex[no] = 1}    
-    if (n < 1) {slideIndex[no] = x.length}
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";  
-    }
-    for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-    }
-    x[slideIndex[no]-1].style.display = "block";  
-    dots[slideIndex[no]-1].className += " active";
-  }
-</script>
