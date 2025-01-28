@@ -136,9 +136,7 @@ Code:
 * `src\shapes\sphere.cpp`
 * `include\lightwave\shape.hpp`
 
-<!-- Slider 1 -->
-# Section 1: Image Slider 1
-<div class="slideshow-container">
+<div class="slideshow-container" id="slides1">
   <div class="slides fade">
     <div class="text">Caption for Image 1</div>
     <img src="/figure/ComputerGraphics/area_light/without.jpg" style="width:100%">
@@ -194,7 +192,7 @@ Faithfully tracing each ray in BSDF sampling will produce unbias results in rend
 Code:
 * `src\integrators\mis_pathtracer.cpp`
 
-<div class="slideshow-container">
+<div class="slideshow-container" id="slides2">
   <div class="slides fade">
     <div class="text">Caption for Image 4</div>
     <img src="/figure/ComputerGraphics/mis/bsdf.jpg" style="width:100%">
