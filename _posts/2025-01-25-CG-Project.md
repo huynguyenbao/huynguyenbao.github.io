@@ -171,6 +171,7 @@ Code:
 * `src\cameras\thinlens.cpp`
 
 **Lens Radius**
+
 |                                 Lens Radius 0.05                                 |                                 Lens Radius 0.10                                 |                                 Lens Radius 0.15                                 |
 | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
 | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_005_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_010_test.jpeg) | ![](/figure/ComputerGraphics/thinlens/sphere_snowman_thinlens_lor_015_test.jpeg) |
