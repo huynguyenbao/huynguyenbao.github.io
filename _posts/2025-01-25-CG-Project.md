@@ -397,7 +397,7 @@ The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look 
 ## E. Features in Detail
 ![](/figure/ComputerGraphics/final/features.jpg)
 
-<iframe src="/figure/ComputerGraphics/html/pipeline.html" style="width: 100%; height: 1920;" frameborder="0"></iframe>
+<!-- <iframe src="/figure/ComputerGraphics/html/pipeline.html" style="width: 100%; height: 1920;" frameborder="0"></iframe> -->
 
 ## References
 
