@@ -405,7 +405,7 @@ The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look 
 
 <a id="1">[1]</a> [Wooden Floor](https://sketchfab.com/3d-models/wooden-planks-9c1bc003f9e245bf823a3a60b7437299) 
 
-<a id="2">[2]</a> [CRT TV](https://sketchfab.com/3d-models/nintendo-entertainment-system-85-scene-cfd6dcb544fa4401b3dac20061d7fefb) 
+<a id="2">[2]</a> [CRT TV & NES Game Cassettes](https://sketchfab.com/3d-models/nintendo-entertainment-system-85-scene-cfd6dcb544fa4401b3dac20061d7fefb) 
 
 <a id="3"> [3] </a> [NES](https://sketchfab.com/3d-models/nes-console-and-controller-ffd427134d5e44b4850628030aa66236)
 
@@ -414,3 +414,5 @@ The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look 
 <a id="5"> [5] </a> [Comics Book](https://sketchfab.com/3d-models/opened-comics-book-6931e14a96f64b158ac4cebcf7ae8763)
 
 <a id="6"> [6] </a> [NES Controller](https://sketchfab.com/3d-models/nintendo-nes-controller-4da098673d4d44cba268e058bc1f195e)
+
+<a id="7"> [7] </a> [Stationery, Books & Shelf](https://www.blenderkit.com/)
