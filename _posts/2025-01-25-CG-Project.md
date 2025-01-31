@@ -12,10 +12,10 @@ Bao-Huy Nguyen & Anh Dang Le Tran
 
 ## Motivation
 
-When I saw the topic, I quickly recalled my working place. Messy, unorganized, chaostic sometimes dirty maybe are the words that other people would use to describe it. However, somehow, strangely, to me it's still really "organised" since I know where things are in my desk (or somehow I purposely and unconsciously put them there), and they are there just because of balance and harmony.
+When I saw the topic, I quickly recalled to my working place. Messy, unorganized, chaostic sometimes dirty maybe are the words that other people would use to describe it. However, somehow, strangely, to me it's still really "organised" since I know where things are in my desk (or somehow I purposely and unconsciously put them there), and they are there just because of balance and harmony.
 
 
-In addition, we are really interested in the nostalgia trend recently hence we want to make a scene that reminds everyone (maybe mostly boys) about their childhoods, video games in late night and no homework. Chilling time, peaceful moment in the messy place.
+In addition, we are really interested in the nostalgia trend recently hence we want to model a scene that reminds everyone (maybe mostly boys) about their childhoods, video games in late night and no homework. Chilling time, peaceful moment in the messy place.
 
 <p align="center">
   <span style="display: inline-block; text-align: center; margin-right: 20px;">
@@ -85,7 +85,7 @@ Below is the result with `alpha=0.2`.
 <a id="A3"></a>
 ### 3. Halton Sampler
 
-The `Independent` sampler sometimes, unluckly, produces many samples in a region and that leads to high variant results. This may require a large number of sample to cover all the possible incoming light directions to an intersection point to achieve less variance. However, the more samples, the slower renderer is. To get better visual quality with the same amount of samples, we follow the intruction from [PBR](https://www.pbr-book.org/4ed/Sampling_and_Reconstruction/Halton_Sampler) to implement Halton Sampler. The visual quality is significantly enhanced compared to `Independent` sampler with the same amount of samples per pixel.
+The `Independent` sampler sometimes, unluckly, produces many samples in a same region and that leads to high variant results. This may require a large number of sample to cover all the possible incoming light directions to an intersection point to achieve less variance. However, the more samples, the slower renderer is. To get better visual quality with the same amount of samples, we follow the intruction from [PBR](https://www.pbr-book.org/4ed/Sampling_and_Reconstruction/Halton_Sampler) to implement Halton Sampler. The visual quality is significantly enhanced compared to `Independent` sampler with the same amount of samples per pixel.
 
 Code:
 
@@ -112,7 +112,7 @@ Below are the results of using Independent Sampler and Halton sampler with 3 dif
 <a id="A4_1"></a>
 #### Bloom
 
-In real life, sometimes, the extreme brightness from the light source can overwhelm the human eyes and camera, producing the effects of extending the borders of light area in the scene. Simulating this effect is not an easy task hence we follow the guidline from [LearnOpenGL](https://learnopengl.com/Advanced-Lighting/Bloom) to achieve the bloom effects for the lamp in our scene.
+In real life, sometimes, the extreme brightness from the light source can overwhelm the human eyes and camera, producing the effects of extending the borders of light area in the scene. Simulating this effect directly in is not an easy task hence we follow the guidline from [LearnOpenGL](https://learnopengl.com/Advanced-Lighting/Bloom) to achieve the bloom effects for the lamp in our scene.
 
 Code:
 
@@ -120,7 +120,7 @@ Code:
 
 <iframe src="/figure/ComputerGraphics/html/bloom.html" style="width: 100%; height: 600px;" frameborder="0"></iframe>
 
-Below is the result after apply bloom. We can clearly see the effects of extending edges of two emissive objects.
+Below is the result after applying bloom. We can clearly see the effects of extending edges of two emissive objects.
 
 <a id="A4_2"></a>
 #### Reinhard
@@ -131,10 +131,14 @@ Code:
 * `src\postprocess\tonemapping.cpp`
 * `src\utils\imageprocessing.hpp`
 
+|                           Before                            |                           After                            |
+| :---------------------------------------------------------: | :--------------------------------------------------------: |
+| ![](/figure/ComputerGraphics/tone_mapping/crop_before.jpeg) | ![](/figure/ComputerGraphics/tone_mapping/crop_after.jpeg) |
+
 <a id="A5"></a>
 ### 5. Image Denoising 
 
-Since our render uses the Monte Carlo method to compute the high-dimensional integral in the rendering equation, a large of number of samples is required to achieve a visally appealing result which is maybe a computational burden. Our scene includes a lots of different objects in which using a low number of samples would produce noisy results. To this end, we integrate [Intel®Open Image Denoise](https://www.openimagedenoise.org/) library to our renderer to reduce noise of outputs.
+Since our render uses the Monte Carlo method to compute the high-dimensional integral in the rendering equation, a large of number of samples is required to achieve a visally appealing result, which presents a computational burden. Our scene has a considerable number of objects in which using a low number of samples would produce noisy results. To this end, we integrate [Intel®Open Image Denoise](https://www.openimagedenoise.org/) library to our renderer to reduce noise of outputs.
 
 Code:
 * `src\postprocess\denoise.cpp`
@@ -161,7 +165,7 @@ Code:
 <a id="A7"></a>
 ### 7. Area Light
 
-We implement area light class to attach to the lamp' bulb and the screen of CRT television (which are natuarlly area lights).
+We implement area light class for the lamp' bulb and the screen of CRT television (which are natuarlly area lights).
 
 Code:
 * `src\lights\area.cpp`
@@ -363,6 +367,13 @@ Code:
 | :-----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: | :-----------------------------------------------------------------------------: |
 | ![](/figure/ComputerGraphics/disney/transmittance/transmittance_roughness0.jpg) | ![](/figure/ComputerGraphics/disney/transmittance/transmittance_roughness1.jpg) | ![](/figure/ComputerGraphics/disney/transmittance/transmittance_roughness2.jpg) |
 
+**Comparison of Disney Coatting and Principle Specular for Plastic Material**
+
+|                     Dinesy                      |                    Principle                    |
+| :---------------------------------------------: | :---------------------------------------------: |
+| ![](/figure/ComputerGraphics/plastic/coat.jpeg) | ![](/figure/ComputerGraphics/plastic/spec.jpeg) |
+
+Disney Coatting gives a little bit more realism than Principle Specular since the coatting layer of the Bsdf (not physcially accurate) reflects sufficient amount of light but not too much compared to Principle bsdf.
 
 <a id="C"></a>
 ## C. Other Features
@@ -376,15 +387,30 @@ The old CRT TVs in 80s have an interesting effect, CRT effect, which if we look 
 | ![](/figure/ComputerGraphics/crt/pattern.jpg) | ![](/figure/ComputerGraphics/crt/crop.jpg) |
 
 
+
 <a id="D"></a>
 ## D. Final Submission
 
+![](/figure/ComputerGraphics/final/final-submission.jpeg)
+
+<a id="E"></a>
+## E. Features in Detail
+![](/figure/ComputerGraphics/final/features.jpg)
+
+<iframe src="/figure/ComputerGraphics/html/pipeline.html" style="width: 100%; height: 940;" frameborder="0"></iframe>
+
 ## References
-<!-- 
-<a id="1">[1]</a> Prisacariu, Victor Adrian, et al. "Real-time 3d tracking and reconstruction on mobile phones." IEEE transactions on visualization and computer graphics 21.5 (2014): 557-570.
 
-<a id="2">[2]</a> Kolev, Kalin, Thomas Brox, and Daniel Cremers. "Fast joint estimation of silhouettes and dense 3D geometry from multiple images." IEEE transactions on pattern analysis and machine intelligence 34.3 (2012): 493-505.
+### Assets
 
-<a id="3">[3]</a> Yuan, Jing, Egil Bae, and Xue-Cheng Tai. "A study on continuous max-flow and min-cut approaches." 2010 ieee computer society conference on computer vision and pattern recognition. IEEE, 2010.
+<a id="1">[1]</a> [Wooden Floor](https://sketchfab.com/3d-models/wooden-planks-9c1bc003f9e245bf823a3a60b7437299) 
 
-<a id="4">[4]</a> Chambolle, Antonin. "An algorithm for total variation minimization and applications." Journal of Mathematical imaging and vision 20.1 (2004): 89-97. -->
+<a id="2">[2]</a> [CRT TV](https://sketchfab.com/3d-models/nintendo-entertainment-system-85-scene-cfd6dcb544fa4401b3dac20061d7fefb) 
+
+<a id="3"> [3] </a> [NES](https://sketchfab.com/3d-models/nes-console-and-controller-ffd427134d5e44b4850628030aa66236)
+
+<a id="4"> [4] </a> [Pixar Lamp](https://www.cgtrader.com/free-3d-models/furniture/lamp/pixar-lamp-518a1299-ae8f-4847-ba1a-110d4f68d172)
+
+<a id="5"> [5] </a> [Comics Book](https://sketchfab.com/3d-models/opened-comics-book-6931e14a96f64b158ac4cebcf7ae8763)
+
+<a id="6"> [6] </a> [NES Controller](https://sketchfab.com/3d-models/nintendo-nes-controller-4da098673d4d44cba268e058bc1f195e)
