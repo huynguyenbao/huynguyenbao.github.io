@@ -63,7 +63,7 @@ $$\begin{equation}
   \dfrac{dE}{df} = \dfrac{\partial L}{\partial f} - \dfrac{\partial}{\partial x}\left(\dfrac{\partial L}{\partial f_x}\right) - \dfrac{\partial}{\partial y}\left(\dfrac{\partial L}{\partial f_y}\right) = 0
 \end{equation}$$
 
-This necessary condition does not guarantee that the solution is global optimum but only local optimum. However, at least we can still find an acceptable solution by using gradient descent.
+This necessary condition does not guarantee that the solution is global optimum but only local optimum. However, at least we can still find an acceptable solution by using gradient descent. (a small exercise for readers is to prove $E(f,u)$ strictly covex and with that strict convexity we can achieve global minima by gradient descent)
 
 Continue to expand the above equation to get:
 
@@ -115,9 +115,9 @@ def denoise(noisy_image, n_iters):
 
 ### Result
 
-Noisy Image             |  Denoised Image
-:-----------------------:|:-------------------------:
-![](/figure/Denoising/noisy.jpg)  |  ![](/figure/Denoising/L2_denoised.jpg)
+|           Noisy Image            |             Denoised Image             |
+| :------------------------------: | :------------------------------------: |
+| ![](/figure/Denoising/noisy.jpg) | ![](/figure/Denoising/L2_denoised.jpg) |
 
 
 ## Discussion
@@ -136,9 +136,9 @@ $$\begin{aligned}
   &= (u - f) + \lambda \operatorname{div}\left(\dfrac{\nabla f}{||\nabla f||}\right)
 \end{aligned}$$
 
-Noisy Image             |  $L_2$ Denoised Image           |  $L_1$ Denoised Image 
-:-----------------------:|:-------------------------:|:-------------------------:
-![](/figure/Denoising/noisy.jpg)  |  ![](/figure/Denoising/L2_denoised.jpg)  |  ![](/figure/Denoising/L1_denoised.jpg)
+|           Noisy Image            |          $L_2$ Denoised Image          |          $L_1$ Denoised Image          |
+| :------------------------------: | :------------------------------------: | :------------------------------------: |
+| ![](/figure/Denoising/noisy.jpg) | ![](/figure/Denoising/L2_denoised.jpg) | ![](/figure/Denoising/L1_denoised.jpg) |
 
 We can easily notice that the image used $L_1$ loss is **shaper than** the one used $L_2$.
 

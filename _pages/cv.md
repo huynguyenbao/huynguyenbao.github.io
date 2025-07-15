@@ -11,17 +11,29 @@ redirect_from:
 
 Education
 ======
+* April 2022 - Present: **Saarland University**
+  * M.Sc. in Visual Computing.
+  * *Projects*:
+    * Computer Graphics: [Lightwave - Ray Tracer](https://huynguyenbao.github.io/posts/2025/01/25/CG/), [first prize in the rendering competition](https://graphics.cg.uni-saarland.de/courses/cg1-2024/index.html). 
+    * High Level Computer Vision: A damper for overfitting problem in training INR for Image Denoising.
+  
 * Aug 2017 – Aug 2021: **Ho Chi Minh city University of Technology**
   
   *  B.E. in Computer Science (GPA: *8.58 / 10.0*).
   * *Bachelor Thesis*: Image Denoising for Smartphone Cameras.
-  
-    Output images of our deep learning network can reach the same quality as that of current state of the art methods (PSNR ~ 39 in [SIDD](https://www.eecs.yorku.ca/~kamel/sidd/) and [DND](https://noise.visinf.tu-darmstadt.de/)) but processing time on mobile phone chip sets is *faster 100 times* than others.
+
+    Implemented and empirically optimized an encoder-decoder CNN architecture
+
+    Quality: PSNR ≈ 39 in [SIDD](https://www.eecs.yorku.ca/~kamel/sidd/) and [DND](https://noise.visinf.tu-darmstadt.de/) (SOTA performance)
+
+    Speed: 12MP/s on Snap 855 (× 100 times faster than other SOTA methods)
+
 
 Work experience
 ======
-
-* Oct 2021 - Present: **Research Engineer at Graphicsminer**
+* Oct 2022 - Present: **Research Assistant in MPI-INF**
+ 
+* Oct 2021 - April 2022: **Research Engineer at Graphicsminer**
   
   * Working on SLAM (Simultaneous Localization and Mapping) on smartphone.
 
