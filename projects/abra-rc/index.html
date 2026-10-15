@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>RC Abra</title>
+<link rel='stylesheet' href='style/website.css'>
+<link rel="icon" type="image/png" href="favicon.png">
+
+
+<div class="content">
+
+  <h1 class="title">Computer Graphics 2024<br>—<br>Team Abra</h1>
+
+  <h1 id='team members'>Team Members</h1>
+
+  <p> Bao Huy Nguyen </p>
+  <p> Anh Dang Le Tran </p>
+
+  <h1 id='motivation'>Motivation</h1>
+
+  <p>When I saw the topic, I quickly recalled to my working place. Messy, unorganized, chaostic sometimes dirty maybe
+    are the words that other people would use to describe it. However, somehow, strangely, to me it’s still really
+    “organised” since I know where things are in my desk (or somehow I purposely and unconsciously put them there), and
+    they are there just because of balance and harmony.
+
+  <p>In addition, we are really interested in the nostalgia trend recently hence we want to model a scene that reminds
+    everyone (maybe mostly boys) about their childhoods, video games in late night and no homework. Chilling time,
+    peaceful moment in the messy place.
+
+  <table class="image-table">
+    <tr>
+      <td>
+        <figure>
+          <img src="images/instagram.png" alt="Image 1">
+          <figcaption>Inspired Image</figcaption>
+        </figure>
+      </td>
+      <td>
+        <figure>
+          <img src="images/Scene_layout_structure.png" alt="Image 1">
+          <figcaption>Scene Layout</figcaption>
+        </figure>
+      </td>
+    </tr>
+  </table>
+
+  <h1 id='simple features'>Simple Features</h1>
+
+  <h2 id='shading normals'>Shading Normals</h2>
+  <p>Shadding Normals/ Normal Mapping is a cheap and easiy way to add more details to a geometry without having to
+    model
+    a complex and detailed mesh. We employ this technique to render the highly detailed and complex objects like a
+    wooden floor. To implement this, we include normal map texture property
+    <code class="red-code">ref&lt;Texture&gt; m_normals</code>
+    in the class
+    <code class="red-code">instance.hpp</code> to get the normal texture if provided. Then we re-compute the tangent
+    vector based on the
+    new
+    shading
+    normal in <code class="red-code">Instance::transformFrame()</code>.
+
+
+  <p> Code:
+  <ul>
+    <li> <code>include\lightwave\instance.hpp</code>
+    <li> <code>src\core\instance.cpp</code>
+  </ul>
+
+  <table class="image-table">
+    <tr>
+      <td>
+        <figure>
+          <img src="images/normal_mapping/wo_normal.jpg" alt="Image 1">
+          <figcaption>W/o</figcaption>
+        </figure>
+      </td>
+      <td>
+        <figure>
+          <img src="images/normal_mapping/w_normal.png" alt="Image 2">
+          <figcaption>W</figcaption>
+        </figure>
+      </td>
+    </tr>
+  </table>
+
+  <h2 id='alpha masking'>Alpha Masking</h2>
+
+  For our scene, we want to have several transparent sticker notes attached to the CRT television as decorations. These
+  objects is not fully opaque and we can see other objects behind it. To this end, we implement alpha masking similar to
+  shading normals above. The instance class will find the provided alpha texture in a xml file.
+
+  <p> Code:
+  <ul>
+    <li> <code>include\lightwave\instance.hpp</code>
+    <li> <code>src\core\instance.cpp</code>
+  </ul>
+
+  <table class="image-table">
+    <tr>
+      <td>
+        <figure>
+          <img src="images/alpha_masking/alpha.jpg" alt="Image 1">
+          <figcaption>Alpha Masking alpha = 0.2</figcaption>
+        </figure>
+      </td>
+    </tr>
+  </table>
+
+  <h2 id='halton'>Halton Sampler</h2>
+
+  The <code>Independent</code> sampler sometimes, unluckly, produces many samples in a same region and that leads to
+  high variant
+  results. This may require a large number of sample to cover all the possible incoming light directions to an
+  intersection point to achieve less variance. However, the more samples, the slower renderer is. To get better visual
+  quality with the same amount of samples, we follow the intruction from <a
+    href="https://www.pbr-book.org/4ed/Sampling_and_Reconstruction/Halton_Sampler">PBR</a> to implement Halton Sampler.
+  The visual
+  quality is significantly enhanced compared to <code>Independent</code> sampler with the same amount of samples per
+  pixel.
+
+  <p> Code:
+  <ul>
+    <li> <code>src\samplers\halton.cpp</code>
+    <li> <code>src\utils\lowdiscrepancy.hpp</code>
+  </ul>
+
+  Below are the results of using Independent Sampler and Halton sampler with 3 different randomizer strategies. All of
+  them use same number of samples, 64.
+  <table class="image-table">
+    <tr>
+      <td>
+        <figure>
+          <img src="images/halton/independent.png" alt="Image 1">
+          <figcaption>Independent</figcaption>
+        </figure>
+      </td>
+      <td>
+        <figure>
+          <img src="images/halton/owen.png" alt="Image 1">
+          <figcaption>Owen Scramble</figcaption>
+        </figure>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <figure>
+          <img src="images/halton/crop_independent.png" alt="Image 1">
+          <figcaption></figcaption>
+        </figure>
+      </td>
+      <td>
+        <figure>
+          <img src="images/halton/crop_owen.png" alt="Image 1">
+          <figcaption></figcaption>
+        </figure>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <figure>
+          <img src="images/halton/permute.png" alt="Image 1">
+          <figcaption>Permute Digits</figcaption>
+        </figure>
+      </td>
+      <td>
+        <figure>
+          <img src="images/halton/none.png" alt="Image 1">
+          <figcaption>Radical Inverse</figcaption>
+        </figure>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <figure>
+          <img src="images/halton/crop_permute.png" alt="Image 1">
+          <figcaption></figcaption>
+        </figure>
+      </td>
+      <td>
+        <figure>
+          <img src="images/halton/crop_none.png" alt="Image 1">
+          <figcaption></figcaption>
+        </figure>
+      </td>
+    </tr>
+  </table>
+
+
+  <h2 id='post processing'>Post Processing</h2>
+
+  <h3 id='tonemapping'>Tone Mapping</h2>
+    <p> Reinhard
+    <p>Although human visual perception has a relatively high dynamic range, most of monitors can only represent RGB
+      color
+      in range [0, 255] or [0, 1]. Output of our renderer is an high dynamic range image without an upper intensity
+      limitation. To map a high dynamic range image to [0, 1] to display it, we refer this <a
+        href="https://64.github.io/tonemapping/">guidline</a> to implement
+      tonemapping alogrithms
+    <p> Code:
+    <ul>
+      <li> <code>src\postprocess\tonemapping.cpp</code>
+      <li> <code>src\utils\imageprocessing.hpp</code>
+    </ul>
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/tone_mapping/crop_before.jpeg" alt="Image 1">
+            <figcaption>Before</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/tone_mapping/crop_after.jpeg" alt="Image 2">
+            <figcaption>After</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h2 id='image denosing'>Image Denoising</h2>
+    <p> Since our render uses the Monte Carlo method to compute the high-dimensional integral in the rendering equation,
+      a large of number of samples is required to achieve a visally appealing result, which presents a computational
+      burden. Our scene has a considerable number of objects in which using a low number of samples would produce noisy
+      results. To this end, we integrate <a href="https://www.openimagedenoise.org/">Intel®Open Image Denoise</a>
+      library to our renderer to reduce noise of outputs.
+
+    <p> Code:
+    <ul>
+      <li> <code>src\postprocess\denoise.cpp</code>
+    </ul>
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/denoiser/noisy.jpg" alt="Image 1">
+            <figcaption>Before</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/denoiser/denoise.jpg" alt="Image 2">
+            <figcaption>After</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+
+    <h2 id='rough dielectric'>Rough Dielectric</h2>
+    <p>We want to increase a little bit of realism to our glass material, hence implement rough dielectric bsdf to add a
+      little bit of roughness to our Coca-Cola bottle . We follow the <a
+        href="https://www.cs.cornell.edu/~srm/publications/EGSR07-btdf.pdf">Microfacet Models for Refraction</a> to
+      implement that
+      bsdf class.
+
+    <p> Code:
+    <ul>
+      <li> <code>src\bsdfs\roughdielectric.cpp </code>
+    </ul>
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/rough-dielectric/emission_roughdielectric_00_test.jpeg" alt="Image 1">
+            <figcaption>roughness = 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/rough-dielectric/emission_roughdielectric_01_test.jpeg" alt="Image 2">
+            <figcaption>roughness = 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/rough-dielectric/emission_roughdielectric_02_test.jpeg" alt="Image 2">
+            <figcaption>roughness = 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <figure>
+            <img src="images/rough-dielectric/emission_roughdielectric_03_test.jpeg" alt="Image 1">
+            <figcaption>roughness = 0.3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/rough-dielectric/emission_roughdielectric_04_test.jpeg" alt="Image 2">
+            <figcaption>roughness = 0.4</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/rough-dielectric/emission_roughdielectric_05_test.jpeg" alt="Image 2">
+            <figcaption>roughness = 0.5</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h2 id='area light'>Area Light</h2>
+    <p>We implement area light class for the lamp' bulb and the screen of CRT television (which are natuarlly area
+      lights).
+
+    <p> Code:
+    <ul>
+      <li> <code>src\lights\area.cpp</code>
+      <li> <code>src\shapes\mesh.cpp</code>
+      <li> <code>src\shapes\rectangle.cpp</code>
+      <li> <code>src\shapes\sphere.cpp</code>
+      <li> <code>include\lightwave\shape.hpp</code>
+    </ul>
+
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/area_light/without.jpg" alt="Image 1">
+            <figcaption>Emissive Object</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/area_light/with.jpg" alt="Image 2">
+            <figcaption>Area Light</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+
+    <h2 id='splot light'>Spot Light </h2>
+    <p>Our scene has the vibe of late game night and sometimes we only want to shine a specific area but not the whole
+      sence. Point light and directional light are not a good choice in this case. To this end, we refer to <a
+        href="https://pbr-book.org/3ed-2018/Light_Sources/Point_Lights">PBR</a> to implement another light class,
+      spotlight, to handle this task.
+
+    <p> Code:
+    <ul>
+      <li> <code>src\lights\spot.cpp</code>
+    </ul>
+
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/spotlight/pointlight.jpg" alt="Image 1">
+            <figcaption>Point Light</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/spotlight/spotlight.jpg" alt="Image 2">
+            <figcaption>Spotlight</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h1 id='intermediate features'>Intermediate Features</h1>
+
+    <h2 id='thinlens'>Thinlens Camera</h2>
+
+    <p> The perspective pin pole camera model in our renderer could not capture the focus effect like real life camera,
+      which may reduce the realism. To simulate the depth of field effect of the real life cameras, we follow <a
+        href="https://pbr-book.org/3ed-2018/Camera_Models/Projective_Camera_Models">PBR</a> to
+      implement a thin lens camera model.
+
+    <p> Code:
+    <ul>
+      <li> <code>src\cameras\thinlens.cpp </code>
+    </ul>
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/thinlens/sphere_snowman_thinlens_lor_005_test.jpeg" alt="Image 1">
+            <figcaption>Lens Radius 0.05</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/thinlens/sphere_snowman_thinlens_lor_010_test.jpeg" alt="Image 2">
+            <figcaption>Lens Radius 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/thinlens/sphere_snowman_thinlens_lor_015_test.jpeg" alt="Image 2">
+            <figcaption>Lens Radius 0.15</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/thinlens/sphere_snowman_thinlens_fd_1_test.jpeg" alt="Image 1">
+            <figcaption>Plane of Focus Distance 1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/thinlens/sphere_snowman_thinlens_fd_3_test.jpeg" alt="Image 2">
+            <figcaption>Plane of Focus Distance 3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/thinlens/sphere_snowman_thinlens_fd_5_test.jpeg" alt="Image 2">
+            <figcaption>Plane of Focus Distance 5</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h2 id='thinlens'>MIS Path Tracer </h2>
+    <p>Faithfully tracing each ray in BSDF sampling will produce unbias results in rendering but requires a large number
+      of samples and high depth to achieve those results. On the other hand NEE although significantly reduce noise by
+      directly accounting direct illuminace from light source, will fail in case of smooth surfaces which requires
+      idirect illumination. To balance both, we refer <a href="https://www.youtube.com/watch?v=xrsHo8kcCX0">the video
+        lecture by Prof. Ravi Ramamoorthi</a> to implement MIS Path
+      Tracer.
+    <p> Code:
+    <ul>
+      <li> <code>src\integrators\mis_pathtracer.cpp </code>
+    </ul>
+
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/mis/bsdf.jpg" alt="Image 1">
+            <figcaption>BSDF</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/mis/nee.jpg" alt="Image 2">
+            <figcaption>NEE</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/mis/mis.jpg" alt="Image 3">
+            <figcaption>MIS</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h2 id='disney'>Disney BSDF </h2>
+    <p>We want to model plastic material for our NES Console (which is made of plastic) that sometimes reflects light at
+      grazing angles. The reflectance is modeled by coating a layer on the diffuse material. We faithfully follow the
+      instruction from <a href="https://cseweb.ucsd.edu/~tzli/cse272/wi2023/homework1.pdf">the UCSD homework</a> to
+      implement Disney Bsdf. This bsdf unifies all the material that we have
+      implemented so far. Although not 100% physcially accurate, it still gives good and reasonable results.
+    <p> Code:
+    <ul>
+      <li> <code>src\bsdfs\disney.cpp </code>
+    </ul>
+
+    <p>Subsurface</p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface0_test.jpeg" alt="Image 1">
+            <figcaption>Subsurface 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface1_test.jpeg" alt="Image 2">
+            <figcaption>Subsurface 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface2_test.jpeg" alt="Image 3">
+            <figcaption>Subsurface 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface3_test.jpeg" alt="Image 1">
+            <figcaption>Subsurface 0.3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface4_test.jpeg" alt="Image 2">
+            <figcaption>Subsurface 0.4</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface5_test.jpeg" alt="Image 3">
+            <figcaption>Subsurface 0.5</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface6_test.jpeg" alt="Image 1">
+            <figcaption>Subsurface 0.6</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface7_test.jpeg" alt="Image 2">
+            <figcaption>Subsurface 0.7</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface8_test.jpeg" alt="Image 3">
+            <figcaption>Subsurface 0.8</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface9_test.jpeg" alt="Image 1">
+            <figcaption>Subsurface 0.9</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface10_test.jpeg" alt="Image 2">
+            <figcaption>Subsurface 1.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface0_test.jpeg" alt="Image 3">
+            <figcaption>Subsurface 0.0</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>anisotropic</p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic0_test.jpeg" alt="Image 1">
+            <figcaption>anisotropic 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic1_test.jpeg" alt="Image 2">
+            <figcaption>anisotropic 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic2_test.jpeg" alt="Image 3">
+            <figcaption>anisotropic 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic3_test.jpeg" alt="Image 1">
+            <figcaption>anisotropic 0.3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic4_test.jpeg" alt="Image 2">
+            <figcaption>anisotropic 0.4</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic5_test.jpeg" alt="Image 3">
+            <figcaption>anisotropic 0.5</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic6_test.jpeg" alt="Image 1">
+            <figcaption>anisotropic 0.6</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic7_test.jpeg" alt="Image 2">
+            <figcaption>anisotropic 0.7</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic8_test.jpeg" alt="Image 3">
+            <figcaption>anisotropic 0.8</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic9_test.jpeg" alt="Image 1">
+            <figcaption>anisotropic 0.9</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic10_test.jpeg" alt="Image 2">
+            <figcaption>anisotropic 1.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/anisotropic/anisotropic0_test.jpeg" alt="Image 3">
+            <figcaption>anisotropic 0.0</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>Cleatcoat</p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat0_test.jpeg" alt="Image 1">
+            <figcaption>clearcoat 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat1_test.jpeg" alt="Image 2">
+            <figcaption>clearcoat 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat2_test.jpeg" alt="Image 3">
+            <figcaption>clearcoat 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat3_test.jpeg" alt="Image 1">
+            <figcaption>clearcoat 0.3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat4_test.jpeg" alt="Image 2">
+            <figcaption>clearcoat 0.4</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat5_test.jpeg" alt="Image 3">
+            <figcaption>clearcoat 0.5</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat6_test.jpeg" alt="Image 1">
+            <figcaption>clearcoat 0.6</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat7_test.jpeg" alt="Image 2">
+            <figcaption>clearcoat 0.7</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoat/clearcoat8_test.jpeg" alt="Image 3">
+            <figcaption>clearcoat 0.8</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface9_test.jpeg" alt="Image 1">
+            <figcaption>Subsurface 0.9</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface10_test.jpeg" alt="Image 2">
+            <figcaption>Subsurface 1.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/subsurface/subsurface0_test.jpeg" alt="Image 3">
+            <figcaption>Subsurface 0.0</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>clearcoatGloss</p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss0_test.jpeg" alt="Image 1">
+            <figcaption>clearcoatGloss 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss1_test.jpeg" alt="Image 2">
+            <figcaption>clearcoatGloss 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss2_test.jpeg" alt="Image 3">
+            <figcaption>clearcoatGloss 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss3_test.jpeg" alt="Image 1">
+            <figcaption>clearcoatGloss 0.3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss4_test.jpeg" alt="Image 2">
+            <figcaption>clearcoatGloss 0.4</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss5_test.jpeg" alt="Image 3">
+            <figcaption>clearcoatGloss 0.5</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss6_test.jpeg" alt="Image 1">
+            <figcaption>clearcoatGloss 0.6</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss7_test.jpeg" alt="Image 2">
+            <figcaption>clearcoatGloss 0.7</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss8_test.jpeg" alt="Image 3">
+            <figcaption>clearcoatGloss 0.8</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss9_test.jpeg" alt="Image 1">
+            <figcaption>clearcoatGloss 0.9</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss10_test.jpeg" alt="Image 2">
+            <figcaption>clearcoatGloss 1.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/clearcoatGloss/clearcoatGloss0_test.jpeg" alt="Image 3">
+            <figcaption>clearcoatGloss 0.0</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>Metallic</p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic0_test.jpeg" alt="Image 1">
+            <figcaption>metallic 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic1_test.jpeg" alt="Image 2">
+            <figcaption>metallic 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic2_test.jpeg" alt="Image 3">
+            <figcaption>metallic 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic3_test.jpeg" alt="Image 1">
+            <figcaption>metallic 0.3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic4_test.jpeg" alt="Image 2">
+            <figcaption>metallic 0.4</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic5_test.jpeg" alt="Image 3">
+            <figcaption>metallic 0.5</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic6_test.jpeg" alt="Image 1">
+            <figcaption>metallic 0.6</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic7_test.jpeg" alt="Image 2">
+            <figcaption>metallic 0.7</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic8_test.jpeg" alt="Image 3">
+            <figcaption>metallic 0.8</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic9_test.jpeg" alt="Image 1">
+            <figcaption>metallic 0.9</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic10_test.jpeg" alt="Image 2">
+            <figcaption>metallic 1.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/metallic/metallic0_test.jpeg" alt="Image 3">
+            <figcaption>metallic 0.0</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>Roughness</p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness0_test.jpeg" alt="Image 1">
+            <figcaption>roughness 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness1_test.jpeg" alt="Image 2">
+            <figcaption>roughness 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness2_test.jpeg" alt="Image 3">
+            <figcaption>roughness 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness3_test.jpeg" alt="Image 1">
+            <figcaption>roughness 0.3</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness4_test.jpeg" alt="Image 2">
+            <figcaption>roughness 0.4</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness5_test.jpeg" alt="Image 3">
+            <figcaption>roughness 0.5</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness6_test.jpeg" alt="Image 1">
+            <figcaption>roughness 0.6</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness7_test.jpeg" alt="Image 2">
+            <figcaption>roughness 0.7</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness8_test.jpeg" alt="Image 3">
+            <figcaption>roughness 0.8</figcaption>
+          </figure>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness9_test.jpeg" alt="Image 1">
+            <figcaption>roughness 0.9</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness10_test.jpeg" alt="Image 2">
+            <figcaption>roughness 1.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/roughness/roughness0_test.jpeg" alt="Image 3">
+            <figcaption>roughness 0.0</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>Transmittance</p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/disney/transmittance/transmittance_roughness0.jpg" alt="Image 1">
+            <figcaption>transmittance 1.0, roughness 0.0</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/transmittance/transmittance_roughness1.jpg" alt="Image 2">
+            <figcaption>transmittance 1.0, roughness 0.1</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/disney/transmittance/transmittance_roughness2.jpg" alt="Image 3">
+            <figcaption>transmittance 1.0, roughness 0.2</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>Comparison of Disney Coatting and Principle Specular for Plastic Material </p>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/plastic/coat.jpeg" alt="Image 1">
+            <figcaption>Coating</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/plastic/spec.jpeg" alt="Image 2">
+            <figcaption>transmittance 1.0, roughness 0.1</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <p>Disney Coatting gives a little bit more realism than Principle Specular since the coatting layer of the Bsdf (not
+      physcially accurate) reflects sufficient amount of light but not too much compared to Principle bsdf.
+
+    <h1 id="other features"> Other Features</h1>
+    <h2 id="crt">CRT Effect</h2>
+    The old CRT TVs in 80s have an interesting effect, "CRT effect", which if we look closely to the screen, we can
+    easily
+    notice with our naked eyes that there are many separate red, green and blue pixels. And because the screen is
+    curved, we can see some curved line strips in the screen. Although we can implement a texture class to simulate that
+    effect, for the sake of simplicty, we modify the texture of screen byt multiplying it with a CRT pattern.
+
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/crt/pattern.jpg" alt="Image 1">
+            <figcaption>Pattern</figcaption>
+          </figure>
+        </td>
+        <td>
+          <figure>
+            <img src="images/crt/crop.jpg" alt="Image 2">
+            <figcaption>Modified Texture</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h1 id="final"> Final Submission</h1>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/final/final-submission.jpeg" alt="Image 1">
+            <figcaption>Pattern</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h1 id="features"> Features in Detail</h1>
+    <table class="image-table">
+      <tr>
+        <td>
+          <figure>
+            <img src="images/final/features.jpg" alt="Image 1">
+            <figcaption>Pattern</figcaption>
+          </figure>
+        </td>
+      </tr>
+    </table>
+
+    <h1 id='reference'>Reference</h1>
+    <h2 id='assets'>Assets</h2>
+
+    <p>[1] <a href="https://sketchfab.com/3d-models/wooden-planks-9c1bc003f9e245bf823a3a60b7437299">Wooden Floor</a></p>
+
+    <p>[2]<a
+        href="https://sketchfab.com/3d-models/nintendo-entertainment-system-85-scene-cfd6dcb544fa4401b3dac20061d7fefb">CRT
+        TV & NES Game Cassettes</a></p>
+
+    <p>[3]<a href="https://sketchfab.com/3d-models/nes-console-and-controller-ffd427134d5e44b4850628030aa66236">
+        NES</a></p>
+
+    <p>[4]<a
+        href="https://www.cgtrader.com/free-3d-models/furniture/lamp/pixar-lamp-518a1299-ae8f-4847-ba1a-110d4f68d172">
+        Pixar
+        Lamp</a> </p>
+
+    <p>[5]<a href="https://sketchfab.com/3d-models/opened-comics-book-6931e14a96f64b158ac4cebcf7ae8763">
+        Comics
+        Book</a> </p>
+
+    <p>[6]<a href="https://sketchfab.com/3d-models/nintendo-nes-controller-4da098673d4d44cba268e058bc1f195e">
+        NES
+        Controller</a> </p>
+
+    <p>[7]<a href="https://www.blenderkit.com">
+        Stationery, Books & Shelf</a> </p>
+
+
+</div>
+<script>
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("slides");
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+</script>

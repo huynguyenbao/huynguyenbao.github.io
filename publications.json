@@ -1,52 +1,63 @@
 {
   "publications": [
     {
-      "title": "[Paper Title 1]",
+      "title": "[In Submission]",
       "authors": [
-        "Author 1*",
-        "Author 2*",
-        "Author 3",
-        "Author 4",
-        "Author 5",
-        "Author 6",
-        "Author 7",
-        "Author 8",
-        "Author 9",
-        "Author 10",
-        "Author 11†",
-        "Author 12†"
+        "Bao-Huy Nguyen",
+        "Xilong Zhou",
+        "Christian Theobalt",
+        "Vladislav Golyanik",
+        "Thomas Leimkühler"
       ],
-      "venue": "Preprint (2025)",
+      "venue": "Preprint (2026)",
       "thumbnail": "images/thumbs/1.jpg",
       "selected": 1,
       "award": "",
       "links": {
-        "pdf": "#",
-        "code": "#",
-        "project": "#"
+        "pdf": "",
+        "code": "",
+        "project": ""
       }
     },
     {
-      "title": "[Paper Title 2]",
+      "title": "Splat the Net: Radiance Fields with Splattable Neural Primitives",
       "authors": [
-        "Author 1*",
-        "Author 2*",
-        "Author 3",
-        "Author 4",
-        "Author 5",
-        "Author 6",
-        "Author 7",
-        "Author 8",
-        "Author 9",
-        "Author 10",
-        "Author 11"
+        "Xilong Zhou*",
+        "Bao-Huy Nguyen*",
+        "Loïc Magne",
+        "Vladislav Golyanik",
+        "Thomas Leimkühler",
+        "Christian Theobalt"
       ],
-      "venue": "Preprint (2025)",
-      "thumbnail": "images/thumbs/2.jpg",
+      "venue": "ICLR 2026",
+      "thumbnail": "images/thumbs/splat_the_net.png",
+      "selected": 1,
+      "award": "",
+      "links": {
+        "pdf": "https://arxiv.org/abs/2510.08491",
+        "code": "https://github.com/huynguyenbao/splat-the-net",
+        "project": "https://vcai.mpi-inf.mpg.de/projects/SplatNet/"
+      }
+    },
+    {
+      "title": "AlbedoEdit: Unified Instance-Level Video Editing with Albedo Guidance",
+      "authors": [
+        "Xilong Zhou",
+        "Bao-Huy Nguyen",
+        "Zheng Zeng",
+        "Jacob Munkberg",
+        "Jon Hasselgren",
+        "Thomas Leimkühler",
+        "Nima Kalantari",
+        "Miloš Hašan",
+        "Christian Theobalt"
+      ],
+      "venue": "Preprint (2026)",
+      "thumbnail": "images/thumbs/albedo_edit.png",
       "selected": 0,
       "award": "",
       "links": {
-        "pdf": "#"
+        "project": "https://vcai.mpi-inf.mpg.de/projects/AlbedoEdit"
       }
     }
   ]
